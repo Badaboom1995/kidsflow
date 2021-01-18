@@ -1,7 +1,14 @@
 import React from "react";
+import { GlobalStyle } from "./global-styles";
+import Auth from "./features/Auth";
 
 function App() {
-  return <div>Good luck!</div>;
+  return (
+    <>
+      <Auth />
+      <GlobalStyle />
+    </>
+  );
 }
 
 export default App;
