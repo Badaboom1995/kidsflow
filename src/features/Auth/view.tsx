@@ -1,13 +1,13 @@
 import React from "react";
-import Input from "../../components/Input";
-import Select from "../../components/Select";
-import RadioGroup from "../../components/RadioGroup";
-import Checkbox from "../../components/Checkbox";
+import Input from "../../parts/Input";
+import Select from "../../parts/Select";
+import RadioGroup from "../../parts/RadioGroup";
+import Checkbox from "../../parts/Checkbox";
 import { Wrapper, Form, Fields, FormTitle } from "./styled";
 import mail from "./assets/mail.svg";
 import password from "./assets/password.svg";
-import { Link } from "../../components/styled";
-import Button from "../../components/Button";
+import { Link } from "../../parts/styled";
+import Button from "../../parts/Button";
 
 function AuthView(props: any) {
   return (
@@ -17,20 +17,20 @@ function AuthView(props: any) {
         <Fields>
           <Input
             name="name"
-            title="Enter your name"
+            placeholder="Enter your name"
             error={props.errors.name}
             touched={!!props.touched.name}
           />
           <Input
             name="email"
-            title="Email"
+            placeholder="Email"
             icon={mail}
             error={props.errors.email}
             touched={!!props.touched.email}
           />
           <Input
             name="password"
-            title="Password"
+            placeholder="Password"
             password
             icon={password}
             error={props.errors.password}
@@ -38,7 +38,15 @@ function AuthView(props: any) {
           />
           <Select
             title="Select country"
-            options={["Libia", "Latvia"]}
+            options={[
+              "Latvia",
+              "Lebanon",
+              "Lesotho",
+              "Liberia",
+              "Libia",
+              "Macedonia",
+              "Litva",
+            ]}
             groupName="country"
             error={props.errors.country}
             touched={!!props.touched.country}
@@ -65,7 +73,7 @@ function AuthView(props: any) {
           </Checkbox>
         </Fields>
 
-        <Button disabled={!props.isValid} type="submit" loading={props.loading}>
+        <Button disabled={!props.isValid} loading={props.loading}>
           Sign up
         </Button>
       </Form>

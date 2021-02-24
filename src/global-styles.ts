@@ -2,6 +2,29 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
+/* @font-face {
+    font-family: 'Montserrat';
+    src: url('./fonrmontserrat-light-webfont.woff2') format('woff2'),
+         url('./fonrmontserrat-light-webfont.woff') format('woff'),
+         url('./fonrmontserrat-light-webfont.ttf') format('truetype');
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonrmontserrat-medium-webfont.woff2') format('woff2'),
+         url('./fonrmontserrat-medium-webfont.woff') format('woff'),
+         url('./fonrmontserrat-medium-webfont.ttf') format('truetype');
+    font-weight: 400;
+
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonrmontserrat-regular-webfont.woff2') format('woff2'),
+         url('./fonrmontserrat-regular-webfont.woff') format('woff'),
+         url('./fonrmontserrat-regular-webfont.ttf') format('truetype');
+    font-weight: 500;
+
+} */
 
   html,
   body {
@@ -11,8 +34,8 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  body, a {
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  body, a, button, pre {
+    font-family: 'Montserrat', sans-serif;
   }
 
   #root {
