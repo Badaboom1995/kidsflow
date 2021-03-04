@@ -3,10 +3,10 @@ import arrow from "./assets/arrow.svg";
 
 export const Wrapper = styled.div`
   margin-bottom: 30px;
+  padding: 22px 0;
   .slick-list {
     /* padding: 0 20% 0 0; */
   }
-  padding-bottom: 100px;
 `;
 export const NextArrow = styled.div`
   background: #ff5a57;

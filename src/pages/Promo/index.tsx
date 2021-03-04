@@ -4,14 +4,19 @@ import Welcome from "features/Welcome";
 import Kinds from "features/Kinds";
 import Categories from "features/Categories";
 import Events from "features/Events";
+import { Container } from "parts/styled";
 
 function Main() {
   return (
     <Wrapper>
-      <Welcome />
-      <Kinds />
+      <Container>
+        <Welcome />
+        <Kinds />
+      </Container>
       <Categories />
-      <Events />
+      <Container>
+        <Events />
+      </Container>
     </Wrapper>
   );
 }

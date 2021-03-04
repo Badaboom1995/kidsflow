@@ -2,13 +2,13 @@ import React from "react";
 import { Wrapper, Line } from "./styled";
 
 interface IMenuToggle {
-  closed?: boolean;
+  open: boolean;
   onClick: () => void;
 }
 
-export default function MenuToggle({ closed, onClick }: IMenuToggle) {
+export default function MenuToggle({ open, onClick }: IMenuToggle) {
   return (
-    <Wrapper closed={closed} onClick={onClick}>
+    <Wrapper open={open} onClick={onClick}>
       <Line />
       <Line />
       <Line />

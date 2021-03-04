@@ -1,11 +1,25 @@
 import styled from "styled-components";
 import arrow from "./assets/arrow.svg";
 
-export const NextArrow = styled.div`
+export const Wrapper = styled.div`
+  position: relative;
+`;
+type ArrowProps = {
+  rotate?: boolean;
+};
+export const Arrow = styled.div<ArrowProps>`
+  opacity: 1;
   background: #ff5a57;
+  transform: translate(-50%, -50%)
+    ${(props) => props.rotate && "rotate(180deg)"};
   width: 75px;
   height: 75px;
   border-radius: 50%;
+  z-index: 2;
+  transition: 0.2s all ease;
+  &.slick-disabled {
+    opacity: 0;
+  }
   &:hover {
     background: #ff5a57;
   }
@@ -13,7 +27,7 @@ export const NextArrow = styled.div`
     content: "";
     display: block;
     position: absolute;
-    left: 50%;
+    left: 53%;
     top: 50%;
     transform: translate(-50%, -50%);
     background-image: url(${arrow});
@@ -23,4 +37,17 @@ export const NextArrow = styled.div`
     width: 32px;
     height: 32px;
   }
+`;
+export const Fade = styled.div`
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  transform: rotate(180deg);
+  width: 125px;
+  height: 100%;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 90.62%
+  );
 `;

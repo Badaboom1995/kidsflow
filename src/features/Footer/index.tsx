@@ -11,16 +11,20 @@ import {
   DownloadLink,
   Extra,
   Description,
+  BottomLinks,
 } from "./styled";
-import { GlobalContainer } from "parts/styled";
+import { Container } from "parts/styled";
 
 import apple from "./assets/apple.png";
 import google from "./assets/google.png";
+import vk from "./assets/one.svg";
+import inst from "./assets/two.svg";
+import facebook from "./assets/three.svg";
 
 function Footer() {
   return (
     <Wrapper>
-      <GlobalContainer>
+      <Container>
         <Links>
           <InfoLinks>
             <Column>
@@ -37,9 +41,9 @@ function Footer() {
             </Column>
             <Column>
               <ColTitle>Сообщество</ColTitle>
-              <TextLink>ВКонтакте</TextLink>
-              <TextLink>Инстаграм</TextLink>
-              <TextLink>Фейсбук</TextLink>
+              <TextLink icon={vk}>ВКонтакте</TextLink>
+              <TextLink icon={inst}>Инстаграм</TextLink>
+              <TextLink icon={facebook}>Фейсбук</TextLink>
             </Column>
           </InfoLinks>
           <Download>
@@ -49,14 +53,16 @@ function Footer() {
         </Links>
         <Extra>
           <Description>
-            Взлетаем! – приложение, которое помогает найти события, школы,
-            кружки и студии для досуга детей, 2021г.
+            <span>Взлетаем!</span> – приложение, которое помогает найти события,
+            школы, кружки и студии для досуга детей, 2021г.
           </Description>
-          <TextLink>Инвесторы</TextLink>
-          <TextLink>Реклама в приложении</TextLink>
+          <BottomLinks>
+            <TextLink>Инвесторы</TextLink>
+            <TextLink>Реклама в приложении</TextLink>
+          </BottomLinks>
           <Logo />
         </Extra>
-      </GlobalContainer>
+      </Container>
     </Wrapper>
   );
 }

@@ -11,14 +11,14 @@ import {
 } from "./styled";
 
 import slides from "./slides";
-import { useInterval } from "hooks/useInterval";
+// import { useInterval } from "hooks/useInterval";
 
 function WelcomeView() {
   const [currentSlide, setSlide] = useState(0);
-  const sliderSpeed = 2000;
-  useInterval(() => {
-    // setSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);
-  }, sliderSpeed);
+  // const sliderSpeed = 2000;
+  // useInterval(() => {
+  //   setSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);
+  // }, sliderSpeed);
 
   return (
     <Wrapper>
@@ -33,13 +33,13 @@ function WelcomeView() {
             <Dot
               key={item.desc}
               active={index === currentSlide}
+              big={index === currentSlide || index === currentSlide + 1}
               onClick={() => {
                 setSlide(index);
               }}
             />
           ))}
         </Controls>
-        {/* <button onClick={nextSlide}>next</button> */}
       </Description>
       <Picture>
         <img src={slides[currentSlide]?.img} alt="" />

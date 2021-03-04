@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import events from "./slice";
+import categories from "./slice";
 
 const reducers = {
-  events,
+  categories,
 };
 
 const combined = combineReducers(reducers);
 
-export type EventsState = ReturnType<typeof combined>;
+export type FfiltersState = ReturnType<typeof combined>;
 
 export default reducers;

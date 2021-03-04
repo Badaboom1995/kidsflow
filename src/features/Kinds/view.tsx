@@ -1,65 +1,22 @@
 import React from "react";
 import KindCard from "./components/KindCard";
-import { Wrapper, NextArrow } from "./styled";
-import lang from "./assets/lang.svg";
+import { Wrapper } from "./styled";
 import Slider from "parts/Slider";
 
-import bg from "./assets/sport_bg.png";
 import { Title } from "parts/typography";
+interface IKindsView {
+  kinds: any[];
+  isLoad: boolean;
+}
 
-const kinds = [
-  {
-    id: "1",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-  {
-    id: "2",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-  {
-    id: "3",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-  {
-    id: "4",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-  {
-    id: "5",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-  {
-    id: "6",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-  {
-    id: "7",
-    background: bg,
-    icon: lang,
-    label: "Иностранные языки",
-  },
-];
-
-function KindsView() {
+function KindsView({ kinds }: IKindsView) {
   return (
     <Wrapper>
       <div>
         <Title>Направления</Title>
         <Slider>
-          {kinds.map((item) => (
-            <KindCard kind={item} />
+          {kinds?.map((item) => (
+            <KindCard key={item.eventDirectionId} kind={item} />
           ))}
         </Slider>
       </div>

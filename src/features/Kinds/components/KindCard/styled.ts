@@ -18,6 +18,8 @@ type InnerProps = {
 };
 export const Inner = styled.div<InnerProps>`
   background-image: url(${(props) => props.background || ""});
+  background-size: cover;
+  background-repeat: no-repeat;
   position: relative;
   text-align: center;
   border-radius: 15px;
@@ -39,4 +41,7 @@ export const Content = styled.div`
 export const Name = styled.span`
   color: #fff;
 `;
-export const Icon = styled.img``;
+export const Icon = styled.img`
+  height: 57px;
+  margin-bottom: 5px;
+`;

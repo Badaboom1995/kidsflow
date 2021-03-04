@@ -6,4 +6,6 @@ export const Title = styled.h2`
   text-transform: uppercase;
   text-align: center;
   font-weight: 400;
+  margin: 0;
+  margin-bottom: 15px;
 `;

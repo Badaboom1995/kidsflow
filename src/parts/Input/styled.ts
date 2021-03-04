@@ -50,7 +50,7 @@ export const InputContainer = styled.label<InputInputContainerProps>`
   display: flex;
   align-items: center;
   background-color: #f6f6f6;
-  padding: 12px;
+  padding: 12px 25px;
   border-radius: 10px;
   font-family: "Montserrat";
 

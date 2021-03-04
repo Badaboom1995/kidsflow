@@ -1,5 +1,5 @@
 import React from "react";
-import { NextArrow } from "./styled";
+import { Arrow, Fade, Wrapper } from "./styled";
 import Slick from "react-slick";
 
 function Slider(props: any) {
@@ -8,11 +8,17 @@ function Slider(props: any) {
     infinite: false,
     controls: true,
     speed: 500,
-    slidesToShow: 6.2,
+    slidesToShow: 6.4,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
+    nextArrow: <Arrow />,
+    prevArrow: <Arrow rotate />,
   };
   const settings = { ...defaultSettings, ...props.settings };
-  return <Slick {...settings}>{props.children}</Slick>;
+  return (
+    <Wrapper>
+      <Fade />
+      <Slick {...settings}>{props.children}</Slick>
+    </Wrapper>
+  );
 }
 export default Slider;

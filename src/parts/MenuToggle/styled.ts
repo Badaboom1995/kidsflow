@@ -9,7 +9,7 @@ export const Line = styled.div`
 `;
 
 type WrapperProps = {
-  closed?: boolean;
+  open?: boolean;
 };
 export const Wrapper = styled.div<WrapperProps>`
   position: relative;
@@ -17,14 +17,14 @@ export const Wrapper = styled.div<WrapperProps>`
   width: 35px;
   height: 30px;
   ${Line} {
-    position: ${(props) => (props.closed ? "absolute" : "realtive")};
+    position: ${(props) => (!props.open ? "absolute" : "realtive")};
     left: 50%;
     top: 50%;
     transform: ${(props) =>
-      props.closed && "translate(-50%, -50%) rotate(-45deg)"};
+      !props.open && "translate(-50%, -50%) rotate(-45deg)"};
   }
   ${Line}:nth-child(n+2) {
     transform: ${(props) =>
-      props.closed && "translate(-50%, -50%) rotate(45deg)"};
+      !props.open && "translate(-50%, -50%) rotate(45deg)"};
   }
 `;

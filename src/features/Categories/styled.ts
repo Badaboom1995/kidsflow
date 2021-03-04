@@ -1,4 +1,5 @@
 import { colors } from "config/constants";
+import { Container } from "parts/styled";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -7,36 +8,45 @@ export const Wrapper = styled.div`
   padding: 20px 0;
   box-sizing: border-box;
   margin-bottom: 50px;
+  background: #f7f7f7;
 `;
 export const Cover = styled.img`
   display: block;
   margin-right: 40px;
+  height: 260px;
+`;
+export const Content = styled(Container)`
+  display: flex;
+  flex-wrap: wrap;
 `;
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
+  flex-grow: 1;
   padding: 0;
-  width: calc(75% - 40px);
-  max-height: 270px;
+  height: 270px;
 `;
 
 type ItemProps = {
   active?: boolean;
+  onClick?: any;
 };
 export const Item = styled.li<ItemProps>`
   position: relative;
   font-size: 16px;
+  width: 25%;
   font-weight: 400;
   margin-right: 40px;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   list-style: none;
   padding: 7px 20px;
-  border: ${(props) => props.active && `1px solid ${colors.primary}`};
+  border: 1px solid
+    ${(props) => (props.active ? ` ${colors.primary}` : "transparent")};
   border-radius: 25px;
   cursor: pointer;
-
+  transition: 0.2s all ease;
   &:before,
   &:after {
     content: "";
@@ -55,4 +65,15 @@ export const Item = styled.li<ItemProps>`
   &:before {
     transform: rotate(-45deg);
   }
+`;
+type AlertProps = {
+  visible?: boolean;
+};
+export const Alert = styled.p<AlertProps>`
+  color: ${(props) => (props.visible ? "#000" : "transparent")};
+  font-size: 16px;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
 `;

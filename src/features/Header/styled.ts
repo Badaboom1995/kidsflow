@@ -28,5 +28,5 @@ export const Partner = styled(Button)`
   font-weight: 500;
 `;
 export const Enter = styled(Button)`
-  font-weight: 500;
+  font-weight: 400;
 `;

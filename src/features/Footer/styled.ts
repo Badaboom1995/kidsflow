@@ -14,17 +14,30 @@ export const Links = styled.div`
 export const InfoLinks = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  width: 53%;
 `;
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
 `;
 export const ColTitle = styled.h3``;
-export const TextLink = styled.a`
-  display: block;
+
+type TextLinkProps = {
+  icon?: string;
+};
+export const TextLink = styled.a<TextLinkProps>`
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
   cursor: pointer;
+  &:before {
+    content: "";
+    display: ${(props) => (props.icon ? "inline-block" : "none")};
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    background-image: url(${(props) => props.icon});
+  }
 `;
 export const Download = styled.div`
   display: flex;
@@ -49,4 +62,21 @@ export const DownloadLink = styled.a<DownloadLinkProps>`
 export const Extra = styled.div`
   display: flex;
 `;
-export const Description = styled.div``;
+export const BottomLinks = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 340px;
+  margin-right: auto;
+`;
+export const Description = styled.p`
+  max-width: 34%;
+  margin: 0;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 27px;
+  span {
+    font-weight: 500;
+  }
+`;

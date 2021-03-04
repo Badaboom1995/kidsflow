@@ -1,6 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import filters from "ducks/filters";
+import navigation from "features/Navigation/duck";
+import kinds from "features/Kinds/duck";
+import categories from "features/Categories/duck";
 
 export function createReducer() {
-  return combineReducers({ ...filters });
+  return combineReducers({
+    ...navigation,
+    ...kinds,
+    ...categories,
+  });
 }
