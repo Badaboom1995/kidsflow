@@ -1,9 +1,10 @@
 import styled from "styled-components";
 export const Wrapper = styled.div`
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
-export const Container = styled.div`
-  position: relative;
-  max-width: 1440px;
-  margin: 0 auto;
+export const Body = styled.div`
+  flex-grow: 1;
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "./styled";
+import { Wrapper, Body } from "./styled";
 import Header from "features/Header";
 import Navigation from "features/Navigation";
 import Footer from "features/Footer";
@@ -12,7 +12,7 @@ function Layout({ children }: ILayout) {
     <Wrapper>
       <Header />
       <Navigation />
-      {children}
+      <Body>{children}</Body>
       <Footer />
     </Wrapper>
   );
