@@ -19,6 +19,15 @@ export const Content = styled(Container)`
   display: flex;
   flex-wrap: wrap;
 `;
+export const Empty = styled.p`
+  font-size: 36px;
+  color: #bec2ce;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+`;
 export const List = styled.ul`
   display: flex;
   flex-direction: column;

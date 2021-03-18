@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import spinner from "assets/spinner.gif";
 
 export const Container = styled.div`
   position: relative;
@@ -30,4 +31,17 @@ export const Overlay = styled.div<OverlayProps>`
   background-color: #1b1b1b4d;
   cursor: pointer;
   transition: 0.2s all ease;
+`;
+
+export const Loader = styled.span`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background-image: url(${spinner});
+  background-size: contain;
+  border: none;
+  background-color: transparent;
 `;

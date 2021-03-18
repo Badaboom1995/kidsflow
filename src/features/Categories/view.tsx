@@ -1,6 +1,6 @@
-import { Title } from "parts/typography";
+import { MainTitle } from "parts/typography";
 import React from "react";
-import { Wrapper, Cover, List, Item, Content, Alert } from "./styled";
+import { Wrapper, Cover, List, Item, Content, Alert, Empty } from "./styled";
 
 interface ICategoriesView {
   categories: any[];
@@ -18,9 +18,10 @@ function CategoriesView({
   return (
     <Wrapper>
       <Content>
-        <Title>Категории</Title>
+        <MainTitle>Категории</MainTitle>
         <Cover src={coverImage} />
         <List>
+          {!categories.length && <Empty>Выберите категорию</Empty>}
           {categories.map((category) => (
             <Item
               active={activeCategories.includes(category.eventDirectionId)}

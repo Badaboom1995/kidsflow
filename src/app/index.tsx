@@ -4,16 +4,21 @@ import Router from "./router";
 import Layout from "features/Layout";
 import { Provider } from "react-redux";
 import { configureAppStore } from "config/store";
+import { BrowserRouter } from "react-router-dom";
+import ContactForm from "features/ContactForm";
 
 const store = configureAppStore();
 
 function App() {
   return (
     <Provider store={store}>
-      <Layout>
-        <Router />
-        <GlobalStyle />
-      </Layout>
+      <BrowserRouter>
+        <Layout>
+          <ContactForm />
+          <Router />
+          <GlobalStyle />
+        </Layout>
+      </BrowserRouter>
     </Provider>
   );
 }

@@ -2,8 +2,10 @@ import styled from "styled-components";
 import arrow from "./assets/arrow.svg";
 
 export const Wrapper = styled.div`
+  position: relative;
   margin-bottom: 30px;
   padding: 22px 0;
+  min-height: 164px;
   .slick-list {
     /* padding: 0 20% 0 0; */
   }

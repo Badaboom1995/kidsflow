@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import logoImg from "./assets/logo_image.svg";
 import logoText from "./assets/logo_text.svg";
+import { Link } from "react-router-dom";
 
-export const Wrapper = styled.a`
+export const Wrapper = styled(Link)`
   display: flex;
   align-items: center;
   cursor: pointer;

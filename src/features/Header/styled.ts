@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  background-color: #fff;
+  z-index: 1;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 `;
 export const Container = styled.div`

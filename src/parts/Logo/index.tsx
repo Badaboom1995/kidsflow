@@ -1,8 +1,13 @@
 import React from "react";
 import { Wrapper, LogoImage, LogoText } from "./styled";
-function Logo() {
+
+interface ILogo {
+  onClick?: () => void;
+}
+
+function Logo({ onClick }: ILogo) {
   return (
-    <Wrapper>
+    <Wrapper to="/" onClick={onClick}>
       <LogoImage />
       <LogoText />
     </Wrapper>

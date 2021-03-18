@@ -10,6 +10,11 @@ const chooseButtonParams = (type: string) => {
         background: "transparent",
         active: "#f6f6f6",
       };
+    case "small":
+      return {
+        fontSize: "16px",
+        fontWeight: 400,
+      };
 
     default:
       return {
@@ -17,6 +22,7 @@ const chooseButtonParams = (type: string) => {
         borderColor: "transparent",
         background: colors.primary,
         active: "#ff3633",
+        fontWeight: 600,
       };
   }
 };
@@ -25,23 +31,28 @@ type StyledButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   customType?: any;
+  size?: "small";
+  inline?: boolean;
 };
+
+// TODO. Refactor Button component. Separate components for different button types would be better
 export const StyledButton = styled.button<StyledButtonProps>`
   position: relative;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 315px;
-  padding: 15px;
+  width: ${(props) => (props.inline ? "auto" : "315px")};
+  margin-right: ${(props) => props.inline && "15px"};
+  padding: ${(props) => (props.size === "small" ? "7px" : "15px")};
   color: ${(props) => chooseButtonParams(props.customType).color};
   border-radius: 30px;
   border: 1px solid ${(props) => chooseButtonParams(props.customType).border};
-  font-weight: 600;
+  font-weight: ${(props) => (props.size === "small" ? "400" : "600")};
   text-transform: uppercase;
   background-color: ${(props) =>
     chooseButtonParams(props.customType).background};
-  font-size: 18px;
+  font-size: ${(props) => (props.size === "small" ? "16px" : "18px")};
   outline: none;
   cursor: ${(props) => !props.disabled && "pointer"};
   &:active {
@@ -65,4 +76,5 @@ type TextProps = {
 export const Text = styled.span<TextProps>`
   position: relative;
   color: ${(props) => props.spinnerActive && "transparent"};
+  text-decoration: none;
 `;

@@ -6,7 +6,7 @@ import Categories from "features/Categories";
 import Events from "features/Events";
 import { Container } from "parts/styled";
 
-function Main() {
+function Promo() {
   return (
     <Wrapper>
       <Container>
@@ -20,4 +20,4 @@ function Main() {
     </Wrapper>
   );
 }
-export default Main;
+export default Promo;

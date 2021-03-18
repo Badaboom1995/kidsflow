@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -18,13 +19,19 @@ export const Head = styled.div`
   margin-bottom: 180px;
 `;
 export const NavList = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 0 20px;
   padding-bottom: 100px;
   border-bottom: 1px solid #bbb;
 `;
-export const NavItem = styled.div`
+export const NavItem = styled(Link)`
+  text-decoration: none;
   padding: 20px 0;
   font-size: 26px;
+  &:visited {
+    color: #000;
+  }
 `;
 export const Footer = styled.div`
   padding: 30px 0;

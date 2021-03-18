@@ -20,8 +20,11 @@ import google from "./assets/google.png";
 import vk from "./assets/one.svg";
 import inst from "./assets/two.svg";
 import facebook from "./assets/three.svg";
+import { toggle } from "features/ContactForm/duck/slice";
+import { useDispatch } from "react-redux";
 
 function Footer() {
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <Container>
@@ -36,7 +39,13 @@ function Footer() {
             <Column>
               <ColTitle>Пользователям</ColTitle>
               <TextLink>Вопросы и ответы</TextLink>
-              <TextLink>Связаться с нами</TextLink>
+              <TextLink
+                onClick={() => {
+                  dispatch(toggle());
+                }}
+              >
+                Связаться с нами
+              </TextLink>
               <TextLink>Условия использования</TextLink>
             </Column>
             <Column>

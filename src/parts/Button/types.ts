@@ -4,4 +4,6 @@ export type ButtonProps = {
   loading?: boolean;
   onClick?: (e: any) => void;
   type?: "transparent";
+  size?: "small";
+  inline?: boolean;
 };

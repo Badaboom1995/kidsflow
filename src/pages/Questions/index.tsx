@@ -1,11 +1,11 @@
-import { Title } from "parts/typography";
+import { MainTitle } from "parts/typography";
 import React from "react";
 import { Wrapper, Question, QuestionTitle, QuestionText } from "./styled";
 
-function Main() {
+function Questions() {
   return (
     <Wrapper>
-      <Title>Вопросы</Title>
+      <MainTitle>Вопросы</MainTitle>
       <Question>
         <QuestionTitle>Как работает приложение?</QuestionTitle>
         <QuestionText>
@@ -37,4 +37,4 @@ function Main() {
     </Wrapper>
   );
 }
-export default Main;
+export default Questions;

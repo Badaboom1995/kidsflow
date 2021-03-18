@@ -9,16 +9,18 @@ import {
   OptionsContainer,
 } from "./styled";
 
+import { OptionType } from "./types";
+
 interface SelectView {
   isOpen: boolean;
   title?: string;
   toggleSelect?: () => void;
-  options: string[];
+  options: OptionType[];
   groupName: string;
   setSelected: (e: any) => void;
   selectedValue: string | null;
-  error: string;
-  touched: boolean;
+  error?: string;
+  touched?: boolean;
 }
 
 function SelectView({
@@ -41,13 +43,13 @@ function SelectView({
       </ErrorContainier>
       <OptionsContainer>
         {options.map((option) => (
-          <Option key={option}>
-            <OptionTitle>{option}</OptionTitle>
+          <Option key={option.value}>
+            <OptionTitle>{option.name}</OptionTitle>
             <Radio
               type="radio"
               onChange={setSelected}
               name={groupName}
-              value={option}
+              value={option.value}
             />
           </Option>
         ))}

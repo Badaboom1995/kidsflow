@@ -3,17 +3,19 @@ import KindCard from "./components/KindCard";
 import { Wrapper } from "./styled";
 import Slider from "parts/Slider";
 
-import { Title } from "parts/typography";
+import { MainTitle } from "parts/typography";
+import { Loader } from "parts/styled";
 interface IKindsView {
   kinds: any[];
   isLoad: boolean;
 }
 
-function KindsView({ kinds }: IKindsView) {
+function KindsView({ kinds, isLoad }: IKindsView) {
   return (
     <Wrapper>
+      {isLoad && <Loader />}
       <div>
-        <Title>Направления</Title>
+        <MainTitle>Направления</MainTitle>
         <Slider>
           {kinds?.map((item) => (
             <KindCard key={item.eventDirectionId} kind={item} />

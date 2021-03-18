@@ -8,7 +8,7 @@ type SelectBoxProps = {
 export const SelectBox = styled.div<SelectBoxProps>`
   position: relative;
   display: block;
-  background-color: #f5f8fa;
+  background-color: #f6f6f6;
   padding: 15px;
   border-radius: 8px;
   border: none;
@@ -35,7 +35,7 @@ type WrapperProps = {
   open: boolean;
 };
 export const OptionsContainer = styled.div`
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   max-height: 220px;
   box-sizing: border-box;
@@ -50,6 +50,7 @@ export const OptionsContainer = styled.div`
 
 export const Wrapper = styled.div<WrapperProps>`
   position: relative;
+  flex-grow: 1;
   ${OptionsContainer} {
     display: ${(props) => (props.open ? "block" : "none")};
   }

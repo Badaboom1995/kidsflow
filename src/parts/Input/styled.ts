@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { Field } from "formik";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  flex-grow: 1;
+`;
+
 type InputProps = {
   error?: string;
   touched: 0 | 1;
+  multiline?: number;
+  as?: string;
 };
-
 export const StyledInput = styled(Field)`
   color: ${(props) => props.error && props.touched === 1 && "#A2A2A2"};
   width: 100%;
