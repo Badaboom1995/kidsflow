@@ -1,12 +1,10 @@
 import React from "react";
 import { Wrapper, Head, NavList, NavItem, Footer, Text } from "./styled";
 import Logo from "parts/Logo";
-import MenuToggle from "parts/MenuToggle";
 import { Overlay } from "parts/styled";
 import { selectIsOpen } from "./duck/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleOpen } from "./duck/slice";
-import DownloadLinks from "parts/DownloadLinks";
 
 function Navigation() {
   const isOpen = useSelector(selectIsOpen());
@@ -18,7 +16,6 @@ function Navigation() {
     <Overlay closed={isOpen}>
       <Wrapper>
         <Head>
-          <MenuToggle open={isOpen} onClick={hideNavigation} />
           <Logo onClick={hideNavigation} />
         </Head>
         <NavList onClick={hideNavigation}>
@@ -33,7 +30,6 @@ function Navigation() {
             Скачивайте наше приложение,
             <br /> чтобы получить больше возможностей
           </Text>
-          <DownloadLinks big />
         </Footer>
       </Wrapper>
     </Overlay>

@@ -8,8 +8,6 @@ type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE";
 const makeRequest = async (url: string, method: MethodType, body?: any) => {
   const commonHeaders: HeadersInit = new Headers();
   commonHeaders.set("Content-Type", "application/json");
-  // const JWT = localStorage.reflectJWT;
-  // if (JWT) commonHeaders.append("Authorization", `Bearer ${JWT}`);
 
   // TODO remove
   commonHeaders.append(

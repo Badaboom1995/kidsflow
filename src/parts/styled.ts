@@ -20,7 +20,6 @@ type OverlayProps = {
   closed?: boolean;
 };
 export const Overlay = styled.div<OverlayProps>`
-  /* display: ${(props) => (props.closed ? "none" : "block")}; */
   opacity: ${(props) => (props.closed ? "0" : "1")};
   position: fixed;
   left: 0;

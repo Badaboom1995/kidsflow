@@ -5,7 +5,6 @@ import Layout from "features/Layout";
 import { Provider } from "react-redux";
 import { configureAppStore } from "config/store";
 import { BrowserRouter } from "react-router-dom";
-import ContactForm from "features/ContactForm";
 
 const store = configureAppStore();
 
@@ -14,7 +13,6 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Layout>
-          <ContactForm />
           <Router />
           <GlobalStyle />
         </Layout>
