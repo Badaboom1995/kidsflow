@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-import stars from "assets/stars.svg";
-
 export const GlobalStyle = createGlobalStyle`
 
   html,
@@ -10,11 +8,11 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 0;
     padding: 0;
-    background-image: url(${stars});
+    background: linear-gradient(180deg, #FED98E 0%, #FDB67F 50%, #FD9693 100%);
   }
 
   body, a, button, pre {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Mulish', sans-serif;
   }
 
   #root {

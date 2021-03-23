@@ -1,11 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import navigation from "features/Navigation/duck";
 
-import filters from "ducks/filters";
+import sieve from "ducks/sieve";
 
 export function createReducer() {
   return combineReducers({
     ...navigation,
-    ...filters,
+    ...sieve,
   });
 }

@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import filters from "./slice";
+import sieve from "./slice";
 
 const reducers = {
-  filters,
+  sieve,
 };
 
 const combined = combineReducers(reducers);
 
-export type FiltersState = ReturnType<typeof combined>;
+export type SieveState = ReturnType<typeof combined>;
 
 export default reducers;

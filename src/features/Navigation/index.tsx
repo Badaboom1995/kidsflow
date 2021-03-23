@@ -1,38 +1,97 @@
-import React from "react";
-import { Wrapper, Head, NavList, NavItem, Footer, Text } from "./styled";
+import React, { useState } from "react";
+import {
+  Wrapper,
+  Head,
+  NavList,
+  Footer,
+  Profile,
+  Avatar,
+  Name,
+  Exit,
+} from "./styled";
 import Logo from "parts/Logo";
-import { Overlay } from "parts/styled";
-import { selectIsOpen } from "./duck/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleOpen } from "./duck/slice";
+import NavItem from "./components/NavItem";
+import avo from "./assets/avo.png";
 
 function Navigation() {
-  const isOpen = useSelector(selectIsOpen());
-  const dispatch = useDispatch();
-  const hideNavigation = () => {
-    dispatch(toggleOpen());
+  const initialState = [
+    {
+      label: "Управление каталогом",
+      to: "/catalog",
+      iconId: "cast",
+      color: "#FEC586",
+      active: true,
+    },
+    {
+      label: "Пользователи",
+      to: "/users",
+      iconId: "users",
+      color: "#FCBF83",
+      active: false,
+    },
+    {
+      label: "Организации",
+      to: "/organizations",
+      iconId: "orgs",
+      color: "#FDB880",
+      active: false,
+    },
+    {
+      label: "События",
+      to: "/events",
+      iconId: "events",
+      color: "#FDB381",
+      active: false,
+    },
+    {
+      label: "Поддержка",
+      to: "/support",
+      iconId: "support",
+      color: "#FDA987",
+      active: false,
+    },
+  ];
+  const [menuItems, setItems] = useState(initialState);
+  const setActive = (label: string) => {
+    setItems(
+      menuItems?.map((item) => {
+        if (!item.active && item.label !== label) return item;
+        return item.active
+          ? { ...item, active: false }
+          : { ...item, active: true };
+      })
+    );
   };
   return (
-    <Overlay closed={isOpen}>
-      <Wrapper>
-        <Head>
-          <Logo onClick={hideNavigation} />
-        </Head>
-        <NavList onClick={hideNavigation}>
-          <NavItem to="/news">Новости</NavItem>
-          <NavItem to="">Партнерам</NavItem>
-          <NavItem to="/search">Карта</NavItem>
-          <NavItem to="/faq">Вопросы и ответы</NavItem>
-          <NavItem to="">Условия использования</NavItem>
-        </NavList>
-        <Footer>
-          <Text>
-            Скачивайте наше приложение,
-            <br /> чтобы получить больше возможностей
-          </Text>
-        </Footer>
-      </Wrapper>
-    </Overlay>
+    <Wrapper>
+      <Head>
+        <Logo />
+      </Head>
+      <NavList>
+        {menuItems?.map(({ label, to, iconId, color, active }) => (
+          <NavItem
+            key={label}
+            to={to}
+            iconId={iconId}
+            color={color}
+            active={active}
+            onClick={() => {
+              setActive(label);
+            }}
+          >
+            {label}
+          </NavItem>
+        ))}
+      </NavList>
+      <Footer>
+        <Profile>
+          <Avatar src={avo} />
+          <Name>Петров</Name>
+          <Name>Константин</Name>
+        </Profile>
+        <Exit>Выход</Exit>
+      </Footer>
+    </Wrapper>
   );
 }
 export default Navigation;
