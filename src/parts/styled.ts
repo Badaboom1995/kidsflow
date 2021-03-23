@@ -1,10 +1,34 @@
 import styled from "styled-components";
 import spinner from "assets/spinner.gif";
+import { colors } from "config/constants";
 
 export const Container = styled.div`
   position: relative;
   width: 1440px;
   margin: 0 auto;
+`;
+export const Tariff = styled.div`
+  width: 75px;
+  font-size: 16px;
+  padding: 7px;
+  border: 2px solid ${colors.primary};
+  border-radius: 5px;
+  text-align: center;
+  color: ${colors.primary};
+  text-transform: uppercase;
+`;
+export const Status = styled.div`
+  display: flex;
+  align-items: center;
+  &:before {
+    content: "";
+    display: block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    background-color: ${colors.primary};
+    border-radius: 50%;
+  }
 `;
 
 export const Link = styled.a`
