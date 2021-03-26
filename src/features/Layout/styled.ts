@@ -8,4 +8,5 @@ export const Wrapper = styled.div`
 export const Body = styled.div`
   flex-grow: 1;
   padding: 25px 20px;
+  overflow: scroll;
 `;

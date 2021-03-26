@@ -76,7 +76,7 @@ function Navigation() {
             color={color}
             active={active}
             onClick={() => {
-              setActive(label);
+              if (!active) setActive(label);
             }}
           >
             {label}
