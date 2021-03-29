@@ -1,11 +1,19 @@
 import React from "react";
-import { Wrapper } from "./styled";
+import { Wrapper, Header } from "./styled";
 import Table from "parts/Table";
 import { Tariff, Status } from "parts/styled";
+import { Link } from "react-router-dom";
+import Button from "parts/Button";
+import blackPlus from "assets/blackPlus.svg";
 
 function User() {
   return (
     <Wrapper>
+      <Header>
+        <Link to="/add-user">
+          <Button icon={blackPlus}>Добавить</Button>
+        </Link>
+      </Header>
       <Table
         fields={[
           {
@@ -23,7 +31,9 @@ function User() {
           {
             label: "Подписка",
             key: "subscriptionType",
-            getComponent: (status: string) => <Tariff>{status}</Tariff>,
+            getComponent: (status: string) => (
+              <Tariff type="medium">{status}</Tariff>
+            ),
             props: { width: "12%" },
           },
           {

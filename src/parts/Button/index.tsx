@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledButton, Text } from "./styled";
+import { StyledButton, Text, Icon } from "./styled";
 import spinner from "./assets/spinner.gif";
 import { ButtonProps } from "./types";
 
@@ -11,6 +11,7 @@ function Button({
   loading,
   size,
   inline,
+  icon,
 }: ButtonProps) {
   return (
     <StyledButton
@@ -21,6 +22,7 @@ function Button({
       size={size}
       inline={inline}
     >
+      {icon && <Icon src={icon} alt="icon" />}
       <Text spinnerActive={loading ? true : false}>
         {loading && <img src={spinner} alt="loader" />}
         {children}

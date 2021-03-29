@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TableView from "./view";
 import { Cell, Row } from "./styled";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter, changeFilterValue } from "ducks/sieve/slice";
+import { changeFilterValue } from "ducks/sieve/slice";
 import { selectFilteredData } from "ducks/sieve/selectors";
 
 export type Field = {
@@ -28,20 +28,10 @@ function Table({ fields, items }: ITable) {
   const dispatch = useDispatch();
 
   const filteredItems = useSelector(selectFilteredData(items));
-  const setSieves = () => {
-    fields.forEach(({ key }) => {
-      dispatch(setFilter({ key }));
-      //   dispatch(setDataSieve({ type: SieveType.Sort, key }));
-    });
-  };
 
   const changeSieveValue = (type: string, key: string, value: string) => {
     dispatch(changeFilterValue({ key, value }));
   };
-
-  useEffect(() => {
-    setSieves();
-  }, []);
 
   const getItemPropsArray = <T,>(items: T[]): any[] =>
     items.map((item) =>

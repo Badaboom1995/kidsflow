@@ -1,38 +1,37 @@
 import styled from "styled-components";
 import { Field } from "formik";
 
-export const Wrapper = styled.div`
-  flex-grow: 1;
-`;
+const placeholderColor = "#6c757d";
 
-type InputProps = {
-  error?: string;
-  touched: 0 | 1;
-  multiline?: number;
-  as?: string;
-};
+export const Wrapper = styled.div``;
 export const StyledInput = styled(Field)`
   color: ${(props) => props.error && props.touched === 1 && "#A2A2A2"};
   width: 100%;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 16px;
   border: none;
+  font-family: inherit;
+  height: auto;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  text-align: ${(props) => props.centered && "center"};
 
+  padding-left: 0px;
   ::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
-    color: #2f2f2f;
+    color: ${placeholderColor};
   }
   ::-moz-placeholder {
     /* Firefox 19+ */
-    color: #2f2f2f;
+    color: ${placeholderColor};
   }
   :-ms-input-placeholder {
     /* IE 10+ */
-    color: #2f2f2f;
+    color: ${placeholderColor};
   }
   :-moz-placeholder {
     /* Firefox 18- */
-    color: #2f2f2f;
+    color: ${placeholderColor};
   }
   &:focus,
   &:active {
@@ -47,16 +46,21 @@ export const ErrorText = styled.p`
   min-height: 12px;
   font-family: "Roboto";
 `;
-type InputInputContainerProps = {
+type InputContainerProps = {
   icon?: string;
+  centered: boolean;
 };
-export const InputContainer = styled.label<InputInputContainerProps>`
+export const InputContainer = styled.label<InputContainerProps>`
   display: flex;
   align-items: center;
   background-color: #f6f6f6;
-  padding: 12px 25px;
+  padding: 9px;
+  padding-left: ${(props) => !props.centered && "40px"};
   border-radius: 10px;
-  font-family: "Montserrat";
+  letter-spacing: 0.15px;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
 
   &:hover {
     cursor: #a2a2a2;

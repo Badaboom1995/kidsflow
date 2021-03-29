@@ -3,11 +3,12 @@ import { Wrapper, LogoImage, LogoText } from "./styled";
 
 interface ILogo {
   onClick?: () => void;
+  big?: boolean;
 }
 
-function Logo({ onClick }: ILogo) {
+function Logo({ onClick, big }: ILogo) {
   return (
-    <Wrapper to="/" onClick={onClick}>
+    <Wrapper onClick={onClick} big={big}>
       <LogoImage />
       <LogoText />
     </Wrapper>

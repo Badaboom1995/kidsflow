@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   max-height: 100vh;
   display: flex;
   overflow: hidden;
+  background: linear-gradient(180deg, #fed98e 0%, #fdb67f 50%, #fd9693 100%);
 `;
 export const Body = styled.div`
   flex-grow: 1;

@@ -1,37 +1,41 @@
 import React from "react";
 import ErrorContainier from "../ErrorContainier";
 import { StyledInput, Wrapper, InputContainer } from "./styled";
-import { InputInterface } from "./types";
+import { Label } from "../styled";
 
+interface IInput {
+  placeholder?: string;
+  error?: string;
+  icon?: string;
+  name: string;
+  password?: boolean;
+  touched?: boolean;
+  label?: string;
+  type?: string;
+  centered?: boolean;
+}
 export default function Input({
   placeholder,
   error,
   icon,
   name,
-  password,
   touched,
-  multiline,
-  onChange,
-}: InputInterface) {
-  const chooseType = () => {
-    if (password) re "password";
-    return "text";
-  };
+  label,
+  type,
+  centered,
+}: IInput) {
   return (
     <Wrapper>
       <ErrorContainier error={touched ? error : ""}>
-        <InputContainer icon={icon}>
-          {/* TODO. types for field's as */}
-          {/* @ts-expect-error */}
+        <Label>{label}</Label>
+        <InputContainer icon={icon} centered={centered}>
           <StyledInput
-            as={multiline ? "textarea" : "input"}
-            type={chooseType()}
+            type={type || "text"}
             name={name}
-            placeholder={placeholder}
+            placeholder={placeholder || "-- -- -- -- --"}
             error={error}
             touched={touched ? 1 : 0}
-            rows={multiline}
-            onChange={onChange}
+            centered
           />
         </InputContainer>
       </ErrorContainier>

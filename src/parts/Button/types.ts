@@ -3,7 +3,8 @@ export type ButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   onClick?: (e: any) => void;
-  type?: "transparent";
-  size?: "small";
+  type?: "ghost";
+  size?: "small" | "full";
   inline?: boolean;
+  icon?: string;
 };

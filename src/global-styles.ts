@@ -8,7 +8,6 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(180deg, #FED98E 0%, #FDB67F 50%, #FD9693 100%);
   }
 
   body, a, button, pre {

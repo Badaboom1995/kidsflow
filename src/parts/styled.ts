@@ -1,23 +1,41 @@
 import styled from "styled-components";
 import spinner from "assets/spinner.gif";
 import { colors } from "config/constants";
-
+const selectTariffColor = (type) => {
+  if (type === "basic") return "#BEC2CE";
+  if (type === "medium") return "#FF5858";
+  if (type === "premium") return "#00BFA5";
+};
 export const Container = styled.div`
   position: relative;
   width: 1440px;
   margin: 0 auto;
 `;
-export const Tariff = styled.div`
+export const Label = styled.p`
+  padding-left: 40px;
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: "Muli", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.3px;
+  color: #252733;
+`;
+type TariffProps = { type: string };
+export const Tariff = styled.div<TariffProps>`
   width: 75px;
   font-size: 16px;
   padding: 7px;
-  border: 2px solid ${colors.primary};
+  border: 2px solid ${(props) => selectTariffColor(props.type)};
   border-radius: 5px;
   text-align: center;
-  color: ${colors.primary};
+  color: ${(props) => selectTariffColor(props.type)};
   text-transform: uppercase;
 `;
-export const Status = styled.div`
+type StatusProps = { active?: boolean };
+export const Status = styled.div<StatusProps>`
   display: flex;
   align-items: center;
   &:before {
@@ -26,7 +44,7 @@ export const Status = styled.div`
     width: 7px;
     height: 7px;
     margin-right: 7px;
-    background-color: ${colors.primary};
+    background-color: ${(props) => (props.active ? "#27AE60" : colors.primary)};
     border-radius: 50%;
   }
 `;
@@ -67,4 +85,15 @@ export const Loader = styled.span`
   background-size: contain;
   border: none;
   background-color: transparent;
+`;
+type GlassCardProps = {
+  fullWidth?: boolean;
+};
+export const GlassCard = styled.div<GlassCardProps>`
+  width: ${(props) => (props.fullWidth ? "100%" : "auto")};
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #ffffff4d;
+  padding: 10px;
+  margin-bottom: 10px;
 `;

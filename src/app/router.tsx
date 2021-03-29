@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Users from "pages/Users";
 import AddUser from "pages/AddUser";
+import Auth from "pages/Auth";
 
 interface IRouter {
   children?: React.ReactNode;
@@ -11,7 +12,7 @@ export default function Router(props: IRouter) {
 
   return (
     <Switch>
-      <Route path={`${prefix}/user`} exact={true} component={Users} />
+      <Route path={`${prefix}/users`} exact={true} component={Users} />
       <Route path={`${prefix}/add-user`} exact={true} component={AddUser} />
     </Switch>
   );

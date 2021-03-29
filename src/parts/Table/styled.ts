@@ -63,17 +63,22 @@ export const Controls = styled.div`
 type ControlsItemProps = {
   textalign?: string;
   width?: string;
+  active?: boolean;
 };
 export const ControlsItem = styled.input<ControlsItemProps>`
-  &:focus {
-    outline: none;
-  }
   padding: 8px 0;
   background-color: transparent;
   border: none;
+  margin-bottom: -1px;
   width: ${(props) => props.width};
   flex-grow: ${(props) => (props.width ? 0 : 1)};
   text-align: ${(props) => props.textalign || "left"};
+  border-bottom: 1px solid transparent;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid ${colors.primary};
+    /* border-color: ${colors.primary}; */
+  }
 `;
 export const Tariff = styled.div`
   width: 75px;

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FilterType, SortDirection, SieveType } from "./types";
 type InititalState = {
   filter: any[];
   sort: { key: string; value: string };
