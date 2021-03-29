@@ -14,7 +14,7 @@ export default function Input({
   onChange,
 }: InputInterface) {
   const chooseType = () => {
-    if (password) return "password";
+    if (password) re "password";
     return "text";
   };
   return (
