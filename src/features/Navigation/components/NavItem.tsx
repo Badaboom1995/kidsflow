@@ -14,7 +14,7 @@ interface INavItem {
 function NavItem({ to, iconId, children, color, active, onClick }: INavItem) {
   return (
     <div onClick={onClick}>
-      <Item to={to}>
+      <Item to={to} activeClassName="nav-item-active">
         <IconSVG>
           <use href={`${sprite}#${iconId}`}></use>
         </IconSVG>

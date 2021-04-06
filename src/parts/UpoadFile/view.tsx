@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Wrapper, Label } from "./styled";
 import { IUpoadFile } from "./index";
 
-function UpoadFileView({ label }: IUpoadFile) {
+function UpoadFileView({ label, file }: IUpoadFile) {
+  const [src, setSrc] = useState(null);
   return (
-    <Wrapper>
+    <Wrapper file={file} image={src}>
       <Label>
         {label}
-        <input type="file" />
+        <input
+          type="file"
+          onChange={(e) => {
+            setSrc(URL.createObjectURL(e.target.files[0]));
+          }}
+        />
       </Label>
     </Wrapper>
   );

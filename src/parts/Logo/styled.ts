@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import logoImg from "./assets/logo_image.svg";
 import logoText from "./assets/logo_text.svg";
-import { Link } from "react-router-dom";
 
 type LogoImageProps = { big?: boolean };
 export const LogoImage = styled.div<LogoImageProps>`

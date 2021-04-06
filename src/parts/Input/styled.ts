@@ -4,6 +4,14 @@ import { Field } from "formik";
 const placeholderColor = "#6c757d";
 
 export const Wrapper = styled.div``;
+export const Textarea = styled.textarea`
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
+`;
+
 export const StyledInput = styled(Field)`
   color: ${(props) => props.error && props.touched === 1 && "#A2A2A2"};
   width: 100%;

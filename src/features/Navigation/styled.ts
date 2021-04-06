@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import stars from "assets/stars.png";
 import ProfileBG from "./assets/profileBg.svg";
 import logout from "./assets/logout.svg";
@@ -31,20 +31,7 @@ export const NavList = styled.div`
   width: 100%;
   margin-right: -10px;
 `;
-export const Item = styled(Link)`
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  padding: 15px 0;
-  font-size: 16px;
-  font-weight: 400;
-  text-align: center;
-  &:visited {
-    color: #000;
-  }
-`;
+
 export const IconSVG = styled.svg`
   position: relative;
   z-index: 1;
@@ -56,8 +43,7 @@ type BackSVGProps = {
   active: boolean;
 };
 export const BackSVG = styled.svg<BackSVGProps>`
-  opacity: ${(props) => (props.active ? "1" : "0")};
-  /* transition: 0.5s opacity ease-in; */
+  opacity: 0;
   position: absolute;
   z-index: -1;
   right: 0;
@@ -72,7 +58,23 @@ export const Footer = styled.div`
   width: 100%;
   margin-right: -8px;
 `;
-
+export const Item = styled(NavLink)`
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  &:visited {
+    color: #000;
+  }
+  &.nav-item-active ${BackSVG} {
+    opacity: 1;
+  }
+`;
 export const Profile = styled.div`
   position: relative;
   width: 100%;

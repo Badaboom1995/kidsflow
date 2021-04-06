@@ -1,19 +1,13 @@
 import React from "react";
-import { Wrapper, Header } from "./styled";
+import { Wrapper } from "./styled";
 import Table from "parts/Table";
 import { Tariff, Status } from "parts/styled";
-import { Link } from "react-router-dom";
-import Button from "parts/Button";
-import blackPlus from "assets/blackPlus.svg";
+import AddButton from "parts/AddButton";
 
 function User() {
   return (
     <Wrapper>
-      <Header>
-        <Link to="/add-user">
-          <Button icon={blackPlus}>Добавить</Button>
-        </Link>
-      </Header>
+      <AddButton to="users/add-user" />
       <Table
         fields={[
           {
@@ -77,7 +71,7 @@ function User() {
           },
           {
             id: 5,
-            fullName: "Варунгов Константин Павлович",
+            fullName: "Дуров Константин Павлович",
             phone: "7 915 444 55 84",
             email: "ivan@mail.ru",
             subscriptionType: "pro",
@@ -101,7 +95,7 @@ function User() {
           },
           {
             id: 8,
-            fullName: "Таких Константин Павлович",
+            fullName: "Каких Константин Павлович",
             phone: "7 915 444 55 84",
             email: "ivan@mail.ru",
             subscriptionType: "pro",
@@ -109,7 +103,7 @@ function User() {
           },
           {
             id: 9,
-            fullName: "Тигр Константин Павлович",
+            fullName: "Таких Константин Павлович",
             phone: "7 915 444 55 84",
             email: "ivan@mail.ru",
             subscriptionType: "pro",
@@ -117,7 +111,7 @@ function User() {
           },
           {
             id: 10,
-            fullName: "Волк Константин Павлович",
+            fullName: "Тигр Константин Павлович",
             phone: "7 915 444 55 84",
             email: "ivan@mail.ru",
             subscriptionType: "pro",
@@ -125,7 +119,7 @@ function User() {
           },
           {
             id: 11,
-            fullName: "Пес Константин Павлович",
+            fullName: "Слон Константин Павлович",
             phone: "7 915 444 55 84",
             email: "ivan@mail.ru",
             subscriptionType: "pro",

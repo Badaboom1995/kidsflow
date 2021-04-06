@@ -4,6 +4,7 @@ import UpoadFileView from "./view";
 export interface IUpoadFile {
   label: string;
   bg?: string;
+  file?: boolean;
 }
 
 function UpoadFile(props: IUpoadFile) {

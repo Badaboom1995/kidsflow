@@ -1,11 +1,11 @@
-type FieldType = "text" | "select";
-type OptionType = { name: string; value: string };
+type FieldType = "text" | "select" | "textarea";
 type YupType = { key: string; args: any[] };
 
 type InputType = {
   name: string;
-  options?: any[];
+  value?: string;
   label?: string;
+  options?: any[];
   col?: number;
   icon?: string;
   type?: FieldType;
@@ -14,6 +14,7 @@ type InputType = {
 };
 
 export type formConfigType = {
+  title?: string;
   settings: {
     defaultType: FieldType;
     defaultCol: number;

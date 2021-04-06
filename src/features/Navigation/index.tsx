@@ -31,7 +31,7 @@ function Navigation() {
     },
     {
       label: "Организации",
-      to: "/organizations",
+      to: "/orgs",
       iconId: "orgs",
       color: "#FDB880",
       active: false,

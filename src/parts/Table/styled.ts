@@ -3,47 +3,50 @@ import { colors } from "config/constants";
 import arrowLeft from "./assets/left.svg";
 
 export const Wrapper = styled.div`
-  max-height: calc(100vh - 50px);
-  overflow: scroll;
-  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
 `;
 export const TableContainer = styled.table`
-  overflow: hidden;
   border-spacing: 0;
+  overflow: hidden;
   border-collapse: collapse;
   padding: 0;
   width: 100%;
   background-color: #fff;
   box-shadow: 0px 3px 15px 0px #00000032;
   border-radius: 9px 9px 0 0;
+  margin-bottom: 1px;
 `;
 export const TBody = styled.tbody``;
-export const THead = styled.thead`
-  background-color: #dfe0eb;
-`;
-export const Footer = styled.div`
+export const Footer = styled.tfoot`
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   background-color: #fff;
   padding: 25px 30px;
   font-weight: 400;
+  border-radius: 0 0 9px 9px;
 `;
 type CellProps = {
   textalign?: string;
   width?: string;
 };
 export const Cell = styled.td<CellProps>`
-  padding: 15px 0;
+  padding: 16px 0;
   font-size: 14px;
-  line-height: 17px;
   width: ${(props) => props.width};
   text-align: ${(props) => props.textalign};
-  font-weight: 700;
+  font-weight: 500;
 `;
 type RowProps = {
   head?: boolean;
 };
+export const THead = styled.thead`
+  background-color: #dfe0eb;
+  ${Cell} {
+    font-weight: 500;
+  }
+`;
 export const Row = styled.tr<RowProps>`
   cursor: pointer;
   border-bottom: 1px solid

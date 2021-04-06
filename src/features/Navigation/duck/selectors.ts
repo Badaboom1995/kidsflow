@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-import { NavigationState } from "./";
+import { NavigationState } from ".";
 
 export const navigationSelector = (state: NavigationState) => state.navigation;
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import ChildFormView from "./view";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -9,9 +9,11 @@ import { formConfigType } from "./types";
 
 interface IFormGenerator {
   config: formConfigType;
+  transparent?: boolean;
+  // TODO. How to make type for dynamic object?
+  initialValues?: any;
+  setRef?: (ref: any) => void;
   onSubmit?: (values: any) => void;
-  saveSubmitFunc?: (p: any) => void;
-  FormRef?: any;
 }
 /**
  * Form generator makes form depends on config
@@ -30,9 +32,16 @@ interface IFormGenerator {
 function FormGenerator({
   config,
   onSubmit,
-  saveSubmitFunc,
-  FormRef,
+  setRef,
+  transparent,
+  initialValues,
 }: IFormGenerator) {
+  const formRef = useRef();
+  useEffect(() => {
+    if (formRef && setRef) {
+      setRef(formRef);
+    }
+  }, [formRef]);
   const makeYup = (yup) => {
     if (!yup) return Yup.string().required("Обязательное поле");
     const startYup =
@@ -41,6 +50,7 @@ function FormGenerator({
         : Yup.string().required("Обязательное поле");
     return yup.reduce((accum, item) => accum[item.key](...item.args), startYup);
   };
+
   const makeYupSchema = (fields: any[]) =>
     fields.reduce(
       (accum, field) => ({
@@ -57,7 +67,7 @@ function FormGenerator({
     touched
   ) => {
     let field = null;
-    if (type === "text") {
+    if (type === "text" || type === "textarea") {
       field = (
         <Input
           {...props}
@@ -83,6 +93,7 @@ function FormGenerator({
       </Item>
     );
   };
+
   const makeFields = (errors, touched, handleChange) =>
     config.fields.reduce(
       (accum, curr) => ({
@@ -97,26 +108,31 @@ function FormGenerator({
       }),
       {}
     );
+
   const yupSchema = Yup.object(makeYupSchema(config.fields));
 
   return (
     <Formik
-      initialValues={config.fields.reduce(
-        (accum, curr) => ({ ...accum, [curr.name]: "" }),
-        {}
-      )}
+      initialValues={
+        initialValues ||
+        config.fields.reduce(
+          (accum, curr) => ({ ...accum, [curr.name]: curr.value || "" }),
+          {}
+        )
+      }
       onSubmit={(values, { resetForm }) => {
         onSubmit(values);
         resetForm();
       }}
       validationSchema={yupSchema}
-      innerRef={FormRef}
+      innerRef={formRef}
     >
       {(props) => {
         return (
           <ChildFormView
             {...props}
-            saveSubmitFunc={saveSubmitFunc}
+            title={config.title}
+            transparent={transparent}
             fieldsObj={makeFields(
               props.errors,
               props.touched,

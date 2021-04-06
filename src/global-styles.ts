@@ -1,6 +1,31 @@
 import { createGlobalStyle } from "styled-components";
+import MuseoLight from "common/fonts/museoLight.woff";
+import MuseoRegular from "common/fonts/museoRegular.woff";
+import MuseoBold from "common/fonts/museoBold.woff";
 
 export const GlobalStyle = createGlobalStyle`
+
+@font-face {
+        font-family: 'Museo';
+        src: local('Museo'), local('FontName'),
+        url(${MuseoLight}) format('woff');
+        font-weight: 300;
+        font-style: normal;
+    }
+@font-face {
+        font-family: 'Museo';
+        src: local('Museo'), local('FontName'),
+        url(${MuseoRegular}) format('woff');
+        font-weight: 500;
+        font-style: normal;
+    }
+@font-face {
+        font-family: 'Museo';
+        src: local('Museo'), local('FontName'),
+        url(${MuseoBold}) format('woff');
+        font-weight: 700;
+        font-style: normal;
+    }
 
   html,
   body {
@@ -11,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, a, button, pre {
-    font-family: 'Mulish', sans-serif;
+    font-family: 'Museo', sans-serif;
   }
 
   #root {

@@ -1,7 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Wrapper,
-  Title,
   AddFormButton,
   Content,
   Left,
@@ -18,38 +17,30 @@ import {
   ChildType,
   Name,
 } from "./styled";
-import { GlassCard, Status, Tariff } from "parts/styled";
+import {
+  ButtonsArea,
+  FormSectionTitle,
+  GlassCard,
+  Status,
+  Tariff,
+} from "parts/styled";
 import Button from "parts/Button";
 import { Label } from "parts/styled";
 import UpoadFile from "parts/UpoadFile";
 import FormGenerator from "parts/FormGenerator";
-import { addChildData } from "./duck/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectChildrenArray } from "./duck/selectors";
 import BackSection from "parts/BackSection";
+import { addChildData } from "./duck/slice";
+
+// TODO. separate logic and view
 function AddUserFormView() {
   const dispatch = useDispatch();
   const children = useSelector(selectChildrenArray);
   // TODO. Is there another way to do multiple forms?
-  const userFormRef: any = useRef();
-  const childFormRef: any = useRef();
-  const [userFormCurrent, setUserSubmit] = useState({ handleSubmit: () => {} });
-  const [childFormCurrrent, setChildSubmit] = useState({
-    handleSubmit: () => {},
-  });
-  useEffect(() => {
-    if (userFormRef.current) {
-      setUserSubmit(userFormRef.current);
-    }
-  }, [userFormRef]);
-  useEffect(() => {
-    if (childFormRef.current) {
-      setChildSubmit(childFormRef.current);
-    }
-  }, [childFormRef]);
-  const submitChildData = (values) => {
-    dispatch(addChildData(values));
-  };
+
+  const [userFormRef, setUserRef] = useState(null);
+  const [childFormRef, setChildRef] = useState(null);
 
   return (
     <Wrapper>
@@ -63,7 +54,7 @@ function AddUserFormView() {
             </ChildData>
           ))}
           <GlassCard style={{ marginRight: "10px" }}>
-            <AddFormButton onClick={childFormCurrrent.handleSubmit}>
+            <AddFormButton onClick={childFormRef?.current.handleSubmit}>
               добавить анкету ребенка
             </AddFormButton>
           </GlassCard>
@@ -77,7 +68,7 @@ function AddUserFormView() {
       </Header>
       <Content>
         <Top>
-          <Title>Пользователь (id 6942719):</Title>
+          <FormSectionTitle>Пользователь (id 6942719):</FormSectionTitle>
         </Top>
         <Left>
           <FormGenerator
@@ -94,7 +85,7 @@ function AddUserFormView() {
                 { name: "password", label: "Пароль" },
               ],
             }}
-            FormRef={userFormRef}
+            setRef={setUserRef}
           />
         </Left>
         <Right>
@@ -111,7 +102,7 @@ function AddUserFormView() {
       </Content>
       <Content>
         <Top>
-          <Title>Анкета ребенка (421123):</Title>
+          <FormSectionTitle>Анкета ребенка (421123):</FormSectionTitle>
         </Top>
         <Left>
           <FormGenerator
@@ -162,12 +153,14 @@ function AddUserFormView() {
                 { name: "apperanceType", label: "Тип внешности" },
               ],
             }}
-            FormRef={childFormRef}
-            onSubmit={submitChildData}
+            onSubmit={(values) => {
+              dispatch(addChildData(values));
+            }}
+            setRef={setChildRef}
           />
         </Left>
         <Right>
-          <Title>Фото:</Title>
+          <FormSectionTitle>Фото:</FormSectionTitle>
           <MediaSection>
             <MediaRow>
               <UpoadFile label="Добавить фото" />
@@ -177,7 +170,7 @@ function AddUserFormView() {
               <UpoadFile label="Добавить фото" />
               <UpoadFile label="Добавить фото" />
             </MediaRow>
-            <Title>Видео:</Title>
+            <FormSectionTitle>Видео:</FormSectionTitle>
             <MediaRow>
               <UpoadFile label="Добавить видео" />
               <UpoadFile label="Добавить видео" />
@@ -185,10 +178,16 @@ function AddUserFormView() {
           </MediaSection>
         </Right>
       </Content>
-      <Footer>
-        <Button onClick={userFormCurrent.handleSubmit}>Сохранить</Button>
-        <Button type="ghost">Удалить анкету</Button>
-      </Footer>
+      <ButtonsArea>
+        <section>
+          <Button onClick={userFormRef?.current.handleSubmit}>Сохранить</Button>
+          <Button type="ghost">Удалить анкету</Button>
+        </section>
+        <section>
+          <Button type="ghost">История откликов</Button>
+          <Button type="ghost">Заблокировать</Button>
+        </section>
+      </ButtonsArea>
     </Wrapper>
   );
 }

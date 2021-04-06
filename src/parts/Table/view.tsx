@@ -12,7 +12,7 @@ import {
   Arrow,
 } from "./styled";
 
-import { Field } from "./";
+import { Field } from ".";
 import { SieveType } from "ducks/sieve/types";
 
 interface ITableView {

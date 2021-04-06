@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-import { AddUserFormState } from "./";
+import { AddUserFormState } from ".";
 
 export const AddUserFormSelector = (state: AddUserFormState) =>
   state.addUserForm;

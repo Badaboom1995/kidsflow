@@ -2,7 +2,6 @@ import React from "react";
 import { Wrapper } from "./styled";
 import Input from "parts/Input";
 import { Formik } from "formik";
-import Button from "parts/Button";
 import { FromArea, Fields, FieldLabel, AuthButton } from "./styled";
 import Logo from "parts/Logo";
 

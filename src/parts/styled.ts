@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import spinner from "assets/spinner.gif";
 import { colors } from "config/constants";
+import arrow from "assets/arrow.svg";
+
 const selectTariffColor = (type) => {
   if (type === "basic") return "#BEC2CE";
   if (type === "medium") return "#FF5858";
@@ -26,8 +28,8 @@ export const Label = styled.p`
 type TariffProps = { type: string };
 export const Tariff = styled.div<TariffProps>`
   width: 75px;
-  font-size: 16px;
-  padding: 7px;
+  font-size: 14px;
+  padding: 5px;
   border: 2px solid ${(props) => selectTariffColor(props.type)};
   border-radius: 5px;
   text-align: center;
@@ -38,6 +40,7 @@ type StatusProps = { active?: boolean };
 export const Status = styled.div<StatusProps>`
   display: flex;
   align-items: center;
+  white-space: nowrap;
   &:before {
     content: "";
     display: block;
@@ -96,4 +99,60 @@ export const GlassCard = styled.div<GlassCardProps>`
   background-color: #ffffff4d;
   padding: 10px;
   margin-bottom: 10px;
+`;
+type FormSectionTitleProps = {
+  offsetLeft?: number;
+  marginBottom?: number;
+};
+export const FormSectionTitle = styled.h2<FormSectionTitleProps>`
+  grid-column: span 12;
+  margin-top: 0;
+  width: 100%;
+  padding-left: ${(props) => props.offsetLeft}px;
+  text-transform: uppercase;
+  color: #51535e;
+  font-weight: 500;
+  margin-bottom: ${(props) => props.marginBottom}px;
+  font-size: 16px;
+`;
+export const ButtonsArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  button {
+    margin-right: 10px;
+  }
+  section {
+    display: flex;
+  }
+`;
+type GridContainerProps = {
+  transparent?: boolean;
+};
+export const GridContainer = styled(GlassCard)<GridContainerProps>`
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: ${(props) => props.transparent && "transparent"};
+`;
+
+export const BackButton = styled.button`
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  &:before {
+    content: "";
+    display: block;
+    width: 17px;
+    height: 14px;
+    margin-right: 8px;
+    background-image: url(${arrow});
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 `;
