@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   width: 150px;
   z-index: 10;
   padding-top: 35px;
-  background-color: #fff;
+  background-color: #fed98e;
   transition: 0.3s all ease;
   overflow: hidden;
   background-image: url(${stars});

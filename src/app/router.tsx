@@ -21,7 +21,7 @@ export default function Router(props: IRouter) {
       <Route path={`${prefix}/users`} exact={true} component={Users} />
       <Route path={`${prefix}/users/add-user`} component={AddUser} />
       <Route path={`${prefix}/orgs`} exact={true} component={Orgs} />
-      <Route path={`${prefix}/orgs/add-org`} component={AddOrg} />
+      <Route path={`${prefix}/orgs/add-org/:id?`} component={AddOrg} />
       <Route path={`${prefix}/support`} component={SupportPage} />
       <Route path={`${prefix}/catalog`} exact={true} component={Catalog} />
       <Route path={`${prefix}/catalog/add`} component={CatalogAdd} />

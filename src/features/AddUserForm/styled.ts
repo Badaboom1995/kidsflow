@@ -5,6 +5,7 @@ import plus from "assets/plus.svg";
 export const Wrapper = styled.div``;
 export const Header = styled.div`
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
 `;
@@ -42,7 +43,7 @@ type ItemProps = { col?: number };
 export const Item = styled.div<ItemProps>`
   grid-column: span ${(props) => props.col || 6};
   padding: 0 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 export const Section = styled(GlassCard)`
   margin-bottom: 10px;

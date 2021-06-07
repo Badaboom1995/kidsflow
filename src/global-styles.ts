@@ -1,31 +1,41 @@
 import { createGlobalStyle } from "styled-components";
 import MuseoLight from "common/fonts/museoLight.woff";
-import MuseoRegular from "common/fonts/museoRegular.woff";
+import MuseoRegularWoff from "common/fonts/museoRegular.woff";
+import MuseoLightTrue from "common/fonts/museoRegular.ttf";
+import MuseoRegularTrue from "common/fonts/MuseoSansCyrl-500.ttf";
+import MuseoBoldTrue from "common/fonts/MuseoSansCyrl-700.ttf";
 import MuseoBold from "common/fonts/museoBold.woff";
 
 export const GlobalStyle = createGlobalStyle`
 
-@font-face {
+/* @font-face {
         font-family: 'Museo';
         src: local('Museo'), local('FontName'),
         url(${MuseoLight}) format('woff');
         font-weight: 300;
         font-style: normal;
-    }
+    } */
 @font-face {
-        font-family: 'Museo';
-        src: local('Museo'), local('FontName'),
-        url(${MuseoRegular}) format('woff');
-        font-weight: 500;
-        font-style: normal;
-    }
+    font-family: 'Museo';
+    src: url(${MuseoLightTrue}) format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: auto;
+  }
 @font-face {
-        font-family: 'Museo';
-        src: local('Museo'), local('FontName'),
-        url(${MuseoBold}) format('woff');
-        font-weight: 700;
-        font-style: normal;
-    }
+    font-family: 'Museo';
+    src: url(${MuseoRegularTrue}) format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: auto;
+  }
+@font-face {
+    font-family: 'Museo';
+    src: url(${MuseoBoldTrue}) format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: auto;
+  }
 
   html,
   body {

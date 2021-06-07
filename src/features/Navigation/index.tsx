@@ -68,12 +68,12 @@ function Navigation() {
         <Logo />
       </Head>
       <NavList>
-        {menuItems?.map(({ label, to, iconId, color, active }) => (
+        {menuItems?.map(({ label, to, iconId, active }) => (
           <NavItem
             key={label}
             to={to}
             iconId={iconId}
-            color={color}
+            color={"#FFF8E9"}
             active={active}
             onClick={() => {
               if (!active) setActive(label);

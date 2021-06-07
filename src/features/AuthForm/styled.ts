@@ -39,13 +39,12 @@ export const AuthButton = styled.button`
   font-weight: 700;
   text-transform: uppercase;
   font-size: 14px;
-  box-shadow: 0px 5px 20px 0px #ff5a57;
-  background-color: ${colors.primary};
+  background-color: #ffc400;
   color: #fff;
   border: none;
   cursor: pointer;
   outline: none;
   &:active {
-    background-color: ${darken(0.1, colors.primary)};
+    background-color: ${darken(0.02, "#FFC400")};
   }
 `;

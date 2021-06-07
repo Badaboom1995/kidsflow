@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Wrapper,
-  AddFormButton,
   Content,
   Left,
   Right,
@@ -10,20 +9,8 @@ import {
   MediaSection,
   MediaRow,
   Header,
-  StatusSection,
-  Footer,
-  ChildArea,
-  ChildData,
-  ChildType,
-  Name,
 } from "./styled";
-import {
-  ButtonsArea,
-  FormSectionTitle,
-  GlassCard,
-  Status,
-  Tariff,
-} from "parts/styled";
+import { ButtonsArea, FormSectionTitle, GlassCard } from "parts/styled";
 import Button from "parts/Button";
 import { Label } from "parts/styled";
 import UpoadFile from "parts/UpoadFile";
@@ -32,12 +19,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectChildrenArray } from "./duck/selectors";
 import BackSection from "parts/BackSection";
 import { addChildData } from "./duck/slice";
+import { ChildControls } from "./components/ChildControls";
+import { StatusArea } from "./components/StatusArea";
 
-// TODO. separate logic and view
 function AddUserFormView() {
   const dispatch = useDispatch();
   const children = useSelector(selectChildrenArray);
-  // TODO. Is there another way to do multiple forms?
 
   const [userFormRef, setUserRef] = useState(null);
   const [childFormRef, setChildRef] = useState(null);
@@ -46,25 +33,8 @@ function AddUserFormView() {
     <Wrapper>
       <BackSection />
       <Header>
-        <ChildArea>
-          {children.map((item) => (
-            <ChildData>
-              <Name>{`${item.name} ${item.surname}`}</Name>
-              <ChildType>Кастинг</ChildType>
-            </ChildData>
-          ))}
-          <GlassCard style={{ marginRight: "10px" }}>
-            <AddFormButton onClick={childFormRef?.current.handleSubmit}>
-              добавить анкету ребенка
-            </AddFormButton>
-          </GlassCard>
-        </ChildArea>
-        <StatusSection>
-          <Status active style={{ marginRight: "10px" }}>
-            Активен
-          </Status>
-          <Tariff type="premium">Premium</Tariff>
-        </StatusSection>
+        <ChildControls childrenData={children} childFormRef={childFormRef} />
+        <StatusArea tariff="PRO" status="Активен" />
       </Header>
       <Content>
         <Top>
