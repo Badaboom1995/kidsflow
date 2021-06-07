@@ -7,9 +7,9 @@ interface ErrorContainierInterface {
 }
 function ErrorContainier({ error, children }: ErrorContainierInterface) {
   return (
-    <Wrapper>
+    <Wrapper error={error}>
       {children}
-      {error && <ErrorText>{error}</ErrorText>}
+      {/* {error && <ErrorText>{error}</ErrorText>} */}
     </Wrapper>
   );
 }

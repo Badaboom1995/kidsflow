@@ -61,7 +61,7 @@ type InputContainerProps = {
 export const InputContainer = styled.label<InputContainerProps>`
   display: flex;
   align-items: center;
-  background-color: #f6f6f6;
+  background-color: #fff0d3;
   padding: 9px;
   padding-left: ${(props) => !props.centered && "40px"};
   border-radius: 10px;

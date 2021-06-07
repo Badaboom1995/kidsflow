@@ -36,7 +36,7 @@ export const Tariff = styled.div<TariffProps>`
   color: ${(props) => selectTariffColor(props.type)};
   text-transform: uppercase;
 `;
-type StatusProps = { active?: boolean };
+type StatusProps = { status?: string };
 export const Status = styled.div<StatusProps>`
   display: flex;
   align-items: center;
@@ -47,7 +47,17 @@ export const Status = styled.div<StatusProps>`
     width: 7px;
     height: 7px;
     margin-right: 7px;
-    background-color: ${(props) => (props.active ? "#27AE60" : colors.primary)};
+    background-color: ${(props) => {
+      switch (props.status) {
+        case "active":
+          return "#27AE60";
+        case "disabled":
+          return colors.primary;
+        case "waiting":
+          return "#FFC400";
+      }
+      return props.status ? "#27AE60" : colors.primary;
+    }};
     border-radius: 50%;
   }
 `;
@@ -91,12 +101,14 @@ export const Loader = styled.span`
 `;
 type GlassCardProps = {
   fullWidth?: boolean;
+  transparent?: boolean;
 };
 export const GlassCard = styled.div<GlassCardProps>`
   width: ${(props) => (props.fullWidth ? "100%" : "auto")};
   display: inline-block;
   border-radius: 10px;
-  background-color: #ffffff4d;
+  background-color: ${(props) =>
+    props.transparent ? "transparent" : "#ffffff4d"};
   padding: 10px;
   margin-bottom: 10px;
 `;
@@ -106,7 +118,7 @@ type FormSectionTitleProps = {
 };
 export const FormSectionTitle = styled.h2<FormSectionTitleProps>`
   grid-column: span 12;
-  margin-top: 0;
+  margin-top: 5px;
   width: 100%;
   padding-left: ${(props) => props.offsetLeft}px;
   text-transform: uppercase;
@@ -116,8 +128,10 @@ export const FormSectionTitle = styled.h2<FormSectionTitleProps>`
   font-size: 16px;
 `;
 export const ButtonsArea = styled.div`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
+  padding: 10px;
   justify-content: space-between;
   button {
     margin-right: 10px;

@@ -28,8 +28,8 @@ export default function Input({
 }: IInput) {
   return (
     <Wrapper>
+      {label && <Label>{label}</Label>}
       <ErrorContainier error={touched ? error : ""}>
-        {label && <Label>{label}</Label>}
         {type === "textarea" ? (
           <Field name={name}>
             {({ field }) => (

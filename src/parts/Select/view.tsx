@@ -23,13 +23,14 @@ function SelectView({
   label,
 }) {
   const showSelected = (selectedValue) =>
-    options[0].value
+    options[0]?.value
       ? options.find((item) => item.value === selectedValue)?.name
       : selectedValue;
+
   return (
     <Wrapper open={isOpen}>
+      <Label>{label}</Label>
       <ErrorContainier error={touched ? error : ""}>
-        <Label>{label}</Label>
         <SelectBox selected={!!selectedValue} onClick={toggleSelect}>
           {selectedValue ? showSelected(selectedValue) : title}
         </SelectBox>
@@ -42,7 +43,7 @@ function SelectView({
               type="radio"
               onChange={setSelected}
               name={name}
-              value={option.value || option}
+              value={option?.value || option}
             />
           </Option>
         ))}

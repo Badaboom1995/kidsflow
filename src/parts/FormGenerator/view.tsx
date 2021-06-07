@@ -2,6 +2,7 @@ import React from "react";
 import { GridContainer } from "parts/styled";
 import { Form } from "formik";
 import { FormSectionTitle } from "parts/styled";
+import { Wrapper } from "./styled";
 
 interface IAddUserFormView {
   title: string;
@@ -17,14 +18,16 @@ function ChildFormView({
 }: IAddUserFormView) {
   return (
     <Form onSubmit={handleSubmit}>
-      <GridContainer transparent={transparent}>
-        {title && (
-          <FormSectionTitle offsetLeft={50} marginBottom={20}>
-            {title}
-          </FormSectionTitle>
-        )}
-        {Object.keys(fieldsObj).map((key) => fieldsObj[key])}
-      </GridContainer>
+      <Wrapper>
+        <GridContainer transparent={transparent}>
+          {title && (
+            <FormSectionTitle offsetLeft={50} marginBottom={20}>
+              {title}
+            </FormSectionTitle>
+          )}
+          {Object.keys(fieldsObj).map((key) => fieldsObj[key])}
+        </GridContainer>
+      </Wrapper>
     </Form>
   );
 }

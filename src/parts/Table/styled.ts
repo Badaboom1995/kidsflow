@@ -12,13 +12,15 @@ export const TableContainer = styled.table`
   border-collapse: collapse;
   padding: 0;
   width: 100%;
+  max-height: calc(100vh - 120px);
   background-color: #fff;
   box-shadow: 0px 3px 15px 0px #00000032;
-  border-radius: 9px 9px 0 0;
+  border-radius: 9px;
   margin-bottom: 1px;
+  overflow: scroll;
 `;
 export const TBody = styled.tbody``;
-export const Footer = styled.tfoot`
+export const Footer = styled.footer`
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -42,9 +44,9 @@ type RowProps = {
   head?: boolean;
 };
 export const THead = styled.thead`
-  background-color: #dfe0eb;
+  background-color: #ffe6b4;
   ${Cell} {
-    font-weight: 500;
+    font-weight: 700;
   }
 `;
 export const Row = styled.tr<RowProps>`

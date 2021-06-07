@@ -2,16 +2,21 @@ import styled from "styled-components";
 import arrow from "./assets/arrow.svg";
 import { Field } from "formik";
 
-export const SelectBox = styled.div`
+type SelectBoxProps = {
+  selected: boolean;
+};
+
+export const SelectBox = styled.div<SelectBoxProps>`
   position: relative;
   display: block;
-  background-color: #f5f8fa;
+  background-color: #fff0d3;
+
   padding: 11.5px;
   border-radius: 8px;
   border: none;
   font-size: 14px;
   text-align: center;
-  color: ${(props) => !props.selected && "#A2A2A2"};
+  color: ${(props) => !props.selected && "#252733"};
   cursor: pointer;
   transition: 0.3s all ease;
   transform: rotate(0deg);
@@ -37,14 +42,16 @@ export const OptionsContainer = styled.div`
   box-sizing: border-box;
   overflow: scroll;
   position: absolute;
-  top: 85px;
+  top: 75px;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0px 3px 8px #00000026;
-  padding: 5px 0;
 `;
 
-export const Wrapper = styled.div`
+type WrapperProps = {
+  open: boolean;
+};
+export const Wrapper = styled.div<WrapperProps>`
   position: relative;
   ${OptionsContainer} {
     display: ${(props) => (props.open ? "block" : "none")};
@@ -55,7 +62,7 @@ export const Wrapper = styled.div`
 `;
 export const Option = styled.label`
   display: block;
-  padding: 17px 10px;
+  padding: 10px;
   font-weight: normal;
   background-color: #fff;
   margin: 0;

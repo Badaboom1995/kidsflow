@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 `;
 export const FormContainer = styled(Form)`
   display: flex;
-  width: 80%;
+  /* width: 80%; */
   border-radius: 10px;
   label {
     padding: 9px;

@@ -4,7 +4,7 @@ type YupType = { key: string; args: any[] };
 type InputType = {
   name: string;
   value?: string;
-  label?: string;
+  label?: any;
   options?: any[];
   col?: number;
   icon?: string;

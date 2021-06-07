@@ -9,6 +9,7 @@ import { formConfigType } from "./types";
 
 interface IFormGenerator {
   config: formConfigType;
+  resetOnSubmit?: boolean;
   transparent?: boolean;
   // TODO. How to make type for dynamic object?
   initialValues?: any;
@@ -32,16 +33,19 @@ interface IFormGenerator {
 function FormGenerator({
   config,
   onSubmit,
+  resetOnSubmit,
   setRef,
   transparent,
   initialValues,
 }: IFormGenerator) {
   const formRef = useRef();
+
   useEffect(() => {
     if (formRef && setRef) {
       setRef(formRef);
     }
   }, [formRef]);
+
   const makeYup = (yup) => {
     if (!yup) return Yup.string().required("Обязательное поле");
     const startYup =
@@ -59,6 +63,7 @@ function FormGenerator({
       }),
       {}
     );
+
   const chooseFieldByType = (
     type: string,
     handleChange,
@@ -84,6 +89,7 @@ function FormGenerator({
           onChange={handleChange}
           error={errors[props.name]}
           touched={touched[props.name]}
+          value={initialValues && initialValues[props.name]}
         />
       );
     }
@@ -122,7 +128,7 @@ function FormGenerator({
       }
       onSubmit={(values, { resetForm }) => {
         onSubmit(values);
-        resetForm();
+        resetOnSubmit && resetForm();
       }}
       validationSchema={yupSchema}
       innerRef={formRef}
