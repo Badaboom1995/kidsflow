@@ -14,7 +14,7 @@ import NavItem from "./components/NavItem";
 import avo from "./assets/avo.png";
 
 function Navigation() {
-  const prefix = 'process.env.NODE_ENV === "production"' ? "/admin" : "";
+  const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
   const initialState = [
     {
       label: "Управление каталогом",
