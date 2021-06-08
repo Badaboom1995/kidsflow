@@ -14,7 +14,7 @@ interface IRouter {
   children?: React.ReactNode;
 }
 export default function Router(props: IRouter) {
-  const prefix = process.env.NODE_ENV === "production" ? "" : "";
+  const prefix = 'process.env.NODE_ENV === "production"' ? "/admin" : "";
 
   return (
     <Switch>

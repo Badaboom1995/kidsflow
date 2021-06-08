@@ -24,7 +24,12 @@ function TabsView({ tabs, activeTab, setActiveTab }: ITabsView) {
       </Tabs>
       {/* {tabs.find((item) => item.id === activeTab)?.content} */}
       {tabs.map((item) => (
-        <div key={item.id}>{item.content(activeTab, item.id)}</div>
+        <div
+          style={{ display: activeTab === item.id ? "block" : "none" }}
+          key={item.id}
+        >
+          {item.content}
+        </div>
       ))}
     </Wrapper>
   );

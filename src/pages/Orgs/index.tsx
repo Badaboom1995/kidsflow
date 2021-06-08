@@ -4,7 +4,6 @@ import { Wrapper, OrgName, Adress } from "./styled";
 import { Status } from "parts/styled";
 
 import AddButton from "parts/AddButton";
-import organizationsService from "services/organizations";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrganizations } from "./duck/actions";
@@ -13,7 +12,6 @@ import { selectOrganizations } from "./duck/selectors";
 function Orgs() {
   const dispatch = useDispatch();
   const organizations = useSelector(selectOrganizations);
-  // const organizations = [];
   const history = useHistory();
 
   const onRowClick = (id: string) => {
@@ -24,12 +22,14 @@ function Orgs() {
     dispatch(getOrganizations(""));
   }, []);
 
-  const normalizedOrganizations = organizations.map((item) => ({
-    ...item,
-    eventCategory: item.eventCategories[0],
-    partner: item.partner ? item.partner : "Нет партнера",
-    status: item.isActive ? "активный" : "заблокирован",
-  }));
+  const normalizedOrganizations = organizations.map((item) => {
+    return {
+      ...item,
+      eventCategory: item.eventCategories[0],
+      partner: item.partner ? item.partner.firstName : "Нет партнера",
+      status: item.isActive ? "активный" : "заблокирован",
+    };
+  });
 
   return (
     <Wrapper>
@@ -48,7 +48,15 @@ function Orgs() {
             props: { width: "20%" },
             getComponent: (text) => <OrgName>{text}</OrgName>,
           },
-          { label: "Партнер", key: "partner", props: { width: "13%" } },
+          {
+            label: "Партнер",
+            key: "partner",
+            props: { width: "13%" },
+            getComponent: (partner) => {
+              console.log(partner);
+              return partner.firstName;
+            },
+          },
           {
             label: "Адрес",
             key: "address",

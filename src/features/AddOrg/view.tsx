@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Wrapper,
-  MainArea,
-  Left,
-  Right,
-  Row,
-  Docs,
-  Partners,
-  PartnersField,
-  Header,
-} from "./styled";
+import { Wrapper, MainArea, Left, Right, Row, Docs, Header } from "./styled";
 import FormGenerator from "parts/FormGenerator";
 import BackSection from "parts/BackSection";
 import { FormSectionTitle, ButtonsArea } from "parts/styled";
@@ -18,23 +8,21 @@ import Button from "parts/Button";
 import Tabs from "parts/Tabs";
 import StatusHandler from "parts/StatusHandler";
 import { toast } from "react-toastify";
-import Select from "parts/Select";
-import { Formik, Form } from "formik";
-import { directions, getAge, getSchedule } from "config/constants";
 import organizationsService from "services/organizations";
+import GeneralForm from "./components/GeneralForm";
 
 function AddOrgView({
-  partners,
   initialData,
+  organizationId,
 }: {
-  partners: { name: string; value: string }[];
+  organizationId: string;
   initialData?: {
     general: any;
     contacts: any;
     legal: any;
-    id: string;
-    partner: string;
   };
+  formRefs: { general: any; contacts: any; legal: any };
+  setFormRef: (ref: any) => void;
 }) {
   const submitMethod = initialData
     ? organizationsService.update
@@ -79,7 +67,7 @@ function AddOrgView({
           partnerId: "2d83d926-c148-4884-98a8-c398c7ff6327",
           status,
         },
-        initialData.id
+        organizationId
       );
 
       setTimeout(() => {
@@ -120,102 +108,21 @@ function AddOrgView({
       <MainArea>
         <Left>
           <Tabs
+            activeId={1}
             tabs={[
               {
                 id: 1,
                 name: "Общее",
-                content: (activeId, tabId) => (
-                  // *** GENERAL CONTENT ***
-                  <div
-                    style={{ display: activeId === tabId ? "block" : "none" }}
-                  >
-                    <FormGenerator
-                      resetOnSubmit={formCompleted}
-                      config={{
-                        title: "Общее",
-                        settings: { defaultType: "text", defaultCol: 6 },
-                        fields: [
-                          { name: "name", label: "Название" },
-                          { name: "about", label: "Описание" },
-                          {
-                            name: "directions",
-                            label: "Направление",
-                            type: "select",
-                            options: directions,
-                          },
-                          {
-                            name: "category",
-                            label: "Категория",
-                            type: "select",
-                            options: [
-                              { name: "Английский", value: "1" },
-                              { name: "Испанский", value: "2" },
-                              { name: "Китайский", value: "3" },
-                            ],
-                          },
-                          {
-                            name: "businessHours",
-                            label: (
-                              <div>
-                                Расписание<div>неделя</div>
-                              </div>
-                            ),
-                            type: "select",
-                            options: getSchedule(),
-                          },
-
-                          {
-                            name: "ageFrom",
-                            label: (
-                              <div>
-                                Возраст<div>от</div>
-                              </div>
-                            ),
-                            type: "select",
-                            col: 3,
-                            options: getAge(25),
-                          },
-                          {
-                            name: "ageTo",
-                            label: (
-                              <div>
-                                Возраст<div>до</div>
-                              </div>
-                            ),
-                            type: "select",
-                            col: 3,
-                            options: getAge(25),
-                          },
-                        ],
-                      }}
-                      onSubmit={(values) => {
+                content: (
+                  <div>
+                    <GeneralForm
+                      initialData={initialData.general}
+                      setGeneral={(values) => {
                         setGeneral(values);
                       }}
-                      initialValues={initialData.general}
+                      formCompleted={formCompleted}
                       setRef={setGeneralRef}
                     />
-
-                    <Partners>
-                      <FormSectionTitle offsetLeft={40} marginBottom={20}>
-                        Партнеры
-                      </FormSectionTitle>
-                      <PartnersField>
-                        <Formik
-                          onSubmit={() => {}}
-                          initialValues={{ partners: initialData.partner }}
-                        >
-                          <Form>
-                            <Select
-                              title={"Выбрать..."}
-                              onChange={() => {}}
-                              options={partners || []}
-                              name="partners"
-                              value={initialData.partner}
-                            />
-                          </Form>
-                        </Formik>
-                      </PartnersField>
-                    </Partners>
                     <Row>
                       <UpoadFile label="Добавить логотип" />
                       <UpoadFile label="Добавить фото" />
@@ -223,73 +130,48 @@ function AddOrgView({
                       <UpoadFile label="Добавить фото" />
                     </Row>
                   </div>
-                  // *** GENERAL CONTENT ***
                 ),
               },
               {
                 id: 2,
                 name: "Контакты",
-                content: (activeId, tabId) => (
-                  // *** CONTACTS CONTENT ***
-                  <div
-                    style={{ display: activeId === tabId ? "block" : "none" }}
-                  >
-                    <FormGenerator
-                      resetOnSubmit={formCompleted}
-                      config={{
-                        title: "Контакты",
-                        settings: { defaultType: "text", defaultCol: 6 },
-                        fields: [
-                          { name: "address", label: "Адрес" },
-                          { name: "phoneNumber", label: "Телефон" },
-                          { name: "email", label: "Email" },
-                          { name: "site", label: "Сайт" },
-                        ],
-                      }}
-                      onSubmit={(values) => {
-                        setContact(values);
-                      }}
-                      setRef={setContactRef}
-                      initialValues={initialData.contacts}
-                    />
-                  </div>
-                  // *** CONTACTS CONTENT ***
+                content: (
+                  <FormGenerator
+                    resetOnSubmit={formCompleted}
+                    config={{
+                      title: "Контакты",
+                      settings: { defaultType: "text", defaultCol: 6 },
+                      fields: [
+                        { name: "address", label: "Адрес" },
+                        { name: "phoneNumber", label: "Телефон" },
+                        { name: "email", label: "Email" },
+                        { name: "site", label: "Сайт" },
+                      ],
+                    }}
+                    onSubmit={(values) => {
+                      setContact(values);
+                    }}
+                    setRef={setContactRef}
+                    initialValues={initialData.contacts}
+                  />
                 ),
               },
               {
                 id: 3,
                 name: "Юридические данные",
-                content: (activeId, tabId) => (
-                  // *** DATA CONTENT ***
-                  <div
-                    style={{ display: activeId === tabId ? "block" : "none" }}
-                  >
+                content: (
+                  <>
                     <FormGenerator
                       resetOnSubmit={formCompleted}
                       config={{
                         title: "Юридические данные",
                         settings: { defaultType: "text", defaultCol: 6 },
                         fields: [
-                          {
-                            name: "entity",
-                            label: "Юр.Лицо",
-                          },
-                          {
-                            name: "accountAddress",
-                            label: "Расчетный счет",
-                          },
-                          {
-                            name: "taxIdNumber",
-                            label: "ИНН",
-                          },
-                          {
-                            name: "primaryStateNumber",
-                            label: "ОГРН",
-                          },
-                          {
-                            name: "legalAddress",
-                            label: "Юр. адрес",
-                          },
+                          { name: "entity", label: "Юр.Лицо" },
+                          { name: "accountAddress", label: "Расчетный счет" },
+                          { name: "taxIdNumber", label: "ИНН" },
+                          { name: "primaryStateNumber", label: "ОГРН" },
+                          { name: "legalAddress", label: "Юр. адрес" },
                         ],
                       }}
                       onSubmit={(values) => {
@@ -305,12 +187,10 @@ function AddOrgView({
                         <UpoadFile label="Добавить документ" file />
                       </Docs>
                     </Row>
-                  </div>
-                  // *** DATA CONTENT ***
+                  </>
                 ),
               },
             ]}
-            activeId={1}
           />
         </Left>
         <Right></Right>

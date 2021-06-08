@@ -14,38 +14,39 @@ import NavItem from "./components/NavItem";
 import avo from "./assets/avo.png";
 
 function Navigation() {
+  const prefix = 'process.env.NODE_ENV === "production"' ? "/admin" : "";
   const initialState = [
     {
       label: "Управление каталогом",
-      to: "/catalog",
+      to: `${prefix}/catalog`,
       iconId: "cast",
       color: "#FEC586",
       active: true,
     },
     {
       label: "Пользователи",
-      to: "/users",
+      to: `${prefix}/users`,
       iconId: "users",
       color: "#FCBF83",
       active: false,
     },
     {
       label: "Организации",
-      to: "/orgs",
+      to: `${prefix}/orgs`,
       iconId: "orgs",
       color: "#FDB880",
       active: false,
     },
     {
       label: "События",
-      to: "/events",
+      to: `${prefix}/events`,
       iconId: "events",
       color: "#FDB381",
       active: false,
     },
     {
       label: "Поддержка",
-      to: "/support",
+      to: `${prefix}/support`,
       iconId: "support",
       color: "#FDA987",
       active: false,
