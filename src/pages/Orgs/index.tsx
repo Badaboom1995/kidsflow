@@ -13,9 +13,10 @@ function Orgs() {
   const dispatch = useDispatch();
   const organizations = useSelector(selectOrganizations);
   const history = useHistory();
+  const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
 
   const onRowClick = (id: string) => {
-    history.push(`/orgs/add-org/${id}`);
+    history.push(`${prefix}/orgs/add-org/${id}`);
   };
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function Orgs() {
 
   return (
     <Wrapper>
-      <AddButton to="orgs/add-org" />
+      <AddButton to={`${prefix}/orgs/add-org`} />
       <Table
         onRowClick={{ method: onRowClick, itemIdKey: "entityId" }}
         fields={[
