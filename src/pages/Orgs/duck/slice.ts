@@ -21,7 +21,7 @@ const organizatonsSlice = createSlice({
         organizationsAdapter.setAll(state, payload.entities);
       },
       () => {
-        toast.error("Неверный логин или пароль");
+        toast.error("Не удалось загрузить организации. Обновите страницу");
         console.log("error");
       }
     );

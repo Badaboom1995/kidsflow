@@ -19,7 +19,8 @@ function App() {
       <Router />
     </Layout>
   );
-  const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
+  // const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
+  const prefix = "";
 
   useEffect(() => {
     isLoggedIn

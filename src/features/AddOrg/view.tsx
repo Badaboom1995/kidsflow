@@ -39,11 +39,15 @@ function AddOrgView({
   const [formalData, setFormal] = useState(null);
 
   const [formCompleted, setCompleted] = useState(null);
+  const [formReady, setFormReady] = useState(false);
 
   const submitAll = () => {
     generalRef?.current?.handleSubmit();
     contactRef?.current?.handleSubmit();
     formalRef?.current?.handleSubmit();
+    setTimeout(() => {
+      setFormReady(!formReady);
+    }, 300);
   };
 
   useEffect(() => {
@@ -63,7 +67,7 @@ function AddOrgView({
             },
           ],
           directions: ["Sport"],
-          uploadIds: [],
+          uploadIds: [""],
           partnerId: "2d83d926-c148-4884-98a8-c398c7ff6327",
           status,
         },
@@ -71,16 +75,17 @@ function AddOrgView({
       );
 
       setTimeout(() => {
-        submitAll();
         toast.success("Готово!");
       }, 100);
       return;
     }
 
     if (!generalData || !contactData) {
-      toast.error("Заполните все поля");
+      setTimeout(() => {
+        toast.error("Заполните все поля");
+      }, 100);
     }
-  }, [generalData, contactData, formalData]);
+  }, [formReady]);
 
   return (
     <Wrapper>
@@ -116,7 +121,7 @@ function AddOrgView({
                 content: (
                   <div>
                     <GeneralForm
-                      initialData={initialData.general}
+                      initialData={initialData?.general}
                       setGeneral={(values) => {
                         setGeneral(values);
                       }}
@@ -152,7 +157,7 @@ function AddOrgView({
                       setContact(values);
                     }}
                     setRef={setContactRef}
-                    initialValues={initialData.contacts}
+                    initialValues={initialData?.contacts}
                   />
                 ),
               },

@@ -45,7 +45,7 @@ function AddOrg() {
 
   return (
     <AddOrgView
-      initialData={initialData}
+      initialData={rawData ? initialData : null}
       organizationId={organizationId}
       formRefs={formRefs}
       setFormRef={setFormRef}

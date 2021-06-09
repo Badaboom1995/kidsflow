@@ -95,7 +95,7 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
         <PartnersField>
           <Formik
             onSubmit={() => {}}
-            initialValues={{ partners: initialData.partner }}
+            initialValues={{ partners: initialData?.partner }}
           >
             <Form>
               <Select
@@ -103,7 +103,7 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
                 onChange={() => {}}
                 options={partners || []}
                 name="partners"
-                value={initialData.partnerId}
+                value={initialData?.partnerId}
               />
             </Form>
           </Formik>
