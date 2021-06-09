@@ -13,7 +13,8 @@ function Orgs() {
   const dispatch = useDispatch();
   const organizations = useSelector(selectOrganizations);
   const history = useHistory();
-  const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
+  // const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
+  const prefix = "";
 
   const onRowClick = (id: string) => {
     history.push(`${prefix}/orgs/add-org/${id}`);
