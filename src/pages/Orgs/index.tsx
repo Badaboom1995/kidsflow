@@ -55,7 +55,6 @@ function Orgs() {
             key: "partner",
             props: { width: "13%" },
             getComponent: (partner) => {
-              console.log(partner);
               return partner.firstName;
             },
           },

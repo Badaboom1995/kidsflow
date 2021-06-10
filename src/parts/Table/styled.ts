@@ -6,6 +6,11 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+export const ShadowContainer = styled.div`
+  box-shadow: 0px 3px 15px 0px #00000032;
+  border-radius: 10px;
+  overflow: hidden;
+`;
 export const TableContainer = styled.table`
   border-spacing: 0;
   overflow: hidden;
@@ -14,7 +19,7 @@ export const TableContainer = styled.table`
   width: 100%;
   max-height: calc(100vh - 120px);
   background-color: #fff;
-  box-shadow: 0px 3px 15px 0px #00000032;
+
   border-radius: 9px;
   margin-bottom: 1px;
   overflow: scroll;

@@ -17,7 +17,7 @@ export const selectSort = createSelector(sievesSelector, (state) => state.sort);
 const StringifyValues = (items: any[]) =>
   items.map((item) =>
     Object.keys(item).reduce(
-      (accum, key) => ({ ...accum, [key]: item[key].toString() }),
+      (accum, key) => ({ ...accum, [key]: item[key]?.toString() }),
       {}
     )
   );

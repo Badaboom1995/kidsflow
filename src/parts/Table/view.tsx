@@ -8,6 +8,9 @@ import {
   TBody,
   Controls,
   ControlsItem,
+  Footer,
+  Arrow,
+  ShadowContainer,
 } from "./styled";
 
 import { Field } from ".";
@@ -34,28 +37,30 @@ function TableView({ data, fields, changeSieveValue }: ITableView) {
           />
         ))}
       </Controls>
-      <TableContainer>
-        <THead>
-          <Row head>
-            {fields.map((item, index) => (
-              <Cell key={index} textalign={item.props?.textalign}>
-                {item.label}
-              </Cell>
-            ))}
-          </Row>
-        </THead>
-        <TBody>
-          {data || (
-            <tr>
-              <td>Загрузка...</td>
-            </tr>
-          )}
-        </TBody>
-      </TableContainer>
-      {/* <Footer>
-        <Arrow right /> <Arrow />
-        <span>1-11 из 1240</span>
-      </Footer> */}
+      <ShadowContainer>
+        <TableContainer>
+          <THead>
+            <Row head>
+              {fields.map((item, index) => (
+                <Cell key={index} textalign={item.props?.textalign}>
+                  {item.label}
+                </Cell>
+              ))}
+            </Row>
+          </THead>
+          <TBody>
+            {data || (
+              <tr>
+                <td>Загрузка...</td>
+              </tr>
+            )}
+          </TBody>
+        </TableContainer>
+        <Footer>
+          <Arrow right /> <Arrow />
+          <span>1-11 из 1240</span>
+        </Footer>
+      </ShadowContainer>
     </Wrapper>
   );
 }
