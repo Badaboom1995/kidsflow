@@ -23,9 +23,7 @@ function App() {
   const prefix = "";
 
   useEffect(() => {
-    isLoggedIn
-      ? history.push(`${prefix}/catalog`)
-      : history.push(`${prefix}/auth`);
+    !isLoggedIn && history.push(`${prefix}/auth`);
   }, [user]);
   return (
     <>

@@ -20,9 +20,15 @@ interface ITableView {
   data: React.ReactNode[];
   fields: Field[];
   changeSieveValue: any;
+  pagination?: {
+    pageNumber: number;
+    pageSize: number;
+    totalEntities: number;
+    method: (nextPage: number) => void;
+  };
 }
 
-function TableView({ data, fields, changeSieveValue }: ITableView) {
+function TableView({ data, fields, changeSieveValue, pagination }: ITableView) {
   return (
     <Wrapper>
       <Controls>
@@ -57,8 +63,30 @@ function TableView({ data, fields, changeSieveValue }: ITableView) {
           </TBody>
         </TableContainer>
         <Footer>
-          <Arrow right /> <Arrow />
-          <span>1-11 из 1240</span>
+          <Arrow
+            right
+            onClick={() => {
+              // pagination.pageNumber + 1 <
+              //   pagination.totalEntities / pagination.pageSize &&
+              pagination.method(pagination.pageNumber + 1);
+            }}
+          />{" "}
+          <Arrow
+            onClick={() => {
+              pagination.pageNumber > 1 &&
+                pagination.method(pagination.pageNumber - 1);
+            }}
+          />
+          <span>
+            {pagination?.pageSize
+              ? `${
+                  pagination.pageNumber * pagination.pageSize -
+                  pagination.pageSize +
+                  1
+                } - ${pagination.pageNumber * pagination.pageSize}`
+              : "0 - 0"}{" "}
+            из {pagination ? pagination?.totalEntities : "0"}
+          </span>
         </Footer>
       </ShadowContainer>
     </Wrapper>

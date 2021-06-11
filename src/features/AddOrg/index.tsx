@@ -17,13 +17,12 @@ function AddOrg() {
   const { id }: any = useParams();
   const rawData = useSelector(selectOrganizationById(id));
   // prettier-ignore
-  const { organizationId, about, name, ageFrom, ageTo, partner, address, phoneNumber, email, site} = rawData || {};
-
+  const { organizationId, about, name, ageFrom, ageTo, partner, address, phoneNumber, email, site, eventCategories} = rawData || {};
   const initialData = {
     general: {
       about,
       name,
-      directions: "",
+      directions: eventCategories ? eventCategories[0] : "",
       category: "",
       businessHours: "",
       ageFrom: ageFrom?.toString(),

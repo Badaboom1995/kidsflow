@@ -16,3 +16,11 @@ export const selectOrganizationById = (id: string) =>
     (state: OrganizationsState) => state,
     (state) => orgsAdapterSelectors.selectById(state, id)
   );
+export const selectPagination = createSelector(
+  (state: OrganizationsState) => state.organizations,
+  ({ totalEntities, pageNumber, pageSize }) => ({
+    totalEntities,
+    pageNumber,
+    pageSize,
+  })
+);

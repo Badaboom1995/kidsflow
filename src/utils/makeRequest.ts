@@ -1,6 +1,6 @@
 const serverUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.vzletaem.ru"
+    ? "https://api-dev.vzletaem.ru"
     : "https://api-dev.vzletaem.ru";
 
 // const token = localStorage.getItem("vzletaemAdminToken");

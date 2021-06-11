@@ -7,15 +7,17 @@ import Logo from "parts/Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "ducks/user/actions";
 import { isUserLoading } from "ducks/user/selectors";
+import { useHistory } from "react-router-dom";
 
 function AuthFormView() {
   const dispatch = useDispatch();
   const isLoading = useSelector(isUserLoading);
+  const history = useHistory();
   return (
     <Wrapper>
       <Formik
-        onSubmit={(values) => {
-          dispatch(auth(values));
+        onSubmit={(credentials) => {
+          dispatch(auth({ credentials, history }));
         }}
         initialValues={{}}
       >
@@ -25,7 +27,7 @@ function AuthFormView() {
             <FieldLabel>Логин</FieldLabel>
             <Input centered name="phoneNumber" placeholder="---" />
             <FieldLabel>Пароль</FieldLabel>
-            <Input centered name="password" placeholder="---" />
+            <Input centered name="password" type="password" placeholder="---" />
           </Fields>
           <AuthButton>{isLoading ? "Загрузка..." : "Войти"}</AuthButton>
         </FromArea>

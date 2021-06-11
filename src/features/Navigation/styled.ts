@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   padding-top: 35px;
   background-color: #fed98e;
   transition: 0.3s all ease;
-  overflow: hidden;
+  overflow: scroll;
   background-image: url(${stars});
   background-size: cover;
 `;
@@ -30,6 +30,7 @@ export const NavList = styled.div`
   flex-grow: 1;
   width: 100%;
   margin-right: -10px;
+  margin-bottom: 100px;
 `;
 
 export const IconSVG = styled.svg`
@@ -68,7 +69,9 @@ export const Item = styled(NavLink)`
   font-size: 16px;
   font-weight: 400;
   text-align: center;
-  &:visited {
+  color: #000;
+  &:visited,
+  &:active {
     color: #000;
   }
   &.nav-item-active ${BackSVG} {

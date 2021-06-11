@@ -21,6 +21,7 @@ function SelectView({
   error,
   touched,
   label,
+  side,
 }) {
   const showSelected = (selectedValue) =>
     options[0]?.value
@@ -36,12 +37,15 @@ function SelectView({
         </SelectBox>
       </ErrorContainier>
       <OptionsContainer>
-        {options.map((option) => (
+        {options?.map((option) => (
           <Option key={option.value || option}>
             <OptionTitle>{option.name || option}</OptionTitle>
             <Radio
               type="radio"
-              onChange={setSelected}
+              onChange={(value) => {
+                side && side(value);
+                setSelected(value);
+              }}
               name={name}
               value={option?.value || option}
             />

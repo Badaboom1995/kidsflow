@@ -10,6 +10,10 @@ import StatusHandler from "parts/StatusHandler";
 import { toast } from "react-toastify";
 import organizationsService from "services/organizations";
 import GeneralForm from "./components/GeneralForm";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addUploadId } from "features/AddOrg/duck/slice";
+import { uploadIdsSelector } from "features/AddOrg/duck/selectors";
 
 function AddOrgView({
   initialData,
@@ -24,6 +28,9 @@ function AddOrgView({
   formRefs: { general: any; contacts: any; legal: any };
   setFormRef: (ref: any) => void;
 }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const uploadIds = useSelector(uploadIdsSelector);
   const submitMethod = initialData
     ? organizationsService.update
     : organizationsService.create;
@@ -31,6 +38,7 @@ function AddOrgView({
   const [generalRef, setGeneralRef] = useState(null);
   const [contactRef, setContactRef] = useState(null);
   const [formalRef, setFormalRef] = useState(null);
+  const [choosedPartner, setChoosedPartner] = useState(null);
 
   const [status, setStatus] = useState(0);
 
@@ -49,6 +57,9 @@ function AddOrgView({
       setFormReady(!formReady);
     }, 300);
   };
+  const onUploadSuccess = (id) => {
+    dispatch(addUploadId(id));
+  };
 
   useEffect(() => {
     if (!generalData && !contactData && !formalData) return;
@@ -59,6 +70,8 @@ function AddOrgView({
           ...generalData,
           ...contactData,
           ...formalData,
+          partnerId: choosedPartner,
+          directions: [generalData.directions],
           businessHours: [
             {
               day: 0,
@@ -66,17 +79,14 @@ function AddOrgView({
               closeTime: "19:00",
             },
           ],
-          directions: ["Sport"],
-          uploadIds: [""],
-          partnerId: "2d83d926-c148-4884-98a8-c398c7ff6327",
+          uploadIds: uploadIds,
           status,
         },
         organizationId
-      );
-
-      setTimeout(() => {
+      ).then(() => {
         toast.success("Готово!");
-      }, 100);
+        history.push(`/orgs`);
+      });
       return;
     }
 
@@ -121,6 +131,7 @@ function AddOrgView({
                 content: (
                   <div>
                     <GeneralForm
+                      choosePartner={setChoosedPartner}
                       initialData={initialData?.general}
                       setGeneral={(values) => {
                         setGeneral(values);
@@ -129,10 +140,22 @@ function AddOrgView({
                       setRef={setGeneralRef}
                     />
                     <Row>
-                      <UpoadFile label="Добавить логотип" />
-                      <UpoadFile label="Добавить фото" />
-                      <UpoadFile label="Добавить фото" />
-                      <UpoadFile label="Добавить фото" />
+                      {/* <UpoadFile
+                        label="Добавить логотип"
+                        onSuccess={onUploadSuccess}
+                      /> */}
+                      <UpoadFile
+                        label="Добавить фото"
+                        onSuccess={onUploadSuccess}
+                      />
+                      <UpoadFile
+                        label="Добавить фото"
+                        onSuccess={onUploadSuccess}
+                      />
+                      <UpoadFile
+                        label="Добавить фото"
+                        onSuccess={onUploadSuccess}
+                      />
                     </Row>
                   </div>
                 ),

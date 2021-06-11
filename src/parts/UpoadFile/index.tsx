@@ -5,6 +5,7 @@ export interface IUpoadFile {
   label: string;
   bg?: string;
   file?: boolean;
+  onSuccess?: (result: any) => void;
 }
 
 function UpoadFile(props: IUpoadFile) {

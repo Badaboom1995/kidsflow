@@ -7,29 +7,29 @@ import AddButton from "parts/AddButton";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrganizations } from "./duck/actions";
-import { selectOrganizations } from "./duck/selectors";
+import { selectOrganizations, selectPagination } from "./duck/selectors";
 
 function Orgs() {
   const dispatch = useDispatch();
   const organizations = useSelector(selectOrganizations);
+  const pagination = useSelector(selectPagination);
   const history = useHistory();
-  // const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
   const prefix = "";
-
   const onRowClick = (id: string) => {
     history.push(`${prefix}/orgs/add-org/${id}`);
   };
 
   useEffect(() => {
-    dispatch(getOrganizations(""));
+    dispatch(getOrganizations(1));
   }, []);
 
   const normalizedOrganizations = organizations.map((item) => {
+    console.log(item.isActive);
     return {
       ...item,
       eventCategory: item.eventCategories[0],
       partner: item.partner ? item.partner.firstName : "Нет партнера",
-      status: item.isActive ? "активный" : "заблокирован",
+      status: item.isActive ? "Активный" : "Заблокирован",
     };
   });
 
@@ -37,6 +37,12 @@ function Orgs() {
     <Wrapper>
       <AddButton to={`${prefix}/orgs/add-org`} />
       <Table
+        pagination={{
+          ...pagination,
+          method: (nextPage) => {
+            dispatch(getOrganizations(nextPage));
+          },
+        }}
         onRowClick={{ method: onRowClick, itemIdKey: "entityId" }}
         fields={[
           {
@@ -74,7 +80,11 @@ function Orgs() {
           {
             label: "Статус",
             key: "status",
-            getComponent: () => <Status>Заблокирован</Status>,
+            getComponent: (status) => (
+              <Status status={status === "Активный" ? "active" : "disabled"}>
+                {status}
+              </Status>
+            ),
           },
         ]}
         items={normalizedOrganizations}

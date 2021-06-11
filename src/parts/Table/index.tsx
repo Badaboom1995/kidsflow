@@ -16,6 +16,12 @@ interface ITable {
   items: any[];
   fields: Field[];
   onRowClick?: { itemIdKey: string; method: (ItemId: string) => void };
+  pagination?: {
+    pageNumber: number;
+    pageSize: number;
+    totalEntities: number;
+    method: (nextPage: number) => void;
+  };
 }
 
 /**
@@ -27,7 +33,7 @@ interface ITable {
  * @param getComponent optional func. Return wrapper component for value
  */
 
-function Table({ fields, items, onRowClick }: ITable) {
+function Table({ fields, items, onRowClick, pagination }: ITable) {
   const dispatch = useDispatch();
   const filteredItems = useSelector(selectFilteredData(items));
 
@@ -72,6 +78,7 @@ function Table({ fields, items, onRowClick }: ITable) {
       data={getTableData()}
       fields={fields}
       changeSieveValue={changeSieveValue}
+      pagination={pagination}
     />
   );
 }

@@ -6,11 +6,34 @@ import Select from "parts/Select";
 import { directions, getAge, getSchedule } from "config/constants";
 import organizationsService from "services/organizations";
 import { FormSectionTitle } from "parts/styled";
+import directionsService from "services/directions";
+import { useDispatch, useSelector } from "react-redux";
+import { chooseDirection } from "../../duck/slice";
+import { directionSelector } from "../../duck/selectors";
+import { Subtitle, Space } from "./styled";
 
-function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
+function GeneralForm({
+  initialData,
+  formCompleted,
+  setGeneral,
+  setRef,
+  choosePartner,
+}) {
   const [partners, setPartners] = useState(null);
+  const [kinds, setKinds] = useState(null);
+  const [category, setCategory] = useState(null);
+  const dispatch = useDispatch();
+  const direction = useSelector(directionSelector);
 
   useEffect(() => {
+    directionsService.getList(1).then((result) => {
+      setKinds(
+        result.data.map((item) => ({
+          name: item.name,
+          value: item.eventDirectionId,
+        }))
+      );
+    });
     organizationsService.partnersList().then((result) => {
       setPartners(
         result.data.list.map((item) => ({
@@ -20,6 +43,20 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
       );
     });
   }, []);
+
+  useEffect(() => {
+    directionsService.getList(2).then((result) => {
+      console.log(result);
+      setCategory(
+        result.data
+          .filter((item) => item.parentId === direction)
+          .map((item) => ({
+            name: item.name,
+            value: item.eventDirectionId,
+          }))
+      );
+    });
+  }, [direction]);
 
   const config: any = {
     title: "Общее",
@@ -31,23 +68,24 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
         name: "directions",
         label: "Направление",
         type: "select",
-        options: directions,
+        side: (e) => {
+          dispatch(chooseDirection(e.target.value));
+        },
+        options: kinds || [],
       },
       {
         name: "category",
         label: "Категория",
         type: "select",
-        options: [
-          { name: "Английский", value: "1" },
-          { name: "Испанский", value: "2" },
-          { name: "Китайский", value: "3" },
-        ],
+        yup: [{ key: "optional", args: [] }],
+        options: category || [],
       },
       {
         name: "businessHours",
+        yup: [{ key: "optional", args: [] }],
         label: (
           <div>
-            Расписание<div>неделя</div>
+            Расписание<Subtitle>пн - пт</Subtitle>
           </div>
         ),
         type: "select",
@@ -57,7 +95,7 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
         name: "ageFrom",
         label: (
           <div>
-            Возраст<div>от</div>
+            Возраст<Subtitle>от</Subtitle>
           </div>
         ),
         type: "select",
@@ -68,7 +106,8 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
         name: "ageTo",
         label: (
           <div>
-            Возраст<div>до</div>
+            <Space />
+            <Subtitle>до</Subtitle>
           </div>
         ),
         type: "select",
@@ -102,7 +141,8 @@ function GeneralForm({ initialData, formCompleted, setGeneral, setRef }) {
                 title={"Выбрать..."}
                 onChange={() => {}}
                 options={partners || []}
-                name="partners"
+                name="partnerId"
+                side={(e) => choosePartner(e.target.value)}
                 value={initialData?.partnerId}
               />
             </Form>

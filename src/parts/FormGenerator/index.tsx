@@ -90,6 +90,7 @@ function FormGenerator({
           error={errors[props.name]}
           touched={touched[props.name]}
           value={initialValues && initialValues[props.name]}
+          side={props.side}
         />
       );
     }
