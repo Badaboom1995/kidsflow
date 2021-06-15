@@ -47,7 +47,7 @@ function FormGenerator({
   }, [formRef]);
 
   const makeYup = (yup) => {
-    if (!yup) return Yup.string().required("Обязательное поле");
+    if (!yup) return Yup.string();
     const startYup =
       yup[0].key === "optional"
         ? Yup.string()

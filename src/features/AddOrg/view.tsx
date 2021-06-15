@@ -12,7 +12,7 @@ import organizationsService from "services/organizations";
 import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUploadId } from "features/AddOrg/duck/slice";
+import { addUploadId, removeUploadIds } from "features/AddOrg/duck/slice";
 import { uploadIdsSelector } from "features/AddOrg/duck/selectors";
 
 function AddOrgView({
@@ -46,32 +46,18 @@ function AddOrgView({
   const [contactData, setContact] = useState(null);
   const [formalData, setFormal] = useState(null);
 
-  const [formCompleted, setCompleted] = useState(null);
-  const [formReady, setFormReady] = useState(false);
-
   const submitAll = () => {
     generalRef?.current?.handleSubmit();
     contactRef?.current?.handleSubmit();
     formalRef?.current?.handleSubmit();
     setTimeout(() => {
-      setFormReady(!formReady);
-    }, 300);
-  };
-  const onUploadSuccess = (id) => {
-    dispatch(addUploadId(id));
-  };
-
-  useEffect(() => {
-    if (!generalData && !contactData && !formalData) return;
-    if (generalData && contactData) {
-      setCompleted(true);
       submitMethod(
         {
           ...generalData,
           ...contactData,
           ...formalData,
           partnerId: choosedPartner,
-          directions: [generalData.directions],
+          directions: [generalData?.directions],
           businessHours: [
             {
               day: 0,
@@ -83,19 +69,51 @@ function AddOrgView({
           status,
         },
         organizationId
-      ).then(() => {
-        toast.success("Готово!");
-        history.push(`/orgs`);
-      });
-      return;
-    }
+      )
+        .then(() => {
+          toast.success("Готово!");
+          dispatch(removeUploadIds());
+          history.push(`/orgs`);
+        })
+        .catch((error) => {
+          error.forEach((errorMessage) => toast.error(errorMessage));
+        });
+    }, 300);
+  };
+  const onUploadSuccess = (id) => {
+    dispatch(addUploadId(id));
+  };
 
-    if (!generalData || !contactData) {
-      setTimeout(() => {
-        toast.error("Заполните все поля");
-      }, 100);
-    }
-  }, [formReady]);
+  // useEffect(() => {
+  //   submitMethod(
+  //     {
+  //       ...generalData,
+  //       ...contactData,
+  //       ...formalData,
+  //       partnerId: choosedPartner,
+  //       directions: [generalData.directions],
+  //       businessHours: [
+  //         {
+  //           day: 0,
+  //           openTime: "10:00",
+  //           closeTime: "19:00",
+  //         },
+  //       ],
+  //       uploadIds: uploadIds,
+  //       status,
+  //     },
+  //     organizationId
+  //   )
+  //     .then(() => {
+  //       toast.success("Готово!");
+  //       dispatch(removeUploadIds());
+  //       history.push(`/orgs`);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       error.forEach((errorMessage) => toast.error(errorMessage));
+  //     });
+  // }, [formReady]);
 
   return (
     <Wrapper>
@@ -136,7 +154,6 @@ function AddOrgView({
                       setGeneral={(values) => {
                         setGeneral(values);
                       }}
-                      formCompleted={formCompleted}
                       setRef={setGeneralRef}
                     />
                     <Row>
@@ -165,7 +182,6 @@ function AddOrgView({
                 name: "Контакты",
                 content: (
                   <FormGenerator
-                    resetOnSubmit={formCompleted}
                     config={{
                       title: "Контакты",
                       settings: { defaultType: "text", defaultCol: 6 },
@@ -190,7 +206,6 @@ function AddOrgView({
                 content: (
                   <>
                     <FormGenerator
-                      resetOnSubmit={formCompleted}
                       config={{
                         title: "Юридические данные",
                         settings: { defaultType: "text", defaultCol: 6 },

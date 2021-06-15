@@ -24,7 +24,6 @@ function Orgs() {
   }, []);
 
   const normalizedOrganizations = organizations.map((item) => {
-    console.log(item.isActive);
     return {
       ...item,
       eventCategory: item.eventCategories[0],

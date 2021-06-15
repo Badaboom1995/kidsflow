@@ -23,8 +23,8 @@ const addUserFormSlice = createSlice({
       console.log(payload);
       state.uploadIds.push(payload);
     },
-    removeUploadId(state, { payload }) {
-      state.formRef = payload;
+    removeUploadIds(state) {
+      state.uploadIds = [];
     },
     chooseDirection(state, { payload }) {
       state.direction = payload;
@@ -36,6 +36,7 @@ export const {
   addFormRef,
   addUploadId,
   chooseDirection,
+  removeUploadIds,
 } = addUserFormSlice.actions;
 
 export default addUserFormSlice.reducer;

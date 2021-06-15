@@ -12,13 +12,7 @@ import { chooseDirection } from "../../duck/slice";
 import { directionSelector } from "../../duck/selectors";
 import { Subtitle, Space } from "./styled";
 
-function GeneralForm({
-  initialData,
-  formCompleted,
-  setGeneral,
-  setRef,
-  choosePartner,
-}) {
+function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
   const [partners, setPartners] = useState(null);
   const [kinds, setKinds] = useState(null);
   const [category, setCategory] = useState(null);
@@ -119,7 +113,6 @@ function GeneralForm({
   return (
     <>
       <FormGenerator
-        resetOnSubmit={formCompleted}
         config={config}
         onSubmit={(values) => {
           setGeneral(values);

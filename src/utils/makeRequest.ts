@@ -19,8 +19,11 @@ const makeRequest = async (url: string, method: MethodType, body?: any) => {
   const fetchConfig: any = { method, headers: commonHeaders };
   if (body) fetchConfig.body = JSON.stringify(body);
   const response = await fetch(`${serverUrl}${url}`, fetchConfig);
+  if (response.status > 300) {
+    const data = await response?.json();
+    return Promise.reject(data.errorMessage);
+  }
   const data = await (response.status !== 204 ? response?.json() : "");
-
   commonHeaders.delete("Authorization");
   return data;
 };
