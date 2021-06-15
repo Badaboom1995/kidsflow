@@ -71,7 +71,6 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
         name: "category",
         label: "Категория",
         type: "select",
-        yup: [{ key: "optional", args: [] }],
         options: category || [],
       },
       {

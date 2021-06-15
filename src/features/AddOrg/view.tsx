@@ -67,7 +67,7 @@ function AddOrgView({
           ...contactData,
           ...formalData,
           partnerId: choosedPartner,
-          directions: [generalData?.directions],
+          directions: [generalData?.directions, generalData?.category],
           businessHours: [
             {
               day: 0,
