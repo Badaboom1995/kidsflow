@@ -41,6 +41,7 @@ function AddOrgView({
   const [choosedPartner, setChoosedPartner] = useState(null);
 
   const [status, setStatus] = useState(0);
+  const [dataReady, setReady] = useState(false);
 
   const [generalData, setGeneral] = useState(null);
   const [contactData, setContact] = useState(null);
@@ -51,6 +52,15 @@ function AddOrgView({
     contactRef?.current?.handleSubmit();
     formalRef?.current?.handleSubmit();
     setTimeout(() => {
+      setReady(!dataReady);
+    }, 300);
+  };
+  const onUploadSuccess = (id) => {
+    dispatch(addUploadId(id));
+  };
+
+  useEffect(() => {
+    if (dataReady) {
       submitMethod(
         {
           ...generalData,
@@ -76,44 +86,12 @@ function AddOrgView({
           history.push(`/orgs`);
         })
         .catch((error) => {
+          console.log(error);
           error.forEach((errorMessage) => toast.error(errorMessage));
         });
-    }, 300);
-  };
-  const onUploadSuccess = (id) => {
-    dispatch(addUploadId(id));
-  };
-
-  // useEffect(() => {
-  //   submitMethod(
-  //     {
-  //       ...generalData,
-  //       ...contactData,
-  //       ...formalData,
-  //       partnerId: choosedPartner,
-  //       directions: [generalData.directions],
-  //       businessHours: [
-  //         {
-  //           day: 0,
-  //           openTime: "10:00",
-  //           closeTime: "19:00",
-  //         },
-  //       ],
-  //       uploadIds: uploadIds,
-  //       status,
-  //     },
-  //     organizationId
-  //   )
-  //     .then(() => {
-  //       toast.success("Готово!");
-  //       dispatch(removeUploadIds());
-  //       history.push(`/orgs`);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       error.forEach((errorMessage) => toast.error(errorMessage));
-  //     });
-  // }, [formReady]);
+      setReady(!dataReady);
+    }
+  }, [dataReady]);
 
   return (
     <Wrapper>
