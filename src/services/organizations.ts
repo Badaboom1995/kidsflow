@@ -1,5 +1,10 @@
 import makeRequest from "utils/makeRequest";
 
+const serverUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.vzletaem.ru"
+    : "https://api-dev.vzletaem.ru";
+
 const organizationsService = {
   getList: (page?) =>
     makeRequest(`/api/v2/admin/organizations?page=${page || 1}`, "GET"),
@@ -24,7 +29,7 @@ const organizationsService = {
       redirect: "follow",
     };
 
-    fetch("https://api-dev.vzletaem.ru/api/v2/uploads", requestOptions)
+    fetch(serverUrl, requestOptions)
       .then((response) => response.json())
       .then((result) => onSuccess(result.data[0].uploadId))
       .catch((error) => console.log("error", error));
