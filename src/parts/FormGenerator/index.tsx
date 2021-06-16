@@ -64,6 +64,11 @@ function FormGenerator({
       {}
     );
 
+  const onInputChange = (e) => {
+    console.log("target", e.target.value)
+    console.log("currentTarget", e.currentTarget.value)
+  }
+
   const chooseFieldByType = (
     type: string,
     handleChange,

@@ -14,6 +14,7 @@ export const Head = styled.div`
 export const Left = styled.div`
   grid-column: span 8;
 `;
+export const LeftInner = styled.div``;
 export const Right = styled.div`
   padding-left: 30px;
   padding-right: 20px;
