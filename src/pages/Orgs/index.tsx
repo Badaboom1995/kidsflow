@@ -1,5 +1,5 @@
 import Table from "parts/Table";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Wrapper, OrgName, Adress } from "./styled";
 import { Status } from "parts/styled";
 
