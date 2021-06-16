@@ -8,7 +8,7 @@ export const organizationsAdapter = createEntityAdapter<OrganizationType>({
   selectId: (org) => org?.entityId,
   sortComparer: (a, b) =>
     // a.entityId.toString().localeCompare(b.entityId.toString()),
-    a.entityId > b.entityId ? -1 : 1,
+    a.entityId > b.entityId ? 1 : -1,
 });
 
 const organizatonsSlice = createSlice({

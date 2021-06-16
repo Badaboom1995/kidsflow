@@ -18,6 +18,7 @@ function AddOrg() {
   const rawData = useSelector(selectOrganizationById(id));
   // prettier-ignore
   const { organizationId, about, name, ageFrom, ageTo, partner, address, phoneNumber, email, site, eventCategories} = rawData || {};
+  console.log(rawData);
   const initialData = {
     general: {
       about,
