@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Wrapper, Preview, Label, CloseButton } from "./styled";
 import { IUpoadFile } from "./index";
 import organizationsService from "services/organizations";
-import { useDispatch } from "react-redux";
 
-function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
-  const dispatch = useDispatch();
+function UpoadFileView({ label, file, onSuccess, onRemove }: IUpoadFile) {
   const [src, setSrc] = useState(null);
   const [imageFile, setFile] = useState(null);
   useEffect(() => {
@@ -22,7 +20,6 @@ function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
           <input
             type="file"
             onChange={(e) => {
-              console.log(e.target.files);
               setFile(e.target.files[0]);
               setSrc(URL.createObjectURL(e.target.files[0]));
             }}

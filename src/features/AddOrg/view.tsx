@@ -188,7 +188,7 @@ function AddOrgView({
                         settings: { defaultType: "text", defaultCol: 6 },
                         fields: [
                           { name: "entity", label: "Юр.Лицо" },
-                          { name: "accountAddress", label: "Расчетный счет" },
+                          { name: "accountNumber", label: "Расчетный счет" },
                           { name: "taxIdNumber", label: "ИНН" },
                           { name: "primaryStateNumber", label: "ОГРН" },
                           { name: "legalAddress", label: "Юр. адрес" },
@@ -197,6 +197,7 @@ function AddOrgView({
                       onSubmit={(values) => {
                         setFormal(values);
                       }}
+                      initialValues={initialData?.legal}
                       setRef={setFormalRef}
                     />
                     <Row>

@@ -6,9 +6,7 @@ import { OrganizationType } from "./types";
 
 export const organizationsAdapter = createEntityAdapter<OrganizationType>({
   selectId: (org) => org?.entityId,
-  sortComparer: (a, b) =>
-    // a.entityId.toString().localeCompare(b.entityId.toString()),
-    a.entityId > b.entityId ? 1 : -1,
+  sortComparer: (a, b) => (a.entityId > b.entityId ? -1 : 1),
 });
 
 const organizatonsSlice = createSlice({
@@ -29,6 +27,7 @@ const organizatonsSlice = createSlice({
         state.totalEntities = payload.totalEntities;
         state.pageSize = payload.pageSize;
         state.pageNumber = payload.pageNumber;
+        console.log(payload.entities);
         organizationsAdapter.setAll(state, payload.entities);
       },
       () => {

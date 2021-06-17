@@ -7,7 +7,10 @@ const serverUrl =
 
 const organizationsService = {
   getList: (page?) =>
-    makeRequest(`/api/v2/admin/organizations?page=${page || 1}`, "GET"),
+    makeRequest(
+      `/api/v2/admin/organizations?sort=Descending&page=${page || 0}`,
+      "GET"
+    ),
   create: (body) => makeRequest("/api/v2/admin/organizations", "POST", body),
   // prettier-ignore
   update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
@@ -27,7 +30,7 @@ const organizationsService = {
       redirect: "follow",
     };
 
-    fetch(serverUrl, requestOptions)
+    fetch(`${serverUrl}/api/v2/uploads`, requestOptions)
       .then((response) => response.json())
       .then((result) => onSuccess(result.data[0].uploadId))
       .catch((error) => console.log("error", error));

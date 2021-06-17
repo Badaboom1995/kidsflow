@@ -70,20 +70,20 @@ function TableView({ data, fields, changeSieveValue, pagination }: ITableView) {
               //   pagination.totalEntities / pagination.pageSize &&
               pagination.method(pagination.pageNumber + 1);
             }}
-          />{" "}
+          />
           <Arrow
             onClick={() => {
-              pagination.pageNumber > 1 &&
+              pagination.pageNumber > 0 &&
                 pagination.method(pagination.pageNumber - 1);
             }}
           />
           <span>
             {pagination?.pageSize
               ? `${
-                  pagination.pageNumber * pagination.pageSize -
+                  (pagination.pageNumber + 1) * pagination.pageSize -
                   pagination.pageSize +
                   1
-                } - ${pagination.pageNumber * pagination.pageSize}`
+                } - ${(pagination.pageNumber + 1) * pagination.pageSize}`
               : "0 - 0"}{" "}
             из {pagination ? pagination?.totalEntities : "0"}
           </span>

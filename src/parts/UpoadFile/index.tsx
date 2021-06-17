@@ -6,6 +6,7 @@ export interface IUpoadFile {
   bg?: string;
   file?: boolean;
   onSuccess?: (result: any) => void;
+  onRemove?: (result: any) => void;
 }
 
 function UpoadFile(props: IUpoadFile) {

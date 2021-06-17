@@ -16,15 +16,31 @@ function AddOrg() {
 
   const { id }: any = useParams();
   const rawData = useSelector(selectOrganizationById(id));
-  // prettier-ignore
-  const { organizationId, about, name, ageFrom, ageTo, partner, address, phoneNumber, email, site, eventCategories} = rawData || {};
-  console.log(rawData);
+  const {
+    organizationId,
+    about,
+    name,
+    ageFrom,
+    ageTo,
+    partner,
+    address,
+    phoneNumber,
+    email,
+    site,
+    eventCategories,
+    eventTypes,
+    entity,
+    accountNumber,
+    taxIdNumber,
+    primaryStateNumber,
+    legalAddress,
+  } = rawData || {};
   const initialData = {
     general: {
       about,
       name,
-      directions: eventCategories ? eventCategories[0] : "",
-      category: "",
+      directions: eventTypes ? eventTypes[0] : "",
+      category: eventCategories ? eventCategories[0] : "",
       businessHours: "",
       ageFrom: ageFrom?.toString(),
       ageTo: ageTo?.toString(),
@@ -32,11 +48,17 @@ function AddOrg() {
     },
     contacts: {
       address,
-      phoneNumber: partner?.phoneNumber,
+      phoneNumber,
       email,
       site,
     },
-    legal: "",
+    legal: {
+      entity,
+      accountNumber,
+      taxIdNumber,
+      primaryStateNumber,
+      legalAddress,
+    },
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { Partners, PartnersField } from "../../styled";
 import FormGenerator from "parts/FormGenerator";
 import { Formik, Form } from "formik";
 import Select from "parts/Select";
-import { directions, getAge, getSchedule } from "config/constants";
+import { getAge, getSchedule } from "config/constants";
 import organizationsService from "services/organizations";
 import { FormSectionTitle } from "parts/styled";
 import directionsService from "services/directions";
@@ -13,15 +13,25 @@ import { directionSelector } from "../../duck/selectors";
 import { Subtitle, Space } from "./styled";
 
 function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
+  // Dicts
   const [partners, setPartners] = useState(null);
-  const [kinds, setKinds] = useState(null);
-  const [category, setCategory] = useState(null);
+  const [directions, setDirections] = useState(null);
+  const [categories, setCategories] = useState(null);
+  // Defaults
+  const [defaultKind, setDefaultKind] = useState(null);
+  const [defaultCategory, setDefaultCategory] = useState(null);
+  //Other
+  const [formReady, setReady] = useState(false);
   const dispatch = useDispatch();
   const direction = useSelector(directionSelector);
 
+  const selectDirectionId = (name, directionsList) =>
+    directionsList?.find((item) => item.name === name)?.value || "";
+
   useEffect(() => {
+    if (!initialData) setReady(true);
     directionsService.getList(1).then((result) => {
-      setKinds(
+      setDirections(
         result.data.map((item) => ({
           name: item.name,
           value: item.eventDirectionId,
@@ -40,8 +50,7 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
 
   useEffect(() => {
     directionsService.getList(2).then((result) => {
-      console.log(result);
-      setCategory(
+      setCategories(
         result.data
           .filter((item) => item.parentId === direction)
           .map((item) => ({
@@ -51,6 +60,48 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
       );
     });
   }, [direction]);
+
+  useEffect(() => {
+    directionsService.getList(2).then((result) => {
+      console.log(result);
+      setCategories(
+        result.data
+          .filter((item) => item.parentId === defaultKind)
+          .map((item) => ({
+            name: item.name,
+            value: item.eventDirectionId,
+          }))
+      );
+    });
+  }, [defaultKind]);
+
+  useEffect(() => {
+    if (defaultCategory || !initialData) return;
+    if (directions) {
+      setDefaultKind(selectDirectionId(initialData?.directions, directions));
+      directionsService.getList(2).then((result) => {
+        setCategories(
+          result.data
+            .filter((item) => item.parentId === defaultKind)
+            .map((item) => ({
+              name: item.name,
+              value: item.eventDirectionId,
+            }))
+        );
+      });
+    }
+    if (categories) {
+      console.log(categories, initialData);
+      setDefaultCategory(selectDirectionId(initialData?.category, categories));
+    }
+  }, [directions, categories]);
+
+  useEffect(() => {
+    if (defaultKind && defaultCategory) {
+      console.log(defaultCategory);
+      setReady(true);
+    }
+  }, [defaultKind, defaultCategory]);
 
   const config: any = {
     title: "Общее",
@@ -65,13 +116,13 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
         side: (e) => {
           dispatch(chooseDirection(e.target.value));
         },
-        options: kinds || [],
+        options: directions || [],
       },
       {
         name: "category",
         label: "Категория",
         type: "select",
-        options: category || [],
+        options: categories || [],
       },
       {
         name: "businessHours",
@@ -111,36 +162,46 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
   };
   return (
     <>
-      <FormGenerator
-        config={config}
-        onSubmit={(values) => {
-          setGeneral(values);
-        }}
-        initialValues={initialData}
-        setRef={setRef}
-      />
-      <Partners>
-        <FormSectionTitle offsetLeft={40} marginBottom={20}>
-          Партнеры
-        </FormSectionTitle>
-        <PartnersField>
-          <Formik
-            onSubmit={() => {}}
-            initialValues={{ partners: initialData?.partner }}
-          >
-            <Form>
-              <Select
-                title={"Выбрать..."}
-                onChange={() => {}}
-                options={partners || []}
-                name="partnerId"
-                side={(e) => choosePartner(e.target.value)}
-                value={initialData?.partnerId}
-              />
-            </Form>
-          </Formik>
-        </PartnersField>
-      </Partners>
+      {formReady ? (
+        <>
+          <FormGenerator
+            config={config}
+            onSubmit={(values) => {
+              setGeneral(values);
+            }}
+            initialValues={{
+              ...initialData,
+              directions: defaultKind,
+              category: defaultCategory,
+            }}
+            setRef={setRef}
+          />
+          <Partners>
+            <FormSectionTitle offsetLeft={40} marginBottom={20}>
+              Партнеры
+            </FormSectionTitle>
+            <PartnersField>
+              <Formik
+                onSubmit={() => {}}
+                initialValues={{ partners: initialData?.partner }}
+              >
+                <Form>
+                  <Select
+                    title={"Выбрать..."}
+                    onChange={() => {}}
+                    options={partners || []}
+                    name="partnerId"
+                    side={(e) => choosePartner(e.target.value)}
+                    value={initialData?.partnerId}
+                  />
+                </Form>
+              </Formik>
+            </PartnersField>
+          </Partners>
+        </>
+      ) : (
+        "Загрузка..."
+      )}
     </>
   );
 }
