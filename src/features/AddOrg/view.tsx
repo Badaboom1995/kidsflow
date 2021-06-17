@@ -76,7 +76,7 @@ function AddOrgView({
             },
           ],
           uploadIds: uploadIds,
-          status,
+          status: "Active",
         },
         organizationId
       )
