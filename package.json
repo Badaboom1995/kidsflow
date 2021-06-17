@@ -31,8 +31,8 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts build\" \"serve -s build\"",
-    "serve": "serve -s build",
+    "start": "serve -s build",
+    "deploy": "concurrently \"react-scripts build\" \"serve -s build\"",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

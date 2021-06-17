@@ -3,8 +3,6 @@ const serverUrl =
     ? "https://api.vzletaem.ru"
     : "https://api-dev.vzletaem.ru";
 
-// const token = localStorage.getItem("vzletaemAdminToken");
-
 type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE";
 
 const makeRequest = async (url: string, method: MethodType, body?: any) => {
