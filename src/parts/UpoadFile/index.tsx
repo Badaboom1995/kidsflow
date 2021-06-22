@@ -5,8 +5,11 @@ export interface IUpoadFile {
   label: string;
   bg?: string;
   file?: boolean;
+  imageUrl?: string;
+  uploadId?: string;
+  organizationId?: string;
   onSuccess?: (result: any) => void;
-  onRemove?: (result: any) => void;
+  onRemove?: () => void;
 }
 
 function UpoadFile(props: IUpoadFile) {

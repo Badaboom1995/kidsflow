@@ -3,7 +3,15 @@ import { Wrapper, Preview, Label, CloseButton } from "./styled";
 import { IUpoadFile } from "./index";
 import organizationsService from "services/organizations";
 
-function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
+function UpoadFileView({
+  label,
+  file,
+  onSuccess,
+  onRemove,
+  imageUrl,
+  uploadId,
+  organizationId,
+}: IUpoadFile) {
   const [src, setSrc] = useState(null);
   const [imageFile, setFile] = useState(null);
   useEffect(() => {
@@ -14,7 +22,7 @@ function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
 
   return (
     <Wrapper>
-      <Preview file={file} image={src}>
+      <Preview file={file} image={imageUrl || src}>
         <Label>
           {label}
           <input
@@ -26,9 +34,10 @@ function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
           />
         </Label>
       </Preview>
-      {src && (
+      {(src || imageUrl) && (
         <CloseButton
           onClick={() => {
+            onRemove();
             setSrc(null);
           }}
         />

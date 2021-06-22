@@ -13,6 +13,8 @@ const organizationsService = {
   // prettier-ignore
   update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
   partnersList: () => makeRequest("/api/v2/admin/partners/find", "GET"),
+  deleteImage: (orgId, uploadId) =>
+    makeRequest(`/api/producercenter/${orgId}/upload/${uploadId}`, "DELETE"),
   //TODO. Переделаать на makeRequest
   uploadImage: (image: any, onSuccess) => {
     const token = localStorage.getItem("vzletaemAdminToken");

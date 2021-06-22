@@ -17,6 +17,7 @@ import {
   currentOrganizationSelector,
   uploadIdsSelector,
 } from "features/AddOrg/duck/selectors";
+import { deleteImage } from "./duck/actions";
 
 //TODO. Убрать из view логику и вынести в компоненты формы
 function AddOrgView({
@@ -30,6 +31,7 @@ function AddOrgView({
   const history = useHistory();
   const uploadIds = useSelector(uploadIdsSelector);
   const currentOrganization = useSelector(currentOrganizationSelector);
+  const photos = currentOrganization?.photos;
   const submitMethod = currentOrganization
     ? organizationsService.update
     : organizationsService.create;
@@ -156,14 +158,40 @@ function AddOrgView({
                       setRef={setGeneralRef}
                     />
                     <Row>
-                      <UpoadFile
-                        label="Добавить фото"
-                        onSuccess={onUploadSuccess}
-                      />
-                      <UpoadFile
-                        label="Добавить фото"
-                        onSuccess={onUploadSuccess}
-                      />
+                      {photos ? (
+                        photos.map((item) => (
+                          <UpoadFile
+                            label="Добавить фото"
+                            imageUrl={item.cloudUrl}
+                            // uploadId={item.id}
+                            // organizationId={currentOrganization.id}
+                            onRemove={() => {
+                              dispatch(
+                                deleteImage({
+                                  orgId: currentOrganization.id,
+                                  uploadId: item.id,
+                                })
+                              );
+                            }}
+                            onSuccess={onUploadSuccess}
+                          />
+                        ))
+                      ) : (
+                        <>
+                          <UpoadFile
+                            label="Добавить фото"
+                            onSuccess={onUploadSuccess}
+                          />
+                          <UpoadFile
+                            label="Добавить фото"
+                            onSuccess={onUploadSuccess}
+                          />
+                          <UpoadFile
+                            label="Добавить фото"
+                            onSuccess={onUploadSuccess}
+                          />
+                        </>
+                      )}
                       <UpoadFile
                         label="Добавить фото"
                         onSuccess={onUploadSuccess}

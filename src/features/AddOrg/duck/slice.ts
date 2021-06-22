@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import makeReducer from "utils/makeReducer";
-import { getOrganizationById, bootstrap, getCategories } from "./actions";
+import {
+  getOrganizationById,
+  bootstrap,
+  getCategories,
+  deleteImage,
+} from "./actions";
 
 type initialState = {
   loading: boolean;
@@ -59,6 +64,22 @@ const addUserFormSlice = createSlice({
       getOrganizationById,
       (state, payload) => {
         state.currentOrganization = payload;
+      },
+      () => {
+        toast.error("Организация не найдена");
+      }
+    );
+    makeReducer(
+      builder,
+      deleteImage,
+      (state, payload) => {
+        const currentOrganization = {
+          ...state.currentOrganization,
+          photos: state.currentOrganization.photos.filter(
+            (item) => item.id !== payload
+          ),
+        };
+        state.currentOrganization = currentOrganization;
       },
       () => {
         toast.error("Организация не найдена");

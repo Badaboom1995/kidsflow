@@ -21,6 +21,17 @@ export const getCategories = createAsyncThunk<any, any>(
     }
   }
 );
+export const deleteImage = createAsyncThunk<any, any>(
+  "addOrganization/deleteImage",
+  async ({ orgId, uploadId }) => {
+    try {
+      await organizationsService.deleteImage(orgId, uploadId);
+      return uploadId;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 export const bootstrap = createAsyncThunk<any, any>(
   "addOrganization/bootstrap",
