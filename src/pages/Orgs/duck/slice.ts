@@ -27,7 +27,6 @@ const organizatonsSlice = createSlice({
         state.totalEntities = payload.totalEntities;
         state.pageSize = payload.pageSize;
         state.pageNumber = payload.pageNumber;
-        console.log(payload.entities);
         organizationsAdapter.setAll(state, payload.entities);
       },
       () => {

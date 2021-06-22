@@ -4,103 +4,43 @@ import FormGenerator from "parts/FormGenerator";
 import { Formik, Form } from "formik";
 import Select from "parts/Select";
 import { getAge, getSchedule } from "config/constants";
-import organizationsService from "services/organizations";
 import { FormSectionTitle } from "parts/styled";
-import directionsService from "services/directions";
 import { useDispatch, useSelector } from "react-redux";
-import { chooseDirection } from "../../duck/slice";
-import { directionSelector } from "../../duck/selectors";
+
+import {
+  currentOrganizationSelector,
+  directionSelector,
+  loadingSelector,
+  categorySelector,
+  partnerSelector,
+  currentDirectionSelector,
+} from "../../duck/selectors";
 import { Subtitle, Space } from "./styled";
+import { getCategories } from "features/AddOrg/duck/actions";
 
-function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
-  // Dicts
-  const [partners, setPartners] = useState(null);
-  const [directions, setDirections] = useState(null);
-  const [categories, setCategories] = useState(null);
-  // Defaults
-  const [defaultKind, setDefaultKind] = useState(null);
-  const [defaultCategory, setDefaultCategory] = useState(null);
-  //Other
-  const [formReady, setReady] = useState(false);
+function GeneralForm({ setGeneral, setRef, choosePartner }) {
   const dispatch = useDispatch();
-  const direction = useSelector(directionSelector);
+  const loading = useSelector(loadingSelector);
+  const directionsDict = useSelector(directionSelector);
+  const categoriesDict = useSelector(categorySelector);
+  const partners = useSelector(partnerSelector);
+  const rawData = useSelector(currentOrganizationSelector);
+  const currentDirection = useSelector(currentDirectionSelector);
 
-  const selectDirectionId = (name, directionsList) =>
-    directionsList?.find((item) => item.name === name)?.value || "";
+  const { about, name, ageFrom, ageTo, partner, directions } = rawData || {};
 
-  useEffect(() => {
-    if (!initialData) setReady(true);
-    directionsService.getList(1).then((result) => {
-      setDirections(
-        result.data.map((item) => ({
-          name: item.name,
-          value: item.eventDirectionId,
-        }))
-      );
-    });
-    organizationsService.partnersList().then((result) => {
-      setPartners(
-        result.data.list.map((item) => ({
-          name: item.partner.firstName,
-          value: item.partner.partnerId,
-        }))
-      );
-    });
-  }, []);
-
-  useEffect(() => {
-    directionsService.getList(2).then((result) => {
-      setCategories(
-        result.data
-          .filter((item) => item.parentId === direction)
-          .map((item) => ({
-            name: item.name,
-            value: item.eventDirectionId,
-          }))
-      );
-    });
-  }, [direction]);
-
-  useEffect(() => {
-    directionsService.getList(2).then((result) => {
-      setCategories(
-        result.data
-          .filter((item) => item.parentId === defaultKind)
-          .map((item) => ({
-            name: item.name,
-            value: item.eventDirectionId,
-          }))
-      );
-    });
-  }, [defaultKind]);
-
-  useEffect(() => {
-    if (defaultCategory || !initialData) return;
-    if (directions) {
-      setDefaultKind(selectDirectionId(initialData?.directions, directions));
-      directionsService.getList(2).then((result) => {
-        setCategories(
-          result.data
-            .filter((item) => item.parentId === defaultKind)
-            .map((item) => ({
-              name: item.name,
-              value: item.eventDirectionId,
-            }))
-        );
-      });
-    }
-    if (categories) {
-      console.log(categories, initialData);
-      setDefaultCategory(selectDirectionId(initialData?.category, categories));
-    }
-  }, [directions, categories]);
-
-  useEffect(() => {
-    if (defaultKind && defaultCategory) {
-      console.log(defaultCategory);
-      setReady(true);
-    }
-  }, [defaultKind, defaultCategory]);
+  const generalData = {
+    about,
+    name,
+    directions:
+      currentDirection ||
+      directions?.find((item) => !item.parentId).eventDirectionId,
+    category: directions?.find((item) => item.parentId).eventDirectionId,
+    businessHours: "",
+    ageFrom: ageFrom?.toString(),
+    ageTo: ageTo?.toString(),
+    partnerId: partner?.partnerId,
+  };
 
   const config: any = {
     title: "Общее",
@@ -113,23 +53,23 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
         label: "Направление",
         type: "select",
         side: (e) => {
-          dispatch(chooseDirection(e.target.value));
+          dispatch(getCategories(e.target.value));
         },
-        options: directions || [],
+        options: directionsDict,
       },
       {
         name: "category",
         label: "Категория",
         type: "select",
-        options: categories || [],
+        options: categoriesDict,
       },
       {
         name: "businessHours",
         yup: [{ key: "optional", args: [] }],
         label: (
-          <div>
+          <span>
             Расписание<Subtitle>пн - пт</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         options: getSchedule(),
@@ -137,9 +77,9 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
       {
         name: "ageFrom",
         label: (
-          <div>
+          <span>
             Возраст<Subtitle>от</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         col: 3,
@@ -148,10 +88,10 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
       {
         name: "ageTo",
         label: (
-          <div>
+          <span>
             <Space />
             <Subtitle>до</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         col: 3,
@@ -159,20 +99,17 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
       },
     ],
   };
+
   return (
     <>
-      {formReady ? (
+      {!loading ? (
         <>
           <FormGenerator
             config={config}
             onSubmit={(values) => {
               setGeneral(values);
             }}
-            initialValues={{
-              ...initialData,
-              directions: defaultKind,
-              category: defaultCategory,
-            }}
+            initialValues={{ ...generalData }}
             setRef={setRef}
           />
           <Partners>
@@ -180,18 +117,15 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
               Партнеры
             </FormSectionTitle>
             <PartnersField>
-              <Formik
-                onSubmit={() => {}}
-                initialValues={{ partners: initialData?.partner }}
-              >
+              <Formik onSubmit={() => {}} initialValues={{}}>
                 <Form>
                   <Select
                     title={"Выбрать..."}
                     onChange={() => {}}
-                    options={partners || []}
+                    options={partners}
                     name="partnerId"
                     side={(e) => choosePartner(e.target.value)}
-                    value={initialData?.partnerId}
+                    value={generalData?.partnerId}
                   />
                 </Form>
               </Formik>

@@ -13,27 +13,55 @@ import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUploadId, removeUploadIds } from "features/AddOrg/duck/slice";
-import { uploadIdsSelector } from "features/AddOrg/duck/selectors";
+import {
+  currentOrganizationSelector,
+  uploadIdsSelector,
+} from "features/AddOrg/duck/selectors";
 
+//TODO. Убрать из view логику и вынести в компоненты формы
 function AddOrgView({
-  initialData,
   organizationId,
 }: {
   organizationId: string;
-  initialData?: {
-    general: any;
-    contacts: any;
-    legal: any;
-  };
   formRefs: { general: any; contacts: any; legal: any };
   setFormRef: (ref: any) => void;
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const uploadIds = useSelector(uploadIdsSelector);
-  const submitMethod = initialData
+  const currentOrganization = useSelector(currentOrganizationSelector);
+  const submitMethod = currentOrganization
     ? organizationsService.update
     : organizationsService.create;
+
+  const {
+    address,
+    phoneNumber,
+    email,
+    site,
+    entity,
+    accountNumber,
+    taxIdNumber,
+    primaryStateNumber,
+    legalAddress,
+  } = currentOrganization || {};
+
+  const formDataContacts = {
+    address,
+    phoneNumber,
+    email,
+    site,
+  };
+
+  const formDataLegal = {
+    entity,
+    accountNumber,
+    taxIdNumber,
+    primaryStateNumber,
+    legalAddress,
+  };
+
+  console.log(formDataContacts);
 
   const [generalRef, setGeneralRef] = useState(null);
   const [contactRef, setContactRef] = useState(null);
@@ -127,17 +155,12 @@ function AddOrgView({
                   <div>
                     <GeneralForm
                       choosePartner={setChoosedPartner}
-                      initialData={initialData?.general}
                       setGeneral={(values) => {
                         setGeneral(values);
                       }}
                       setRef={setGeneralRef}
                     />
                     <Row>
-                      {/* <UpoadFile
-                        label="Добавить логотип"
-                        onSuccess={onUploadSuccess}
-                      /> */}
                       <UpoadFile
                         label="Добавить фото"
                         onSuccess={onUploadSuccess}
@@ -173,7 +196,7 @@ function AddOrgView({
                       setContact(values);
                     }}
                     setRef={setContactRef}
-                    initialValues={initialData?.contacts}
+                    initialValues={formDataContacts}
                   />
                 ),
               },
@@ -197,7 +220,7 @@ function AddOrgView({
                       onSubmit={(values) => {
                         setFormal(values);
                       }}
-                      initialValues={initialData?.legal}
+                      initialValues={formDataLegal}
                       setRef={setFormalRef}
                     />
                     <Row>

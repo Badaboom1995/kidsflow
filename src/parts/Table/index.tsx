@@ -25,7 +25,7 @@ interface ITable {
 }
 
 /**
- * Table takes fields setting and items to show
+ * Table takes field's setting and items to show
  * @param label show text in head of table
  * @param key connect field settings with current item
  * @param align optional. Align text - 'left', 'right', 'center'
@@ -58,9 +58,14 @@ function Table({ fields, items, onRowClick, pagination }: ITable) {
       ? getNormalizedItems(filteredItems).map((rowData, index) => (
           <Row
             key={index}
-            onClick={() => {
+            onClick={(e) => {
+              const rowId = rowData.find(
+                (item) => item.key === onRowClick.itemIdKey
+              ).value;
               onRowClick?.method(
-                rowData.find((item) => item.key === onRowClick.itemIdKey).value
+                items.find(
+                  (item) => item[onRowClick.itemIdKey].toString() === rowId
+                )
               );
             }}
           >

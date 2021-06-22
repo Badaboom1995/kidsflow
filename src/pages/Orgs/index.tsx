@@ -15,8 +15,8 @@ function Orgs() {
   const pagination = useSelector(selectPagination);
   const history = useHistory();
   const prefix = "";
-  const onRowClick = (id: string) => {
-    history.push(`${prefix}/orgs/add-org/${id}`);
+  const onRowClick = (entity: any) => {
+    history.push(`${prefix}/orgs/add-org/${entity.organizationId}`);
   };
 
   useEffect(() => {
@@ -59,9 +59,7 @@ function Orgs() {
             label: "Партнер",
             key: "partner",
             props: { width: "13%" },
-            getComponent: (partner) => {
-              return partner.firstName;
-            },
+            getComponent: (partner) => partner.firstName,
           },
           {
             label: "Адрес",

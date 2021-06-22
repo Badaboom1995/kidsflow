@@ -1,13 +1,14 @@
-import { selectOrganizationById } from "pages/Orgs/duck/selectors";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import organizationsService from "services/organizations";
-import { directions, getAge, getSchedule } from "config/constants";
+import { bootstrap } from "./duck/actions";
+import { currentOrganizationSelector, loadingSelector } from "./duck/selectors";
 
 import AddOrgView from "./view";
 
 function AddOrg() {
+  const dispatch = useDispatch();
+
   const [formRefs, setFormRef] = useState({
     general: null,
     contacts: null,
@@ -15,63 +16,27 @@ function AddOrg() {
   });
 
   const { id }: any = useParams();
-  const rawData = useSelector(selectOrganizationById(id));
-  const {
-    organizationId,
-    about,
-    name,
-    ageFrom,
-    ageTo,
-    partner,
-    address,
-    phoneNumber,
-    email,
-    site,
-    eventCategories,
-    eventTypes,
-    entity,
-    accountNumber,
-    taxIdNumber,
-    primaryStateNumber,
-    legalAddress,
-  } = rawData || {};
-  const initialData = {
-    general: {
-      about,
-      name,
-      directions: eventTypes ? eventTypes[0] : "",
-      category: eventCategories ? eventCategories[0] : "",
-      businessHours: "",
-      ageFrom: ageFrom?.toString(),
-      ageTo: ageTo?.toString(),
-      partnerId: partner?.partnerId,
-    },
-    contacts: {
-      address,
-      phoneNumber,
-      email,
-      site,
-    },
-    legal: {
-      entity,
-      accountNumber,
-      taxIdNumber,
-      primaryStateNumber,
-      legalAddress,
-    },
-  };
+  const rawData = useSelector(currentOrganizationSelector);
+  const loading = useSelector(loadingSelector);
 
   useEffect(() => {
-    organizationsService.partnersList().then((result) => {});
+    dispatch(bootstrap(id));
   }, []);
 
+  const { organizationId } = rawData || {};
+
   return (
-    <AddOrgView
-      initialData={rawData ? initialData : null}
-      organizationId={organizationId}
-      formRefs={formRefs}
-      setFormRef={setFormRef}
-    />
+    <>
+      {loading ? (
+        "...Загрузка"
+      ) : (
+        <AddOrgView
+          organizationId={organizationId}
+          formRefs={formRefs}
+          setFormRef={setFormRef}
+        />
+      )}
+    </>
   );
 }
 export default AddOrg;

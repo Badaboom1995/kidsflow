@@ -6,15 +6,14 @@ const serverUrl =
     : "https://api-dev.vzletaem.ru";
 
 const organizationsService = {
-  getList: (page?) =>
-    makeRequest(
-      `/api/v2/admin/organizations?sort=Descending&page=${page || 0}`,
-      "GET"
-    ),
+  // prettier-ignore
+  getList: (page?) => makeRequest(`/api/v2/admin/organizations?sort=Descending&page=${page || 0}`,"GET"),
+  getById: (id) => makeRequest(`/api/v2/admin/organizations/${id}`, "GET"),
   create: (body) => makeRequest("/api/v2/admin/organizations", "POST", body),
   // prettier-ignore
   update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
   partnersList: () => makeRequest("/api/v2/admin/partners/find", "GET"),
+  //TODO. Переделаать на makeRequest
   uploadImage: (image: any, onSuccess) => {
     const token = localStorage.getItem("vzletaemAdminToken");
     var myHeaders = new Headers();
