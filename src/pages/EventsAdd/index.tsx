@@ -6,7 +6,6 @@ import EventCard from "./components/EventCard";
 import UpoadFile from "parts/UpoadFile";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
-import RespondedList from "features/RespondedList";
 
 // TODO. Move to features
 function EventsAdd() {

@@ -6,7 +6,6 @@ import {
   EventType,
   EventAge,
   InfoBlock,
-  Description,
   Schedule,
   ScheduleItem,
   InfoItem,

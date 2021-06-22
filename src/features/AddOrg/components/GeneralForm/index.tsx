@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Partners, PartnersField } from "../../styled";
 import FormGenerator from "parts/FormGenerator";
 import { Formik, Form } from "formik";

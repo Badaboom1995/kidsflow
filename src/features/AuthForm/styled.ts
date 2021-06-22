@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Form } from "formik";
 import starts from "assets/big_stars.png";
-import { colors } from "config/constants";
 import { darken } from "polished";
 
 export const Wrapper = styled.div`

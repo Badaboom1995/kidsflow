@@ -36,6 +36,5 @@ const organizatonsSlice = createSlice({
     );
   },
 });
-export const {} = organizatonsSlice.actions;
 
 export default organizatonsSlice.reducer;

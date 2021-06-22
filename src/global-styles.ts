@@ -1,10 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 import MuseoLight from "common/fonts/museoLight.woff";
-import MuseoRegularWoff from "common/fonts/museoRegular.woff";
 import MuseoLightTrue from "common/fonts/museoRegular.ttf";
 import MuseoRegularTrue from "common/fonts/MuseoSansCyrl-500.ttf";
 import MuseoBoldTrue from "common/fonts/MuseoSansCyrl-700.ttf";
-import MuseoBold from "common/fonts/museoBold.woff";
 
 export const GlobalStyle = createGlobalStyle`
 

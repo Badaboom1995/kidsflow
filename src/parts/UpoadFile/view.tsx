@@ -3,7 +3,7 @@ import { Wrapper, Preview, Label, CloseButton } from "./styled";
 import { IUpoadFile } from "./index";
 import organizationsService from "services/organizations";
 
-function UpoadFileView({ label, file, onSuccess, onRemove }: IUpoadFile) {
+function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
   const [src, setSrc] = useState(null);
   const [imageFile, setFile] = useState(null);
   useEffect(() => {

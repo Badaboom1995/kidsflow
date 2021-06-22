@@ -68,7 +68,6 @@ function AddOrgView({
   const [formalRef, setFormalRef] = useState(null);
   const [choosedPartner, setChoosedPartner] = useState(null);
 
-  const [status, setStatus] = useState(0);
   const [dataReady, setReady] = useState(false);
 
   const [generalData, setGeneral] = useState(null);
@@ -131,10 +130,6 @@ function AddOrgView({
         </Left>
         <Right>
           <StatusHandler
-            onChange={(status) => {
-              const statusId = status === "disabled" ? 0 : 1;
-              setStatus(statusId);
-            }}
             options={[
               { name: "Заблокирован", status: "disabled" },
               { name: "Активен", status: "active" },
