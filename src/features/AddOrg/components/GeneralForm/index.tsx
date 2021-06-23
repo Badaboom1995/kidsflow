@@ -34,8 +34,8 @@ function GeneralForm({ setGeneral, setRef, choosePartner }) {
     name,
     directions:
       currentDirection ||
-      directions?.find((item) => !item.parentId).eventDirectionId,
-    category: directions?.find((item) => item.parentId).eventDirectionId,
+      directions?.find((item) => !item.parentId)?.eventDirectionId,
+    category: directions?.find((item) => item.parentId)?.eventDirectionId,
     businessHours: "",
     ageFrom: ageFrom?.toString(),
     ageTo: ageTo?.toString(),

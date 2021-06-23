@@ -56,11 +56,11 @@ export const bootstrap = createAsyncThunk<any, any>(
         }));
         result.directions = values[1].data.map((item) => ({
           name: item.name,
-          value: item.eventDirectionId,
+          value: item?.eventDirectionId,
         }));
         result.categories = values[2].data.map((item) => ({
           name: item.name,
-          value: item.eventDirectionId,
+          value: item?.eventDirectionId,
         }));
         result.currentOrganization = values[3];
       });
