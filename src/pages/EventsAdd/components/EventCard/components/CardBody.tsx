@@ -34,11 +34,7 @@ import {
   ReviewsItemText
 } from "../styled";
 
-import {TFormState} from "../../../index";
-
-export interface ICardBody {
-  formState :TFormState;
-}
+import {ICardBody} from "../../../types";
 
 function CardBody({
   formState,

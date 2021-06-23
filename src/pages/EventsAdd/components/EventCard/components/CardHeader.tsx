@@ -9,18 +9,15 @@ import {
   MainInfoStatus,
   MainInfoSub,
   MainInfoSubItem,
-  MainInfoTitle
+  MainInfoTitle,
+  MainInfoCategory,
+  MainInfoCategoryItem,
 } from "../styled";
-import {TFormState} from "../../../index";
-
-export interface ICardHeader {
-  formState: TFormState;
-}
+import {ICardHeader} from "../../../types";
 
 function CardHeader({
  formState,
 }:ICardHeader) {
-
   return (
     <CoverMainInfo>
 
@@ -52,6 +49,15 @@ function CardHeader({
         </MainInfoSubItem>
       </MainInfoSub>
 
+      {formState?.category && (
+        <MainInfoCategory>
+          {formState.category.map((item, index) => (
+            <MainInfoCategoryItem key={index}>
+              {item}
+            </MainInfoCategoryItem>
+          ))}
+        </MainInfoCategory>
+      )}
     </CoverMainInfo>
   )
 }

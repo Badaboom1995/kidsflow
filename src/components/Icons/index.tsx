@@ -6,6 +6,7 @@ import {IconMapMarker} from "./components/IconMapMarker";
 import {IconClock} from "./components/IconClock";
 import {IconCalling} from "./components/IconCalling";
 import {IconEdit} from "./components/IconEdit";
+import {IconCross} from "./components/IconCross";
 
 export {
   IconStar,
@@ -16,4 +17,5 @@ export {
   IconClock,
   IconCalling,
   IconEdit,
+  IconCross,
 };

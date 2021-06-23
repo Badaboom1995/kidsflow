@@ -143,6 +143,20 @@ export const MainInfoSubItem = styled.div`
   }
 `;
 
+export const MainInfoCategory = styled.div`
+  display: flex;
+  overflow-y: auto;
+  margin-top: 15px;
+`;
+
+export const MainInfoCategoryItem = styled.span`
+  padding: 6px 12px;
+  margin-right: 10px;
+  background-color: #FFEAA7;
+  border-radius: 6px;
+  border: 1px solid #FFEAA7;
+`;
+
 export const InfoBody = styled.div`
   padding: 25px 20px;
   background-color: #fff;

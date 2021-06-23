@@ -1,37 +1,22 @@
 import React, {useState, useRef, useEffect} from "react";
-import {Wrapper, Content, Right, Left, Head, Uploads, Footer, LeftInner} from "./styled";
+
 import BackSection from "parts/BackSection";
 import FormGenerator from "parts/FormGenerator";
-import EventCard from "./components/EventCard";
 import UpoadFile from "parts/UpoadFile";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
+import EventCard from "./components/EventCard";
 
+import {Wrapper, Content, Right, Left, Head, Uploads, Footer, LeftInner} from "./styled";
+import {IFormContactsState, IFormState} from "./types";
 
-export type TFormState = {
-  ageFrom: string,
-  ageTo: string,
-  date: string,
-  name: string,
-  number: string,
-  org: string,
-  partner: string,
-  type: string,
-}
-
-export type TFormContactsState = {
-  adress: string,
-  email: string,
-  phone: string,
-  site: string,
-}
 
 // TODO. Move to features
 function EventsAdd() {
   const [generalRef, setGeneralRef] = useState(null);
   const [contactsRef, setContactsRef] = useState(null);
-  const [formState, setFormState] = useState<TFormState>();
-  const [formContactsState, setFormContactsState] = useState<TFormContactsState>();
+  const [formState, setFormState] = useState<IFormState>();
+  const [formContactsState, setFormContactsState] = useState<IFormContactsState>();
 
   const refLeftElement = useRef<HTMLDivElement>(null);
   const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>()
@@ -117,6 +102,18 @@ function EventsAdd() {
                       { name: "5", value: "5" }
                     ],
                   },
+                  {
+                    name: "category",
+                    label: "Категории",
+                    type: "chips",
+                    options:[
+                      { name: "aaa1", value: "aaa1" },
+                      { name: "bbb2", value: "bbb2" },
+                      { name: "ccc3", value: "ccc3" },
+                      { name: "ddd4", value: "ddd4" },
+                      { name: "eee5", value: "eee5" }
+                    ]
+                  }
                 ],
                 settings: { defaultType: "text", defaultCol: 6 },
               }}

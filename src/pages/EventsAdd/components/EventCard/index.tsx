@@ -15,14 +15,7 @@ import {
 
 import CardHeader from "./components/CardHeader";
 import CardBody from "./components/CardBody";
-
-import {TFormContactsState, TFormState} from "../../index";
-
-export interface IEventCard {
-  maxRightContentHeight: number;
-  formState: TFormState;
-  formContactsState?: TFormContactsState;
-}
+import {IEventCard} from "../../types";
 
 function EventCard({
   maxRightContentHeight,
