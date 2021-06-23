@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, Dispatch, SetStateAction } from "react";
 import ChildFormView from "./view";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -15,6 +15,7 @@ interface IFormGenerator {
   initialValues?: any;
   setRef?: (ref: any) => void;
   onSubmit?: (values: any) => void;
+  setFormState?: Dispatch<SetStateAction<{}>>;
 }
 /**
  * Form generator makes form depends on config
@@ -37,6 +38,7 @@ function FormGenerator({
   setRef,
   transparent,
   initialValues,
+  setFormState,
 }: IFormGenerator) {
   const formRef = useRef();
 
@@ -63,11 +65,6 @@ function FormGenerator({
       }),
       {}
     );
-
-  const onInputChange = (e) => {
-    console.log("target", e.target.value)
-    console.log("currentTarget", e.currentTarget.value)
-  }
 
   const chooseFieldByType = (
     type: string,
@@ -123,6 +120,8 @@ function FormGenerator({
 
   const yupSchema = Yup.object(makeYupSchema(config.fields));
 
+
+
   return (
     <Formik
       initialValues={
@@ -140,6 +139,7 @@ function FormGenerator({
       innerRef={formRef}
     >
       {(props) => {
+        {setFormState && setFormState(props.values)}
         return (
           <ChildFormView
             {...props}

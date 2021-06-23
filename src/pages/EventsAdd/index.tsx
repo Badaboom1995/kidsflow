@@ -7,10 +7,31 @@ import UpoadFile from "parts/UpoadFile";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
 
+
+export type TFormState = {
+  ageFrom: string,
+  ageTo: string,
+  date: string,
+  name: string,
+  number: string,
+  org: string,
+  partner: string,
+  type: string,
+}
+
+export type TFormContactsState = {
+  adress: string,
+  email: string,
+  phone: string,
+  site: string,
+}
+
 // TODO. Move to features
 function EventsAdd() {
   const [generalRef, setGeneralRef] = useState(null);
   const [contactsRef, setContactsRef] = useState(null);
+  const [formState, setFormState] = useState<TFormState>();
+  const [formContactsState, setFormContactsState] = useState<TFormContactsState>();
 
   const refLeftElement = useRef<HTMLDivElement>(null);
   const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>()
@@ -47,7 +68,12 @@ function EventsAdd() {
                     name: "type",
                     label: "Тип события",
                     type: "select",
-                    options: [{ name: "qwe", value: "asd" }],
+                    options: [
+                      { name: "sport", value: "sport" },
+                      { name: "ne_sport", value: "ne_sport" },
+                      { name: "do_sport", value: "do_sport" },
+                      { name: "tam_sport", value: "tam_sport" },
+                    ],
                   },
                   { name: "org", label: "Организация" },
                   { name: "partner", label: "Партнер" },
@@ -55,7 +81,14 @@ function EventsAdd() {
                     name: "number",
                     label: "Количество мест",
                     type: "select",
-                    options: [{ name: "qwe", value: "asd" }, { name: "qwe1", value: "asd1" }, { name: "qwe2", value: "asd2" }],
+                    options: [
+                      { name: "1", value: "1" },
+                      { name: "2", value: "2" },
+                      { name: "3", value: "3" },
+                      { name: "4", value: "4" },
+                      { name: "5", value: "5" },
+                      { name: "6", value: "6" },
+                    ],
                   },
                   { name: "date", label: "Дата проведения" },
                   {
@@ -63,18 +96,31 @@ function EventsAdd() {
                     label: "Возраст от",
                     col: 3,
                     type: "select",
-                    options: [{ name: "asds", value: "qwes" }],
+                    options: [
+                      { name: "1", value: "1" },
+                      { name: "2", value: "2" },
+                      { name: "3", value: "3" },
+                      { name: "4", value: "4" },
+                      { name: "5", value: "5" }
+                    ],
                   },
                   {
                     name: "ageTo",
                     label: "Возраст до",
                     col: 3,
                     type: "select",
-                    options: [{ name: "asds", value: "qwes" }],
+                    options: [
+                      { name: "1", value: "1" },
+                      { name: "2", value: "2" },
+                      { name: "3", value: "3" },
+                      { name: "4", value: "4" },
+                      { name: "5", value: "5" }
+                    ],
                   },
                 ],
                 settings: { defaultType: "text", defaultCol: 6 },
               }}
+              setFormState={setFormState}
             />
             <FormGenerator
               setRef={setContactsRef}
@@ -89,6 +135,7 @@ function EventsAdd() {
                 ],
                 settings: { defaultType: "text", defaultCol: 6 },
               }}
+              setFormState={setFormContactsState}
             />
 
             <Uploads>
@@ -102,7 +149,11 @@ function EventsAdd() {
         </Left>
         <Right>
           <FormSectionTitle>отображение в приложении</FormSectionTitle>
-          <EventCard maxRightContentHeight={maxRightContentHeight}/>
+          <EventCard
+            maxRightContentHeight={maxRightContentHeight}
+            formState={formState}
+            formContactsState={formContactsState}
+          />
         </Right>
         <Footer>
           <ButtonsArea>

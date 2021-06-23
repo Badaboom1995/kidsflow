@@ -79,16 +79,17 @@ export const CoverInfo = styled.div`
 `;
 
 export const CoverMainInfo = styled.div`
-  padding: 20px;
+  padding: 10px 20px 20px;
   background-color: #FFFBED;
   border-radius: 30px 30px 0 0;
 `;
 
 export const MainInfoHead = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 `;
 
 export const MainInfoStatus = styled.span`
@@ -98,12 +99,26 @@ export const MainInfoStatus = styled.span`
 `;
 
 export const MainInfoLogo = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 13px;
   line-height: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 36px;
+  height: 36px;
   color: #00BFA5;
+  flex: 0 0 auto;
+  border: 1px solid grey;
+  img{
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 export const MainInfoTitle = styled.h3`
+  margin-top: 0;
   margin-bottom: 5px;
   font-size: 22px;
   line-height: 25px;
@@ -117,11 +132,15 @@ export const MainInfoSub = styled.div`
 `;
 
 export const MainInfoSubItem = styled.div`
-  display: flex;
+  display: inline-flex;
+  align-items: center;
   margin-right: 15px;
   font-size: 13px;
   line-height: 15px;
   color: rgba(52,52,52,0.5);
+  svg{
+    margin-right: 7px;
+  }
 `;
 
 export const InfoBody = styled.div`
@@ -131,13 +150,19 @@ export const InfoBody = styled.div`
   line-height: 18px;
 `;
 
-export const BodyInfoDetails = styled.div`
+export const BodyInfoItemWrapper = styled.div`
+  display: flex;
   margin-bottom: 25px;
 `;
 
-export const BodyInfoAddress = styled.div`
-  margin-bottom: 25px;
+export const BodyInfoIcon = styled.div`
+  width: 30px;
+  flex: 0 0 auto;
 `;
+
+export const BodyInfoDetails = styled.div``;
+
+export const BodyInfoAddress = styled.div``;
 
 export const InfoAddressText = styled.div`
   margin-bottom: 5px;
@@ -161,9 +186,7 @@ export const InfoAddressMapLink = styled.div`
   color: #00BFA5;
 `;
 
-export const BodyInfoTime = styled.div`
-  margin-bottom: 25px;
-`;
+export const BodyInfoTime = styled.div``;
 
 export const BodyTimeStatus = styled.div`
   font-weight: 600;
@@ -172,11 +195,18 @@ export const BodyTimeStatus = styled.div`
 export const BodyActions = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   button{
     background-color: #FFF6D9;
     width: calc(50% - 8px);
     color: #343434;
+    span{
+      display: inline-flex;
+      align-items: center;
+    }
+    svg{
+      margin-right: 7px;
+    }
   }
 `;
 
