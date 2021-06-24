@@ -8,7 +8,7 @@ export interface IUpoadFile {
   imageUrl?: string;
   uploadId?: string;
   organizationId?: string;
-  onSuccess?: (result: any) => void;
+  onAdd?: (file: any) => void;
   onRemove?: () => void;
 }
 

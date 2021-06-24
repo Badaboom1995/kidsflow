@@ -6,6 +6,8 @@ import {
   bootstrap,
   getCategories,
   deleteImage,
+  uploadImage,
+  uploadExtraImage,
 } from "./actions";
 
 type initialState = {
@@ -37,6 +39,9 @@ const addUserFormSlice = createSlice({
     },
     removeUploadIds(state) {
       state.uploadIds = [];
+    },
+    removeUploadId(state, { payload }) {
+      state.uploadIds = state.uploadIds.filter((item) => item !== payload);
     },
   },
   extraReducers: (builder) => {
@@ -71,6 +76,29 @@ const addUserFormSlice = createSlice({
     );
     makeReducer(
       builder,
+      uploadImage,
+      (state, payload) => {
+        state.uploadIds.push(payload.data[0].uploadId);
+      },
+      () => {
+        toast.error("Не удалось загрузить");
+      },
+      true
+    );
+    makeReducer(
+      builder,
+      uploadExtraImage,
+      (state, payload) => {
+        // state.uploadIds.push(payload.data[0].uploadId);
+        console.log(payload);
+      },
+      () => {
+        toast.error("Не удалось загрузить");
+      },
+      true
+    );
+    makeReducer(
+      builder,
       deleteImage,
       (state, payload) => {
         const currentOrganization = {
@@ -83,7 +111,8 @@ const addUserFormSlice = createSlice({
       },
       () => {
         toast.error("Организация не найдена");
-      }
+      },
+      true
     );
     makeReducer(
       builder,
@@ -105,6 +134,10 @@ const addUserFormSlice = createSlice({
   },
 });
 
-export const { addUploadId, removeUploadIds } = addUserFormSlice.actions;
+export const {
+  addUploadId,
+  removeUploadIds,
+  removeUploadId,
+} = addUserFormSlice.actions;
 
 export default addUserFormSlice.reducer;

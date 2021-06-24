@@ -12,12 +12,12 @@ import organizationsService from "services/organizations";
 import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUploadId, removeUploadIds } from "features/AddOrg/duck/slice";
+import { removeUploadIds, removeUploadId } from "features/AddOrg/duck/slice";
 import {
   currentOrganizationSelector,
   uploadIdsSelector,
 } from "features/AddOrg/duck/selectors";
-import { deleteImage } from "./duck/actions";
+import { deleteImage, uploadImage, uploadExtraImage } from "./duck/actions";
 
 //TODO. Убрать из view логику и вынести в компоненты формы
 function AddOrgView({
@@ -84,8 +84,11 @@ function AddOrgView({
       setReady(!dataReady);
     }, 300);
   };
-  const onUploadSuccess = (id) => {
-    dispatch(addUploadId(id));
+  const onUpload = (file) => {
+    dispatch(uploadImage(file));
+  };
+  const onExtraUpload = (file) => {
+    dispatch(uploadExtraImage({ file, orgId: currentOrganization.id }));
   };
 
   useEffect(() => {
@@ -159,43 +162,46 @@ function AddOrgView({
                     />
                     <Row>
                       {photos ? (
-                        photos.map((item) => (
+                        <>
+                          {photos.map((item) => (
+                            <UpoadFile
+                              label="Добавить фото"
+                              imageUrl={item.cloudUrl}
+                              onRemove={() => {
+                                dispatch(
+                                  deleteImage({
+                                    orgId: currentOrganization.id,
+                                    uploadId: item.id,
+                                  })
+                                );
+                              }}
+                            />
+                          ))}
                           <UpoadFile
                             label="Добавить фото"
-                            imageUrl={item.cloudUrl}
-                            // uploadId={item.id}
-                            // organizationId={currentOrganization.id}
-                            onRemove={() => {
-                              dispatch(
-                                deleteImage({
-                                  orgId: currentOrganization.id,
-                                  uploadId: item.id,
-                                })
-                              );
-                            }}
-                            onSuccess={onUploadSuccess}
+                            onAdd={onExtraUpload}
                           />
-                        ))
+                        </>
                       ) : (
                         <>
                           <UpoadFile
                             label="Добавить фото"
-                            onSuccess={onUploadSuccess}
+                            onAdd={onUpload}
+                            onRemove={() => {
+                              dispatch(removeUploadId(uploadIds[0]));
+                            }}
                           />
-                          <UpoadFile
-                            label="Добавить фото"
-                            onSuccess={onUploadSuccess}
-                          />
-                          <UpoadFile
-                            label="Добавить фото"
-                            onSuccess={onUploadSuccess}
-                          />
+                          {uploadIds.map((id) => (
+                            <UpoadFile
+                              label="Добавить фото"
+                              onAdd={onUpload}
+                              onRemove={() => {
+                                dispatch(removeUploadId(id));
+                              }}
+                            />
+                          ))}
                         </>
                       )}
-                      <UpoadFile
-                        label="Добавить фото"
-                        onSuccess={onUploadSuccess}
-                      />
                     </Row>
                   </div>
                 ),

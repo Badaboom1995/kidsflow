@@ -16,7 +16,7 @@ const organizationsService = {
   deleteImage: (orgId, uploadId) =>
     makeRequest(`/api/producercenter/${orgId}/upload/${uploadId}`, "DELETE"),
   //TODO. Переделаать на makeRequest
-  uploadImage: (image: any, onSuccess) => {
+  uploadImage: async (image: any) => {
     const token = localStorage.getItem("vzletaemAdminToken");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -31,10 +31,31 @@ const organizationsService = {
       redirect: "follow",
     };
 
-    fetch(`${serverUrl}/api/v2/uploads`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => onSuccess(result.data[0].uploadId))
-      .catch((error) => console.log("error", error));
+    const response = await fetch(`${serverUrl}/api/v2/uploads`, requestOptions);
+    const data = await response?.json();
+    return data;
+  },
+  uploadExtraImage: async (image: any, orgId: string) => {
+    const token = localStorage.getItem("vzletaemAdminToken");
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var formdata = new FormData();
+    formdata.append("Media", image, image.name);
+
+    var requestOptions: any = {
+      method: "POST",
+      headers: myHeaders,
+      body: formdata,
+      redirect: "follow",
+    };
+
+    const response = await fetch(
+      `${serverUrl}/api/producercenter/${orgId}/upload`,
+      requestOptions
+    );
+    const data = await response?.json();
+    return data;
   },
 };
 

@@ -21,6 +21,29 @@ export const getCategories = createAsyncThunk<any, any>(
     }
   }
 );
+
+export const uploadImage = createAsyncThunk<any, any>(
+  "addOrganization/uploadImage",
+  async (file) => {
+    try {
+      const response = await organizationsService.uploadImage(file);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+export const uploadExtraImage = createAsyncThunk<any, any>(
+  "addOrganization/uploadExtraImage",
+  async ({ file, orgId }) => {
+    try {
+      const response = await organizationsService.uploadExtraImage(file, orgId);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 export const deleteImage = createAsyncThunk<any, any>(
   "addOrganization/deleteImage",
   async ({ orgId, uploadId }) => {
