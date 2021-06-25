@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Partners, PartnersField } from "../../styled";
 import FormGenerator from "parts/FormGenerator";
-import { Formik, Form } from "formik";
-import Select from "parts/Select";
-import { getAge, getSchedule } from "config/constants";
+import { getAge } from "config/constants";
 import organizationsService from "services/organizations";
-import { FormSectionTitle } from "parts/styled";
 import directionsService from "services/directions";
 import { useDispatch, useSelector } from "react-redux";
 import { chooseDirection } from "../../duck/slice";
 import { directionSelector } from "../../duck/selectors";
 import { Subtitle, Space } from "./styled";
 
-function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
+function GeneralForm({ initialData, setGeneral, setRef }) {
   const [partners, setPartners] = useState(null);
   const [kinds, setKinds] = useState(null);
   const [category, setCategory] = useState(null);
@@ -113,7 +109,6 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
       },
       {
         name: "about",
-        col: 12,
         label: (
           <div>
             Описание
@@ -121,6 +116,17 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
           </div>
         ),
         type: "textarea",
+      },
+      {
+        name: "partnerId",
+        label: (
+          <div>
+            Партнер
+            <Space></Space>
+          </div>
+        ),
+        type: "select",
+        options: partners || [],
       },
       // {
       //   name: "businessHours",
@@ -145,28 +151,6 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
         initialValues={initialData}
         setRef={setRef}
       />
-      <Partners>
-        <FormSectionTitle offsetLeft={40} marginBottom={20}>
-          Партнеры
-        </FormSectionTitle>
-        <PartnersField>
-          <Formik
-            onSubmit={() => {}}
-            initialValues={{ partners: initialData?.partner }}
-          >
-            <Form>
-              <Select
-                title={"Выбрать..."}
-                onChange={() => {}}
-                options={partners || []}
-                name="partnerId"
-                side={(e) => choosePartner(e.target.value)}
-                value={initialData?.partnerId}
-              />
-            </Form>
-          </Formik>
-        </PartnersField>
-      </Partners>
     </>
   );
 }

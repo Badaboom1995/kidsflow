@@ -66,7 +66,6 @@ function AddOrgView({
           ...generalData,
           ...contactData,
           ...formalData,
-          partnerId: choosedPartner,
           directions: [generalData?.directions, generalData?.category],
           businessHours: [
             {
@@ -127,7 +126,6 @@ function AddOrgView({
                 content: (
                   <div>
                     <GeneralForm
-                      choosePartner={setChoosedPartner}
                       initialData={initialData?.general}
                       setGeneral={(values) => {
                         setGeneral(values);
