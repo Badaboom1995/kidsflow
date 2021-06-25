@@ -1,9 +1,9 @@
 import styled from "styled-components";
 export const Wrapper = styled.div``;
 export const Subtitle = styled.div`
-  font-size: 16px;
+  font-size: 12px;
   margin-bottom: -5px;
-  margin-top: 5px;
+  margin-top: 10px;
   font-weight: 500;
   color: #ccc;
 `;

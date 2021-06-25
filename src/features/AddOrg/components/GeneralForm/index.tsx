@@ -3,7 +3,7 @@ import { Partners, PartnersField } from "../../styled";
 import FormGenerator from "parts/FormGenerator";
 import { Formik, Form } from "formik";
 import Select from "parts/Select";
-import { directions, getAge, getSchedule } from "config/constants";
+import { getAge, getSchedule } from "config/constants";
 import organizationsService from "services/organizations";
 import { FormSectionTitle } from "parts/styled";
 import directionsService from "services/directions";
@@ -56,33 +56,13 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
     title: "Общее",
     settings: { defaultType: "text", defaultCol: 6 },
     fields: [
-      { name: "name", label: "Название" },
-      { name: "about", label: "Описание" },
       {
-        name: "directions",
-        label: "Направление",
-        type: "select",
-        side: (e) => {
-          dispatch(chooseDirection(e.target.value));
-        },
-        options: kinds || [],
-      },
-      {
-        name: "category",
-        label: "Категория",
-        type: "select",
-        options: category || [],
-      },
-      {
-        name: "businessHours",
-        yup: [{ key: "optional", args: [] }],
+        name: "name",
         label: (
           <div>
-            Расписание<Subtitle>пн - пт</Subtitle>
+            Название <Subtitle>Максимум 30 символов</Subtitle>
           </div>
         ),
-        type: "select",
-        options: getSchedule(),
       },
       {
         name: "ageFrom",
@@ -107,6 +87,53 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
         col: 3,
         options: getAge(25),
       },
+      {
+        name: "directions",
+        label: (
+          <div>
+            Направление
+            <Subtitle>Можно выбрать только одно направление</Subtitle>
+          </div>
+        ),
+        type: "select",
+        side: (e) => {
+          dispatch(chooseDirection(e.target.value));
+        },
+        options: kinds || [],
+      },
+      {
+        name: "category",
+        label: (
+          <div>
+            Категория
+            <Subtitle>И одну категорию</Subtitle>
+          </div>
+        ),
+        type: "select",
+        options: category || [],
+      },
+      {
+        name: "about",
+        col: 12,
+        label: (
+          <div>
+            Описание
+            <Subtitle>Максимум 400 символов</Subtitle>
+          </div>
+        ),
+        type: "textarea",
+      },
+      // {
+      //   name: "businessHours",
+      //   yup: [{ key: "optional", args: [] }],
+      //   label: (
+      //     <div>
+      //       Расписание<Subtitle>пн - пт</Subtitle>
+      //     </div>
+      //   ),
+      //   type: "select",
+      //   options: getSchedule(),
+      // },
     ],
   };
   return (
