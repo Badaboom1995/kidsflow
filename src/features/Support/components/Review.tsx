@@ -42,9 +42,7 @@ function Review() {
             },
           ],
         }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={(values) => {}}
         initialValues={data}
         setRef={setRef}
       />

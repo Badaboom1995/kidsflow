@@ -22,7 +22,6 @@ function UpoadFileView({ label, file, onSuccess }: IUpoadFile) {
           <input
             type="file"
             onChange={(e) => {
-              console.log(e.target.files);
               setFile(e.target.files[0]);
               setSrc(URL.createObjectURL(e.target.files[0]));
             }}

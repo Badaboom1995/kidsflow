@@ -40,7 +40,6 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
 
   useEffect(() => {
     directionsService.getList(2).then((result) => {
-      console.log(result);
       setCategory(
         result.data
           .filter((item) => item.parentId === direction)

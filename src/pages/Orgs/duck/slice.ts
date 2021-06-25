@@ -24,7 +24,6 @@ const organizatonsSlice = createSlice({
       builder,
       getOrganizations,
       (state, payload) => {
-        console.log(payload);
         state.totalEntities = payload.totalEntities;
         state.pageSize = payload.pageSize;
         state.pageNumber = payload.pageNumber;
@@ -32,7 +31,6 @@ const organizatonsSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить организации. Обновите страницу");
-        console.log("error");
       }
     );
   },
