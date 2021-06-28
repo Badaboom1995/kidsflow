@@ -1,6 +1,7 @@
 import styled from "styled-components";
 // import calendar from "../assets/calendar.svg";
 import Button from "../../../../parts/Button";
+import {position} from "polished";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -14,16 +15,88 @@ export const Wrapper = styled.div`
   overflow-y: auto;
 `;
 
-export const CoverBlock = styled.div`
-  width: 100%;
-  height: 420px;
-  position: relative;
-`;
 
 export const CoverImage = styled.div`
   width: 100%;
   position: sticky;
+  height: 340px;
   top: 0;
+  .slick-slider_wrapper{
+    height: 100%;
+  }
+  .slick-slider_fade-block{
+    display: none;
+  }
+  .event-card_slider__wrapper{
+    height: 100%;
+    .slick-list{
+      height: 100%;
+    }
+    .slick-track{
+      height: 100%;
+    }
+    .slick-slide{
+      & > div{
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      img{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        min-width: 100%;
+        min-height: 100%;
+        max-height: 200%;
+        max-width: 200%;
+        width: auto !important;
+      }
+    }
+    .slick-arrow{
+      background: rgba(0, 0, 0, 0.3);
+      width: 30px;
+      height: 30px;
+      &:before{
+        width: 50%;
+        height: 50%;
+      }
+      &.slick-prev{
+        left: 0;
+        transform: translate(10px, -50%) rotate(180deg);
+      }
+      &.slick-next{
+        right: 0;
+        transform: translate(-10px, -50%);
+      }
+    }
+  }
+`;
+
+export const SliderPlug = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #e8eaee;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #bec2ce;
+  text-transform: lowercase;
+`;
+
+export const SliderCounter = styled.span`
+  position: absolute;
+  right: 15px;
+  bottom: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  border-radius: 50px;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 6px 8px;
 `;
 
 export const Image = styled.img`
@@ -51,18 +124,7 @@ export const TopActionBack = styled.span`
   border-radius: 8px;
 `;
 
-export const TopActionStar = styled.span`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-  margin-right: 10px;
-  background: rgba(255,255,255, .3);
-  border-radius: 8px;
-`;
-
-export const TopActionDownload = styled.span`
+export const TopActionFavorite = styled.span`
   display: inline-flex;
   justify-content: center;
   align-items: center;
