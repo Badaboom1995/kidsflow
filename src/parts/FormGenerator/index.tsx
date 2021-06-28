@@ -85,7 +85,7 @@ function FormGenerator({
       field = (
         <Select
           {...props}
-          title={props.title || "Выбрать..."}
+          title={props.title || "---"}
           onChange={handleChange}
           error={errors[props.name]}
           touched={touched[props.name]}

@@ -31,7 +31,6 @@ const organizatonsSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить организации. Обновите страницу");
-        console.log("error");
       }
     );
   },

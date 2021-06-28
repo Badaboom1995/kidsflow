@@ -5,11 +5,18 @@ const placeholderColor = "#6c757d";
 
 export const Wrapper = styled.div``;
 export const Textarea = styled.textarea`
+  font-size: 16px;
+  background-color: transparent;
   border: none;
+  font-family: Arial, sans-serif;
   width: 100%;
   box-sizing: border-box;
   border-radius: 10px;
   padding: 10px;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 export const StyledInput = styled(Field)`

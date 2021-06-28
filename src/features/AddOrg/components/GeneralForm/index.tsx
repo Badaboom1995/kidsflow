@@ -1,16 +1,11 @@
 import React from "react";
-import { Partners, PartnersField } from "../../styled";
 import FormGenerator from "parts/FormGenerator";
-import { Formik, Form } from "formik";
-import Select from "parts/Select";
-import { getAge, getSchedule } from "config/constants";
-import { FormSectionTitle } from "parts/styled";
+import { getAge } from "config/constants";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   currentOrganizationSelector,
   directionSelector,
-  loadingSelector,
   categorySelector,
   partnerSelector,
   currentDirectionSelector,
@@ -18,9 +13,8 @@ import {
 import { Subtitle, Space } from "./styled";
 import { getCategories } from "features/AddOrg/duck/actions";
 
-function GeneralForm({ setGeneral, setRef, choosePartner }) {
+function GeneralForm({ setGeneral, setRef }) {
   const dispatch = useDispatch();
-  const loading = useSelector(loadingSelector);
   const directionsDict = useSelector(directionSelector);
   const categoriesDict = useSelector(categorySelector);
   const partners = useSelector(partnerSelector);
@@ -46,33 +40,13 @@ function GeneralForm({ setGeneral, setRef, choosePartner }) {
     title: "Общее",
     settings: { defaultType: "text", defaultCol: 6 },
     fields: [
-      { name: "name", label: "Название" },
-      { name: "about", label: "Описание" },
       {
-        name: "directions",
-        label: "Направление",
-        type: "select",
-        side: (e) => {
-          dispatch(getCategories(e.target.value));
-        },
-        options: directionsDict,
-      },
-      {
-        name: "category",
-        label: "Категория",
-        type: "select",
-        options: categoriesDict,
-      },
-      {
-        name: "businessHours",
-        yup: [{ key: "optional", args: [] }],
+        name: "name",
         label: (
           <span>
-            Расписание<Subtitle>пн - пт</Subtitle>
+            Название<Subtitle>максимум 30 символов</Subtitle>
           </span>
         ),
-        type: "select",
-        options: getSchedule(),
       },
       {
         name: "ageFrom",
@@ -97,44 +71,76 @@ function GeneralForm({ setGeneral, setRef, choosePartner }) {
         col: 3,
         options: getAge(25),
       },
+      {
+        name: "directions",
+        label: (
+          <div>
+            Направление
+            <Subtitle>Можно выбрать только одно направление</Subtitle>
+          </div>
+        ),
+        type: "select",
+        side: (e) => {
+          dispatch(getCategories(e.target.value));
+        },
+        options: directionsDict || [],
+      },
+      {
+        name: "category",
+        label: (
+          <div>
+            Категория
+            <Subtitle>И одну категорию</Subtitle>
+          </div>
+        ),
+        type: "select",
+        options: categoriesDict || [],
+      },
+      {
+        name: "about",
+        label: (
+          <div>
+            Описание
+            <Subtitle>Максимум 400 символов</Subtitle>
+          </div>
+        ),
+        type: "textarea",
+      },
+      {
+        name: "partnerId",
+        label: (
+          <div>
+            Партнер
+            <Space></Space>
+          </div>
+        ),
+        type: "select",
+        options: partners || [],
+      },
+      // {
+      //   name: "businessHours",
+      //   yup: [{ key: "optional", args: [] }],
+      //   label: (
+      //     <div>
+      //       Расписание<Subtitle>пн - пт</Subtitle>
+      //     </div>
+      //   ),
+      //   type: "select",
+      //   options: getSchedule(),
+      // },
     ],
   };
 
   return (
     <>
-      {!loading ? (
-        <>
-          <FormGenerator
-            config={config}
-            onSubmit={(values) => {
-              setGeneral(values);
-            }}
-            initialValues={{ ...generalData }}
-            setRef={setRef}
-          />
-          <Partners>
-            <FormSectionTitle offsetLeft={40} marginBottom={20}>
-              Партнеры
-            </FormSectionTitle>
-            <PartnersField>
-              <Formik onSubmit={() => {}} initialValues={{}}>
-                <Form>
-                  <Select
-                    title={"Выбрать..."}
-                    onChange={() => {}}
-                    options={partners}
-                    name="partnerId"
-                    side={(e) => choosePartner(e.target.value)}
-                    value={generalData?.partnerId}
-                  />
-                </Form>
-              </Formik>
-            </PartnersField>
-          </Partners>
-        </>
-      ) : (
-        "Загрузка..."
-      )}
+      <FormGenerator
+        config={config}
+        onSubmit={(values) => {
+          setGeneral(values);
+        }}
+        initialValues={generalData}
+        setRef={setRef}
+      />
     </>
   );
 }
