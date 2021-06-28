@@ -101,8 +101,8 @@ function FormGenerator({
     );
   };
 
-  const makeFields = (errors, touched, handleChange) =>
-    config.fields.reduce(
+  const makeFields = (errors, touched, handleChange) => {
+    const result = config.fields.reduce(
       (accum, curr) => ({
         ...accum,
         [curr.name]: chooseFieldByType(
@@ -115,6 +115,8 @@ function FormGenerator({
       }),
       {}
     );
+    return result;
+  };
 
   const yupSchema = Yup.object(makeYupSchema(config.fields));
 

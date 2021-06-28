@@ -37,20 +37,24 @@ function SelectView({
         </SelectBox>
       </ErrorContainier>
       <OptionsContainer>
-        {options?.map((option) => (
-          <Option key={option.value || option}>
-            <OptionTitle>{option.name || option}</OptionTitle>
-            <Radio
-              type="radio"
-              onChange={(value) => {
-                side && side(value);
-                setSelected(value);
-              }}
-              name={name}
-              value={option?.value || option}
-            />
-          </Option>
-        ))}
+        {options?.map(
+          (option) =>
+            option.name &&
+            option.value && (
+              <Option key={option?.value || option}>
+                <OptionTitle>{option?.name || option}</OptionTitle>
+                <Radio
+                  type="radio"
+                  onChange={(value) => {
+                    side && side(value);
+                    setSelected(value);
+                  }}
+                  name={name}
+                  value={option?.value || option}
+                />
+              </Option>
+            )
+        )}
       </OptionsContainer>
     </Wrapper>
   );

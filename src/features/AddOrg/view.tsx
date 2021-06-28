@@ -63,12 +63,9 @@ function AddOrgView({
     legalAddress,
   };
 
-  console.log(formDataContacts);
-
   const [generalRef, setGeneralRef] = useState(null);
   const [contactRef, setContactRef] = useState(null);
   const [formalRef, setFormalRef] = useState(null);
-  const [choosedPartner, setChoosedPartner] = useState(null);
 
   const [dataReady, setReady] = useState(false);
 

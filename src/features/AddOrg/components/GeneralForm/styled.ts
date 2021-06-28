@@ -1,6 +1,7 @@
 import styled from "styled-components";
 export const Wrapper = styled.div``;
-export const Subtitle = styled.div`
+export const Subtitle = styled.span`
+  display: block;
   font-size: 12px;
   margin-bottom: -5px;
   margin-top: 10px;

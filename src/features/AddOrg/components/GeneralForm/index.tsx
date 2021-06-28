@@ -22,7 +22,6 @@ function GeneralForm({ setGeneral, setRef }) {
   const currentDirection = useSelector(currentDirectionSelector);
 
   const { about, name, ageFrom, ageTo, partner, directions } = rawData || {};
-
   const generalData = {
     about,
     name,
@@ -74,10 +73,10 @@ function GeneralForm({ setGeneral, setRef }) {
       {
         name: "directions",
         label: (
-          <div>
+          <span>
             Направление
             <Subtitle>Можно выбрать только одно направление</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         side: (e) => {
@@ -88,10 +87,10 @@ function GeneralForm({ setGeneral, setRef }) {
       {
         name: "category",
         label: (
-          <div>
+          <span>
             Категория
             <Subtitle>И одну категорию</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         options: categoriesDict || [],
@@ -99,20 +98,20 @@ function GeneralForm({ setGeneral, setRef }) {
       {
         name: "about",
         label: (
-          <div>
+          <span>
             Описание
             <Subtitle>Максимум 400 символов</Subtitle>
-          </div>
+          </span>
         ),
         type: "textarea",
       },
       {
         name: "partnerId",
         label: (
-          <div>
+          <span>
             Партнер
             <Space></Space>
-          </div>
+          </span>
         ),
         type: "select",
         options: partners || [],
