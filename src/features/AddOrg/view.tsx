@@ -12,35 +12,61 @@ import organizationsService from "services/organizations";
 import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUploadId, removeUploadIds } from "features/AddOrg/duck/slice";
-import { uploadIdsSelector } from "features/AddOrg/duck/selectors";
+import { removeUploadIds, removeUploadId } from "features/AddOrg/duck/slice";
+import {
+  currentOrganizationSelector,
+  uploadIdsSelector,
+} from "features/AddOrg/duck/selectors";
+import { deleteImage, uploadImage, uploadExtraImage } from "./duck/actions";
 
+//TODO. Убрать из view логику и вынести в компоненты формы
 function AddOrgView({
-  initialData,
   organizationId,
 }: {
   organizationId: string;
-  initialData?: {
-    general: any;
-    contacts: any;
-    legal: any;
-  };
   formRefs: { general: any; contacts: any; legal: any };
   setFormRef: (ref: any) => void;
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const uploadIds = useSelector(uploadIdsSelector);
-  const submitMethod = initialData
+  const currentOrganization = useSelector(currentOrganizationSelector);
+  const photos = currentOrganization?.photos;
+  const submitMethod = currentOrganization
     ? organizationsService.update
     : organizationsService.create;
+
+  const {
+    address,
+    phoneNumber,
+    email,
+    site,
+    entity,
+    accountNumber,
+    taxIdNumber,
+    primaryStateNumber,
+    legalAddress,
+  } = currentOrganization || {};
+
+  const formDataContacts = {
+    address,
+    phoneNumber,
+    email,
+    site,
+  };
+
+  const formDataLegal = {
+    entity,
+    accountNumber,
+    taxIdNumber,
+    primaryStateNumber,
+    legalAddress,
+  };
 
   const [generalRef, setGeneralRef] = useState(null);
   const [contactRef, setContactRef] = useState(null);
   const [formalRef, setFormalRef] = useState(null);
-  const [choosedPartner, setChoosedPartner] = useState(null);
 
-  const [status, setStatus] = useState(0);
   const [dataReady, setReady] = useState(false);
 
   const [generalData, setGeneral] = useState(null);
@@ -55,8 +81,11 @@ function AddOrgView({
       setReady(!dataReady);
     }, 300);
   };
-  const onUploadSuccess = (id) => {
-    dispatch(addUploadId(id));
+  const onUpload = (file) => {
+    dispatch(uploadImage(file));
+  };
+  const onExtraUpload = (file) => {
+    dispatch(uploadExtraImage({ file, orgId: currentOrganization.id }));
   };
 
   useEffect(() => {
@@ -66,7 +95,6 @@ function AddOrgView({
           ...generalData,
           ...contactData,
           ...formalData,
-          partnerId: choosedPartner,
           directions: [generalData?.directions, generalData?.category],
           businessHours: [
             {
@@ -76,7 +104,7 @@ function AddOrgView({
             },
           ],
           uploadIds: uploadIds,
-          status,
+          status: "Active",
         },
         organizationId
       )
@@ -86,7 +114,6 @@ function AddOrgView({
           history.push(`/orgs`);
         })
         .catch((error) => {
-          console.log(error);
           error.forEach((errorMessage) => toast.error(errorMessage));
         });
       setReady(!dataReady);
@@ -104,10 +131,6 @@ function AddOrgView({
         </Left>
         <Right>
           <StatusHandler
-            onChange={(status) => {
-              const statusId = status === "disabled" ? 0 : 1;
-              setStatus(statusId);
-            }}
             options={[
               { name: "Заблокирован", status: "disabled" },
               { name: "Активен", status: "active" },
@@ -127,30 +150,53 @@ function AddOrgView({
                 content: (
                   <div>
                     <GeneralForm
-                      choosePartner={setChoosedPartner}
-                      initialData={initialData?.general}
                       setGeneral={(values) => {
                         setGeneral(values);
                       }}
                       setRef={setGeneralRef}
                     />
                     <Row>
-                      {/* <UpoadFile
-                        label="Добавить логотип"
-                        onSuccess={onUploadSuccess}
-                      /> */}
-                      <UpoadFile
-                        label="Добавить фото"
-                        onSuccess={onUploadSuccess}
-                      />
-                      <UpoadFile
-                        label="Добавить фото"
-                        onSuccess={onUploadSuccess}
-                      />
-                      <UpoadFile
-                        label="Добавить фото"
-                        onSuccess={onUploadSuccess}
-                      />
+                      {photos ? (
+                        <>
+                          {photos.map((item) => (
+                            <UpoadFile
+                              label="Добавить фото"
+                              imageUrl={item.cloudUrl}
+                              onRemove={() => {
+                                dispatch(
+                                  deleteImage({
+                                    orgId: currentOrganization.id,
+                                    uploadId: item.id,
+                                  })
+                                );
+                              }}
+                            />
+                          ))}
+                          <UpoadFile
+                            label="Добавить фото"
+                            onAdd={onExtraUpload}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <UpoadFile
+                            label="Добавить фото"
+                            onAdd={onUpload}
+                            onRemove={() => {
+                              dispatch(removeUploadId(uploadIds[0]));
+                            }}
+                          />
+                          {uploadIds.map((id) => (
+                            <UpoadFile
+                              label="Добавить фото"
+                              onAdd={onUpload}
+                              onRemove={() => {
+                                dispatch(removeUploadId(id));
+                              }}
+                            />
+                          ))}
+                        </>
+                      )}
                     </Row>
                   </div>
                 ),
@@ -174,7 +220,7 @@ function AddOrgView({
                       setContact(values);
                     }}
                     setRef={setContactRef}
-                    initialValues={initialData?.contacts}
+                    initialValues={formDataContacts}
                   />
                 ),
               },
@@ -189,7 +235,7 @@ function AddOrgView({
                         settings: { defaultType: "text", defaultCol: 6 },
                         fields: [
                           { name: "entity", label: "Юр.Лицо" },
-                          { name: "accountAddress", label: "Расчетный счет" },
+                          { name: "accountNumber", label: "Расчетный счет" },
                           { name: "taxIdNumber", label: "ИНН" },
                           { name: "primaryStateNumber", label: "ОГРН" },
                           { name: "legalAddress", label: "Юр. адрес" },
@@ -198,6 +244,7 @@ function AddOrgView({
                       onSubmit={(values) => {
                         setFormal(values);
                       }}
+                      initialValues={formDataLegal}
                       setRef={setFormalRef}
                     />
                     <Row>

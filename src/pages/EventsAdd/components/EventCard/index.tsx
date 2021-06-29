@@ -1,6 +1,4 @@
-import React, {useEffect, useState} from "react";
-
-import cover_img from "./common/cover_img.jpg";
+import React, {useState} from "react";
 
 import {
   Wrapper,
@@ -27,10 +25,6 @@ function EventCard({
   uploadedImages,
 }:IEventCard) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-
-  useEffect(() => {
-    console.log("uploadImages", uploadedImages)
-  }, [uploadedImages])
 
   const sliderSettings = {
     slidesToShow: 1,

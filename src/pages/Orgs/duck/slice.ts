@@ -6,9 +6,7 @@ import { OrganizationType } from "./types";
 
 export const organizationsAdapter = createEntityAdapter<OrganizationType>({
   selectId: (org) => org?.entityId,
-  sortComparer: (a, b) =>
-    // a.entityId.toString().localeCompare(b.entityId.toString()),
-    a.entityId > b.entityId ? -1 : 1,
+  sortComparer: (a, b) => (a.entityId > b.entityId ? -1 : 1),
 });
 
 const organizatonsSlice = createSlice({
@@ -33,11 +31,9 @@ const organizatonsSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить организации. Обновите страницу");
-        console.log("error");
       }
     );
   },
 });
-export const {} = organizatonsSlice.actions;
 
 export default organizatonsSlice.reducer;

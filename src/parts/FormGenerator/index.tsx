@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, Dispatch, SetStateAction } from "react";
+import React, { useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -51,7 +51,7 @@ function FormGenerator({
     if (formRef && setRef) {
       setRef(formRef);
     }
-  }, [formRef]);
+  }, [formRef, setRef]);
 
 
   const makeYup = (yup) => {
@@ -94,7 +94,7 @@ function FormGenerator({
       field = (
         <Select
           {...props}
-          title={props.title || "Выбрать..."}
+          title={props.title || "---"}
           onChange={handleChange}
           error={errors[props.name]}
           touched={touched[props.name]}
@@ -121,8 +121,8 @@ function FormGenerator({
     );
   };
 
-  const makeFields = (errors, touched, handleChange, values) =>
-    config.fields.reduce(
+  const makeFields = (errors, touched, handleChange, values) => {
+    return config.fields.reduce(
       (accum, curr) => ({
         ...accum,
         [curr.name]: chooseFieldByType(
@@ -136,6 +136,7 @@ function FormGenerator({
       }),
       {}
     );
+  };
 
   const yupSchema = Yup.object(makeYupSchema(config.fields));
 

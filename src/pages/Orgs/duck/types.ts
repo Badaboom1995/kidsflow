@@ -15,6 +15,11 @@ export type OrganizationType = {
   phoneNumber: string;
   email: string;
   site: string;
+  entity: string;
+  accountNumber: string;
+  taxIdNumber: string;
+  primaryStateNumber: string;
+  legalAddress: string;
 };
 
 // address: "г. Москва, Ащеулов пер., 9"

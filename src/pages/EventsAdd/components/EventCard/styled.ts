@@ -1,7 +1,4 @@
 import styled from "styled-components";
-// import calendar from "../assets/calendar.svg";
-import Button from "../../../../parts/Button";
-import {position} from "polished";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -14,7 +11,6 @@ export const Wrapper = styled.div`
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 `;
-
 
 export const CoverImage = styled.div`
   width: 100%;

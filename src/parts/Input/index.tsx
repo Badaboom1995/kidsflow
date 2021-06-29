@@ -31,16 +31,18 @@ export default function Input({
       {label && <Label>{label}</Label>}
       <ErrorContainier error={touched ? error : ""}>
         {type === "textarea" ? (
-          <Field name={name}>
-            {({ field }) => (
-              <Textarea
-                name={name}
-                value={field.value}
-                onChange={field.onChange}
-                rows={6}
-              />
-            )}
-          </Field>
+          <InputContainer icon={icon} centered={centered}>
+            <Field name={name}>
+              {({ field }) => (
+                <Textarea
+                  name={name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  rows={6}
+                />
+              )}
+            </Field>
+          </InputContainer>
         ) : (
           <InputContainer icon={icon} centered={centered}>
             <StyledInput

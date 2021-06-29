@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper, ErrorText } from "./styled";
+import { Wrapper } from "./styled";
 
 interface ErrorContainierInterface {
   error?: string;

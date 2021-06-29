@@ -18,13 +18,13 @@ function EventsAdd() {
   const [uploadedImages, setUploadedImages] = useState<TUploadedImage[]>([]);
 
   const refLeftElement = useRef<HTMLDivElement>(null);
-  const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>()
+  const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>(0);
 
   useEffect(() => {
     if(refLeftElement.current){
       setMaxRightContentHeight(refLeftElement.current.clientHeight)
     }
-  })
+  }, [refLeftElement])
 
   const submitForm = () => {
     generalRef?.current.handleSubmit();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Wrapper, ImagePlaceholder } from "./styled";
 import Table from "parts/Table";
 import AddButton from "parts/AddButton";

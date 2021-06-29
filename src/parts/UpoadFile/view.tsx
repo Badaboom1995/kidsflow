@@ -1,25 +1,15 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch} from "react-redux";
+import React, {useState} from "react";
 import useId from "react-id-generator";
 
 import {Wrapper, Preview, Label, CloseButton} from "./styled";
 
 import {IUpoadFile} from "./index";
-import organizationsService from "services/organizations";
 import {TUploadedImage} from "../../pages/EventsAdd/types";
 
-function UpoadFileView({label, file, onSuccess, setUploadedImages, uploadedImages}: IUpoadFile) {
-  const dispatch = useDispatch();
+function UpoadFileView({label, file, onAdd, onRemove, imageUrl, setUploadedImages, uploadedImages}: IUpoadFile) {
   const [src, setSrc] = useState(null);
-  const [imageFile, setFile] = useState(null);
   const imageId = useId("image");
   const [currentImageId, seCurrentImageId] = useState<string>();
-
-  useEffect(() => {
-    if (src) {
-      organizationsService.uploadImage(imageFile, onSuccess);
-    }
-  }, [src]);
 
   const addImageIntoUploadedImages = (url:any) => {
     if(setUploadedImages){
@@ -36,23 +26,23 @@ function UpoadFileView({label, file, onSuccess, setUploadedImages, uploadedImage
 
   return (
     <Wrapper>
-      <Preview file={file} image={src}>
+      <Preview file={file} image={imageUrl || src}>
         <Label>
           {label}
           <input
             type="file"
             onChange={(e) => {
-              // console.log(e.target.files);
               addImageIntoUploadedImages(URL.createObjectURL(e.target.files[0]));
-              setFile(e.target.files[0]);
               setSrc(URL.createObjectURL(e.target.files[0]));
+              onAdd && onAdd(e.target.files[0]);
             }}
           />
         </Label>
       </Preview>
-      {src && (
+      {(src || imageUrl) && (
         <CloseButton
           onClick={() => {
+            onRemove && onRemove();
             setSrc(null);
             removeImageFromUploadedImages();
           }}

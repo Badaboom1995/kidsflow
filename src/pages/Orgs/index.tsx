@@ -1,5 +1,5 @@
 import Table from "parts/Table";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Wrapper, OrgName, Adress } from "./styled";
 import { Status } from "parts/styled";
 
@@ -15,12 +15,12 @@ function Orgs() {
   const pagination = useSelector(selectPagination);
   const history = useHistory();
   const prefix = "";
-  const onRowClick = (id: string) => {
-    history.push(`${prefix}/orgs/add-org/${id}`);
+  const onRowClick = (entity: any) => {
+    history.push(`${prefix}/orgs/add-org/${entity.organizationId}`);
   };
 
   useEffect(() => {
-    dispatch(getOrganizations(1));
+    dispatch(getOrganizations(0));
   }, []);
 
   const normalizedOrganizations = organizations.map((item) => {
@@ -59,9 +59,7 @@ function Orgs() {
             label: "Партнер",
             key: "partner",
             props: { width: "13%" },
-            getComponent: (partner) => {
-              return partner.firstName;
-            },
+            getComponent: (partner) => partner.firstName,
           },
           {
             label: "Адрес",

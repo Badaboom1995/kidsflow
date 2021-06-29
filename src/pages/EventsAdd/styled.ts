@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { GridContainer } from "parts/styled";
 
 export const Wrapper = styled.div``;
 export const Content = styled.div`

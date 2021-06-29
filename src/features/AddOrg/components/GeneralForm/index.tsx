@@ -1,95 +1,58 @@
-import React, { useEffect, useState } from "react";
-import { Partners, PartnersField } from "../../styled";
+import React from "react";
 import FormGenerator from "parts/FormGenerator";
-import { Formik, Form } from "formik";
-import Select from "parts/Select";
-import { directions, getAge, getSchedule } from "config/constants";
-import organizationsService from "services/organizations";
-import { FormSectionTitle } from "parts/styled";
-import directionsService from "services/directions";
+import { getAge } from "config/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { chooseDirection } from "../../duck/slice";
-import { directionSelector } from "../../duck/selectors";
+
+import {
+  currentOrganizationSelector,
+  directionSelector,
+  categorySelector,
+  partnerSelector,
+  currentDirectionSelector,
+} from "../../duck/selectors";
 import { Subtitle, Space } from "./styled";
+import { getCategories } from "features/AddOrg/duck/actions";
 
-function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
-  const [partners, setPartners] = useState(null);
-  const [kinds, setKinds] = useState(null);
-  const [category, setCategory] = useState(null);
+function GeneralForm({ setGeneral, setRef }) {
   const dispatch = useDispatch();
-  const direction = useSelector(directionSelector);
+  const directionsDict = useSelector(directionSelector);
+  const categoriesDict = useSelector(categorySelector);
+  const partners = useSelector(partnerSelector);
+  const rawData = useSelector(currentOrganizationSelector);
+  const currentDirection = useSelector(currentDirectionSelector);
 
-  useEffect(() => {
-    directionsService.getList(1).then((result) => {
-      setKinds(
-        result.data.map((item) => ({
-          name: item.name,
-          value: item.eventDirectionId,
-        }))
-      );
-    });
-    organizationsService.partnersList().then((result) => {
-      setPartners(
-        result.data.list.map((item) => ({
-          name: item.partner.firstName,
-          value: item.partner.partnerId,
-        }))
-      );
-    });
-  }, []);
-
-  useEffect(() => {
-    directionsService.getList(2).then((result) => {
-      console.log(result);
-      setCategory(
-        result.data
-          .filter((item) => item.parentId === direction)
-          .map((item) => ({
-            name: item.name,
-            value: item.eventDirectionId,
-          }))
-      );
-    });
-  }, [direction]);
+  const { about, name, ageFrom, ageTo, partner, directions } = rawData || {};
+  const generalData = {
+    about,
+    name,
+    directions:
+      currentDirection ||
+      directions?.find((item) => !item.parentId)?.eventDirectionId,
+    category: directions?.find((item) => item.parentId)?.eventDirectionId,
+    businessHours: "",
+    ageFrom: ageFrom?.toString(),
+    ageTo: ageTo?.toString(),
+    partnerId: partner?.partnerId,
+  };
 
   const config: any = {
     title: "Общее",
     settings: { defaultType: "text", defaultCol: 6 },
     fields: [
-      { name: "name", label: "Название" },
-      { name: "about", label: "Описание" },
       {
-        name: "directions",
-        label: "Направление",
-        type: "select",
-        side: (e) => {
-          dispatch(chooseDirection(e.target.value));
-        },
-        options: kinds || [],
-      },
-      {
-        name: "category",
-        label: "Категория",
-        type: "select",
-        options: category || [],
-      },
-      {
-        name: "businessHours",
-        yup: [{ key: "optional", args: [] }],
+        name: "name",
         label: (
-          <div>
-            Расписание<Subtitle>пн - пт</Subtitle>
-          </div>
+          <span>
+            Название<Subtitle>максимум 30 символов</Subtitle>
+          </span>
         ),
-        type: "select",
-        options: getSchedule(),
       },
       {
         name: "ageFrom",
         label: (
-          <div>
+          <span>
             Возраст<Subtitle>от</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         col: 3,
@@ -98,17 +61,75 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
       {
         name: "ageTo",
         label: (
-          <div>
+          <span>
             <Space />
             <Subtitle>до</Subtitle>
-          </div>
+          </span>
         ),
         type: "select",
         col: 3,
         options: getAge(25),
       },
+      {
+        name: "directions",
+        label: (
+          <span>
+            Направление
+            <Subtitle>Можно выбрать только одно направление</Subtitle>
+          </span>
+        ),
+        type: "select",
+        side: (e) => {
+          dispatch(getCategories(e.target.value));
+        },
+        options: directionsDict || [],
+      },
+      {
+        name: "category",
+        label: (
+          <span>
+            Категория
+            <Subtitle>И одну категорию</Subtitle>
+          </span>
+        ),
+        type: "select",
+        options: categoriesDict || [],
+      },
+      {
+        name: "about",
+        label: (
+          <span>
+            Описание
+            <Subtitle>Максимум 400 символов</Subtitle>
+          </span>
+        ),
+        type: "textarea",
+      },
+      {
+        name: "partnerId",
+        label: (
+          <span>
+            Партнер
+            <Space></Space>
+          </span>
+        ),
+        type: "select",
+        options: partners || [],
+      },
+      // {
+      //   name: "businessHours",
+      //   yup: [{ key: "optional", args: [] }],
+      //   label: (
+      //     <div>
+      //       Расписание<Subtitle>пн - пт</Subtitle>
+      //     </div>
+      //   ),
+      //   type: "select",
+      //   options: getSchedule(),
+      // },
     ],
   };
+
   return (
     <>
       <FormGenerator
@@ -116,31 +137,9 @@ function GeneralForm({ initialData, setGeneral, setRef, choosePartner }) {
         onSubmit={(values) => {
           setGeneral(values);
         }}
-        initialValues={initialData}
+        initialValues={generalData}
         setRef={setRef}
       />
-      <Partners>
-        <FormSectionTitle offsetLeft={40} marginBottom={20}>
-          Партнеры
-        </FormSectionTitle>
-        <PartnersField>
-          <Formik
-            onSubmit={() => {}}
-            initialValues={{ partners: initialData?.partner }}
-          >
-            <Form>
-              <Select
-                title={"Выбрать..."}
-                onChange={() => {}}
-                options={partners || []}
-                name="partnerId"
-                side={(e) => choosePartner(e.target.value)}
-                value={initialData?.partnerId}
-              />
-            </Form>
-          </Formik>
-        </PartnersField>
-      </Partners>
     </>
   );
 }

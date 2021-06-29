@@ -51,11 +51,11 @@ function CardHeader({
 
       {formState?.category && (
         <MainInfoCategory>
-          {/*{formState.category?.map((item, index) => (*/}
-          {/*  <MainInfoCategoryItem key={index}>*/}
-          {/*    {item}*/}
-          {/*  </MainInfoCategoryItem>*/}
-          {/*))}*/}
+          {formState?.category?.map((item, index) => (
+            <MainInfoCategoryItem key={index}>
+              {item}
+            </MainInfoCategoryItem>
+          ))}
         </MainInfoCategory>
       )}
     </CoverMainInfo>

@@ -1,9 +1,7 @@
 const serverUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api-dev.vzletaem.ru"
+    ? "https://api.vzletaem.ru"
     : "https://api-dev.vzletaem.ru";
-
-// const token = localStorage.getItem("vzletaemAdminToken");
 
 type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE";
 
