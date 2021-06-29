@@ -13,7 +13,7 @@ import {
 import { Subtitle, Space } from "./styled";
 import { getCategories } from "features/AddOrg/duck/actions";
 
-function GeneralForm({ setGeneral, setRef }) {
+function GeneralForm({ setGeneral, setRef, setFormState }) {
   const dispatch = useDispatch();
   const directionsDict = useSelector(directionSelector);
   const categoriesDict = useSelector(categorySelector);
@@ -139,6 +139,7 @@ function GeneralForm({ setGeneral, setRef }) {
         }}
         initialValues={generalData}
         setRef={setRef}
+        setFormState={setFormState}
       />
     </>
   );
