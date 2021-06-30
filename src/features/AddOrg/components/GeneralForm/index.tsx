@@ -84,16 +84,27 @@ function GeneralForm({ setGeneral, setRef, setFormState }) {
         },
         options: directionsDict || [],
       },
+      // {
+      //   name: "category",
+      //   label: (
+      //     <span>
+      //       Категория
+      //       <Subtitle>И одну категорию</Subtitle>
+      //     </span>
+      //   ),
+      //   type: "select",
+      //   options: categoriesDict || [],
+      // },
       {
-        name: "category",
+        name: "partnerId",
         label: (
           <span>
-            Категория
-            <Subtitle>И одну категорию</Subtitle>
+            Партнер
+            <Space></Space>
           </span>
         ),
         type: "select",
-        options: categoriesDict || [],
+        options: partners || [],
       },
       {
         name: "about",
@@ -106,15 +117,15 @@ function GeneralForm({ setGeneral, setRef, setFormState }) {
         type: "textarea",
       },
       {
-        name: "partnerId",
+        name: "category",
         label: (
           <span>
-            Партнер
-            <Space></Space>
+            Категория
+            <Subtitle>И одну категорию</Subtitle>
           </span>
         ),
-        type: "select",
-        options: partners || [],
+        type: "chips",
+        options: categoriesDict,
       },
       // {
       //   name: "businessHours",

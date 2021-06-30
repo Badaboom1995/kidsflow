@@ -137,7 +137,7 @@ export const TopActionBack = styled.span`
   width: 44px;
   height: 44px;
   margin-right: auto;
-  background: rgba(255,255,255, .3);
+  background: rgba(255,255,255, .5);
   border-radius: 8px;
 `;
 
@@ -147,7 +147,7 @@ export const TopActionFavorite = styled.span`
   align-items: center;
   width: 44px;
   height: 44px;
-  background: rgba(255,255,255, .3);
+  background: rgba(255,255,255, .5);
   border-radius: 8px;
 `;
 

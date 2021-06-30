@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import {
   CoverMainInfo,
@@ -11,6 +11,17 @@ import {ICardHeader} from "../../../types";
 
 function CardHeader({generalFormState}:ICardHeader) {
 
+  const [categoryArray, setCategoryArray] = useState<string | any[]>();
+
+  console.log("categoryArray", categoryArray)
+
+  useEffect(() => {
+    if(Array.isArray(generalFormState?.category)){
+      const newArray = Array.from(generalFormState.category)
+      setCategoryArray(newArray);
+    } else setCategoryArray(generalFormState?.category);
+  }, [generalFormState?.category])
+
 
   return (
     <CoverMainInfo>
@@ -19,15 +30,23 @@ function CardHeader({generalFormState}:ICardHeader) {
         {generalFormState?.name ||  "Название огранизации"}
       </MainInfoTitle>
 
-      {/*{generalFormState?.category && (*/}
-      {/*  <MainInfoCategory>*/}
-      {/*    {generalFormState?.category?.map((item, index) => (*/}
-      {/*      <MainInfoCategoryItem key={index}>*/}
-      {/*        {item}*/}
-      {/*      </MainInfoCategoryItem>*/}
-      {/*    ))}*/}
-      {/*  </MainInfoCategory>*/}
-      {/*)}*/}
+      {!!categoryArray?.length && (
+        Array.isArray(categoryArray) ? (
+          <MainInfoCategory>
+            {categoryArray.map((item: string, index) => (
+              <MainInfoCategoryItem key={index}>
+                {item}
+              </MainInfoCategoryItem>
+            ))}
+          </MainInfoCategory>
+        ) : (
+          <MainInfoCategory>
+            <MainInfoCategoryItem>
+              {categoryArray}
+            </MainInfoCategoryItem>
+          </MainInfoCategory>
+        )
+      )}
     </CoverMainInfo>
   )
 }
