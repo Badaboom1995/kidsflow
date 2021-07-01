@@ -125,7 +125,7 @@ function GeneralForm({ setGeneral, setRef, setFormState }) {
           </span>
         ),
         type: "chips",
-        options: categoriesDict,
+        options: categoriesDict || [],
       },
       // {
       //   name: "businessHours",

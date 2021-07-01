@@ -4,4 +4,6 @@ export interface ICategoryChips {
   list: any;
   value: string;
   name: string;
+  error?: string;
+  touched?: boolean;
 }

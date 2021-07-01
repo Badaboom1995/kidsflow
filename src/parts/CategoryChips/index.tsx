@@ -18,16 +18,26 @@ function CategoryChips({
   list,
   value,
   name,
+  touched,
+  error,
 }:ICategoryChips) {
+  console.log("value", value)
   return(
     <Wrapper>
       {title && <CategoryChipsTitle>{title}</CategoryChipsTitle>}
       {text && <CategoryChipsText>{text}</CategoryChipsText>}
+      {error && (
+        <p style={{color: "red"}}>
+          {/*{touched ? error : ""}*/}
+          {/*{touched ? 1 : 0}*/}
+          {error && error}
+        </p>
+      )}
       <CategoryChipsList>
         {list?.map((item) => (
           <CategoryChipsItem
             key={item.value}
-            className={value.includes(item.value) && "active"}
+            className={value && value.includes(item.value) && "active"}
           >
             <HiddenCheckbox
               key={item.value}
@@ -35,7 +45,7 @@ function CategoryChips({
               name={name}
               value={item.value}
              />
-            {value.includes(item.value) && <IconCross width={10} height={10}/>}
+            {value && value.includes(item.value) && <IconCross width={10} height={10}/>}
             {item.name}
           </CategoryChipsItem>
         ))}

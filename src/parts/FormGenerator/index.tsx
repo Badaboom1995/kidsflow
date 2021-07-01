@@ -111,6 +111,8 @@ function FormGenerator({
           list={props.options}
           name={props.name}
           value={values[props.name]}
+          error={errors[props.name]}
+          touched={touched[props.name]}
         />
       )
     }
