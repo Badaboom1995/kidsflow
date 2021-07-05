@@ -13,7 +13,7 @@ import {
 import { Subtitle, Space } from "./styled";
 import { getCategories } from "features/AddOrg/duck/actions";
 
-function GeneralForm({ setGeneral, setRef }) {
+function GeneralForm({ setGeneral, setRef, setFormState }) {
   const dispatch = useDispatch();
   const directionsDict = useSelector(directionSelector);
   const categoriesDict = useSelector(categorySelector);
@@ -84,16 +84,27 @@ function GeneralForm({ setGeneral, setRef }) {
         },
         options: directionsDict || [],
       },
+      // {
+      //   name: "category",
+      //   label: (
+      //     <span>
+      //       Категория
+      //       <Subtitle>И одну категорию</Subtitle>
+      //     </span>
+      //   ),
+      //   type: "select",
+      //   options: categoriesDict || [],
+      // },
       {
-        name: "category",
+        name: "partnerId",
         label: (
           <span>
-            Категория
-            <Subtitle>И одну категорию</Subtitle>
+            Партнер
+            <Space></Space>
           </span>
         ),
         type: "select",
-        options: categoriesDict || [],
+        options: partners || [],
       },
       {
         name: "about",
@@ -106,15 +117,15 @@ function GeneralForm({ setGeneral, setRef }) {
         type: "textarea",
       },
       {
-        name: "partnerId",
+        name: "category",
         label: (
           <span>
-            Партнер
-            <Space></Space>
+            Категория
+            <Subtitle>И одну категорию</Subtitle>
           </span>
         ),
-        type: "select",
-        options: partners || [],
+        type: "chips",
+        options: categoriesDict || [],
       },
       // {
       //   name: "businessHours",
@@ -139,6 +150,7 @@ function GeneralForm({ setGeneral, setRef }) {
         }}
         initialValues={generalData}
         setRef={setRef}
+        setFormState={setFormState}
       />
     </>
   );

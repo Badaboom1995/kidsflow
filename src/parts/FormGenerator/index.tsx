@@ -107,10 +107,12 @@ function FormGenerator({
       field = (
         <CategoryChips
           title={props.label}
-          text={"Можно выбрать только несколько категорий"}
+          text={props.text}
           list={props.options}
           name={props.name}
           value={values[props.name]}
+          error={errors[props.name]}
+          touched={touched[props.name]}
         />
       )
     }

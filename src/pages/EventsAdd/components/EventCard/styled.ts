@@ -95,10 +95,6 @@ export const SliderCounter = styled.span`
   padding: 6px 8px;
 `;
 
-export const Image = styled.img`
-  width: 100%;
-`;
-
 export const CoverTopActions = styled.div`
   position: absolute;
   top: 30px;

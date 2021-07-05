@@ -25,6 +25,8 @@ export const CategoryChipsText = styled.p`
 export const CategoryChipsList = styled.div `
   display: flex;
   flex-wrap: wrap;
+  max-height: 375px;
+  overflow-y: auto;
 `;
 
 export const CategoryChipsItem = styled.span `

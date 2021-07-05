@@ -6,7 +6,6 @@ import {
   TopActionBack,
   TopActionFavorite,
   CoverImage,
-  Image,
   CoverInfo,
   SliderCounter,
   SliderPlug,
@@ -22,7 +21,6 @@ function EventCard({
   maxRightContentHeight,
   formState,
   formContactsState,
-  uploadedImages,
 }:IEventCard) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -50,19 +48,11 @@ function EventCard({
           settings={sliderSettings}
           setCurrentSlide={setCurrentSlide}
         >
-          {!!uploadedImages?.length ? (
-            uploadedImages.map((item) => (
-              <Image key={item.id} src={item.url}/>
-            ))
-          ) : (
             <SliderPlug>Фото</SliderPlug>
-          )}
         </Slider>
-        {!!uploadedImages?.length && (
           <SliderCounter>
-            {currentSlide + 1} / {uploadedImages?.length}
+            {currentSlide + 1} / 1
           </SliderCounter>
-        )}
 
       </CoverImage>
 

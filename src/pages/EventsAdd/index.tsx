@@ -8,14 +8,13 @@ import Button from "parts/Button";
 import EventCard from "./components/EventCard";
 
 import {Wrapper, Content, Right, Left, Head, Uploads, Footer, LeftInner} from "./styled";
-import {IFormContactsState, IFormState, TUploadedImage} from "./types";
+import {IFormContactsState, IFormState} from "./types";
 
 function EventsAdd() {
   const [generalRef, setGeneralRef] = useState(null);
   const [contactsRef, setContactsRef] = useState(null);
   const [formState, setFormState] = useState<IFormState>();
   const [formContactsState, setFormContactsState] = useState<IFormContactsState>();
-  const [uploadedImages, setUploadedImages] = useState<TUploadedImage[]>([]);
 
   const refLeftElement = useRef<HTMLDivElement>(null);
   const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>(0);
@@ -135,9 +134,9 @@ function EventsAdd() {
             <Uploads>
               <FormSectionTitle>Логотип</FormSectionTitle>
               <UpoadFile label="Добавить лого" />
-              <UpoadFile label="Добавить фото" uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
-              <UpoadFile label="Добавить фото" uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
-              <UpoadFile label="Добавить фото" uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
+              <UpoadFile label="Добавить фото" />
+              <UpoadFile label="Добавить фото" />
+              <UpoadFile label="Добавить фото" />
             </Uploads>
           </LeftInner>
         </Left>
@@ -147,7 +146,6 @@ function EventsAdd() {
             maxRightContentHeight={maxRightContentHeight}
             formState={formState}
             formContactsState={formContactsState}
-            uploadedImages={uploadedImages}
           />
         </Right>
         <Footer>

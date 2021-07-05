@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Wrapper, MainArea, Left, Right, Row, Docs, Header } from "./styled";
 import FormGenerator from "parts/FormGenerator";
 import BackSection from "parts/BackSection";
@@ -18,6 +18,9 @@ import {
   uploadIdsSelector,
 } from "features/AddOrg/duck/selectors";
 import { deleteImage, uploadImage, uploadExtraImage } from "./duck/actions";
+import PreviewCard from "./components/PreviewCard";
+import {TGeneralFormState, TContactsFormState, TFormalFormState} from "./types";
+
 
 //TODO. Убрать из view логику и вынести в компоненты формы
 function AddOrgView({
@@ -32,9 +35,22 @@ function AddOrgView({
   const uploadIds = useSelector(uploadIdsSelector);
   const currentOrganization = useSelector(currentOrganizationSelector);
   const photos = currentOrganization?.photos;
+
+  const [generalFormState, setGeneralFormState] = useState<TGeneralFormState>();
+  const [contactFormState, setContactFormState] = useState<TContactsFormState>();
+  const [formalFormState, setFormalFormState] = useState<TFormalFormState>();
+  const refLeftElement = useRef<HTMLDivElement>(null);
+  const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>(0);
+
   const submitMethod = currentOrganization
     ? organizationsService.update
     : organizationsService.create;
+
+  useEffect(() => {
+    if(refLeftElement.current){
+      setMaxRightContentHeight(refLeftElement.current.clientHeight)
+    }
+  }, [refLeftElement])
 
   const {
     address,
@@ -140,7 +156,7 @@ function AddOrgView({
         </Right>
       </Header>
       <MainArea>
-        <Left>
+        <Left ref={refLeftElement}>
           <Tabs
             activeId={1}
             tabs={[
@@ -154,6 +170,7 @@ function AddOrgView({
                         setGeneral(values);
                       }}
                       setRef={setGeneralRef}
+                      setFormState={setGeneralFormState}
                     />
                     <Row>
                       {photos ? (
@@ -221,6 +238,7 @@ function AddOrgView({
                     }}
                     setRef={setContactRef}
                     initialValues={formDataContacts}
+                    setFormState={setContactFormState}
                   />
                 ),
               },
@@ -246,6 +264,7 @@ function AddOrgView({
                       }}
                       initialValues={formDataLegal}
                       setRef={setFormalRef}
+                      setFormState={setFormalFormState}
                     />
                     <Row>
                       <FormSectionTitle>Документы:</FormSectionTitle>
@@ -261,7 +280,14 @@ function AddOrgView({
             ]}
           />
         </Left>
-        <Right></Right>
+        <Right>
+          <PreviewCard
+            maxRightContentHeight={maxRightContentHeight}
+            generalFormState={generalFormState}
+            contactFormState={contactFormState}
+            formalFormState={formalFormState}
+          />
+        </Right>
       </MainArea>
       <ButtonsArea>
         <section>

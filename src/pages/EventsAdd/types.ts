@@ -17,16 +17,10 @@ export interface IFormContactsState {
   site: string,
 }
 
-export type TUploadedImage = {
-  url: any,
-  id: any,
-}
-
 export interface IEventCard {
   maxRightContentHeight: number;
   formState: IFormState;
   formContactsState?: IFormContactsState;
-  uploadedImages: TUploadedImage[];
 }
 
 export interface ICardHeader {
