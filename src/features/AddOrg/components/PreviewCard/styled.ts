@@ -72,7 +72,7 @@ export const CoverImage = styled.div`
       }
     }
     .slick-arrow{
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.5);
       width: 30px;
       height: 30px;
       &:before{
@@ -86,6 +86,9 @@ export const CoverImage = styled.div`
       &.slick-next{
         right: 0;
         transform: translate(-10px, -50%);
+      }
+      &:hover{
+        background: rgba(0, 0, 0, 0.8);
       }
     }
   }
@@ -177,12 +180,14 @@ export const CoverInfo = styled.div`
   position: relative;
   margin-top: -30px;
   overflow: hidden;
+  min-height: 100%;
+  background-color: #fff;
+  border-radius: 12px 12px 0 0;
 `;
 
 export const CoverMainInfo = styled.div`
   padding: 25px 20px;
   background-color: #FFFBED;
-  border-radius: 12px 12px 0 0;
   border-bottom: 2px solid #FFEAA7;
 `;
 

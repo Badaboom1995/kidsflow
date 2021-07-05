@@ -41,7 +41,7 @@ function PreviewCard({
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    dots: true,
+    dots: false,
     infinite: true,
     className: "event-card_slider__wrapper"
   }
