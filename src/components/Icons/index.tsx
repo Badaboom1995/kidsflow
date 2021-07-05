@@ -9,6 +9,7 @@ import {IconEdit} from "./components/IconEdit";
 import {IconCross} from "./components/IconCross";
 import {IconHeart} from "./components/IconHeart";
 import {IconArrowLineLeft} from "./components/IconArrowLineLeft";
+import {IconUser} from "./components/IconUser";
 
 export {
   IconStar,
@@ -22,4 +23,5 @@ export {
   IconCross,
   IconHeart,
   IconArrowLineLeft,
+  IconUser,
 };

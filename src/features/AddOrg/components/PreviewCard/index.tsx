@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {
   Wrapper,
@@ -12,10 +12,12 @@ import {
   SliderCounter,
   SliderPlug,
   ContactsWrapper,
+  CoverTopInfoWrapper,
+  CoverTopInfo,
 } from "./styled";
 
 import phoneInfoPlug from "../../../../common/images/svg/phone-top-actions.svg"
-import {IconArrowLineLeft, IconHeart} from "../../../../components/Icons";
+import {IconArrowLineLeft, IconCategory, IconHeart, IconUser} from "../../../../components/Icons";
 import Button from "../../../../parts/Button";
 import Slider from "../../../../parts/Slider";
 import CardHeader from "./components/CardHeader";
@@ -74,6 +76,16 @@ function PreviewCard({
             {currentSlide + 1} / {photos?.length}
           </SliderCounter>
         )}
+        <CoverTopInfoWrapper>
+          <CoverTopInfo>
+            <IconCategory color="#FFC400" width={10} height={10}/>
+            {generalFormState?.directions ||  "Направление"}
+          </CoverTopInfo>
+          <CoverTopInfo>
+            <IconUser color="#FFC400" width={8} height={10}/>
+            {generalFormState?.ageFrom ||  "От"} - {generalFormState?.ageTo ||  "До"} лет
+          </CoverTopInfo>
+        </CoverTopInfoWrapper>
       </CoverImage>
 
       <CoverInfo>

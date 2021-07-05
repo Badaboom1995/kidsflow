@@ -151,6 +151,28 @@ export const TopActionFavorite = styled.span`
   border-radius: 8px;
 `;
 
+export const CoverTopInfoWrapper = styled.div`
+  position: absolute;
+  bottom: 40px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+export const CoverTopInfo = styled.span`
+  display: inline-flex;
+  align-items: center;
+  margin-right: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background-color: #FFFBED;
+  font-size: 12px;
+  line-height: 14px;
+  svg{
+    margin-right: 7px;
+  }
+`;
+
 export const CoverInfo = styled.div`
   position: relative;
   margin-top: -30px;
@@ -158,9 +180,9 @@ export const CoverInfo = styled.div`
 `;
 
 export const CoverMainInfo = styled.div`
-  padding: 30px 20px;
+  padding: 25px 20px;
   background-color: #FFFBED;
-  border-radius: 30px 30px 0 0;
+  border-radius: 12px 12px 0 0;
   border-bottom: 2px solid #FFEAA7;
 `;
 
@@ -203,8 +225,6 @@ export const BodyInfoIcon = styled.div`
   width: 30px;
   flex: 0 0 auto;
 `;
-
-export const BodyInfoDetails = styled.div``;
 
 export const BodyInfoAddress = styled.div``;
 

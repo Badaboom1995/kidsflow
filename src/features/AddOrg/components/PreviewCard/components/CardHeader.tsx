@@ -10,10 +10,7 @@ import {
 import {ICardHeader} from "../../../types";
 
 function CardHeader({generalFormState}:ICardHeader) {
-
   const [categoryArray, setCategoryArray] = useState<string | any[]>();
-
-  console.log("categoryArray", categoryArray)
 
   useEffect(() => {
     if(Array.isArray(generalFormState?.category)){
@@ -21,7 +18,6 @@ function CardHeader({generalFormState}:ICardHeader) {
       setCategoryArray(newArray);
     } else setCategoryArray(generalFormState?.category);
   }, [generalFormState?.category])
-
 
   return (
     <CoverMainInfo>

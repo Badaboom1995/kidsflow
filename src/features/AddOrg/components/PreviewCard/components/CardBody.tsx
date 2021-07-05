@@ -1,10 +1,9 @@
 import React from "react";
 
-import {IconCategory, IconClock, IconMapMarker} from "../../../../../components/Icons";
+import {IconClock, IconMapMarker} from "../../../../../components/Icons";
 
 import {
   BodyInfoAddress,
-  BodyInfoDetails,
   BodyInfoIcon,
   BodyInfoItemWrapper,
   BodyInfoTime,
@@ -23,15 +22,6 @@ import {ICardBody} from "../../../types";
 function CardBody({generalFormState, contactFormState}:ICardBody) {
   return(
     <InfoBody>
-      <BodyInfoItemWrapper>
-        <BodyInfoIcon>
-          <IconCategory color="#BEC2CE"/>
-        </BodyInfoIcon>
-        <BodyInfoDetails>
-          {generalFormState?.directions ||  "Направление"}, {generalFormState?.ageFrom ||  "От"} - {generalFormState?.ageTo ||  "До"} лет
-        </BodyInfoDetails>
-      </BodyInfoItemWrapper>
-
       <BodyInfoItemWrapper>
         <BodyInfoIcon>
           <IconMapMarker color="#BEC2CE" />

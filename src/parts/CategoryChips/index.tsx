@@ -21,16 +21,15 @@ function CategoryChips({
   touched,
   error,
 }:ICategoryChips) {
-  console.log("value", value)
   return(
     <Wrapper>
       {title && <CategoryChipsTitle>{title}</CategoryChipsTitle>}
       {text && <CategoryChipsText>{text}</CategoryChipsText>}
       {error && (
         <p style={{color: "red"}}>
+          {error}
           {/*{touched ? error : ""}*/}
           {/*{touched ? 1 : 0}*/}
-          {error && error}
         </p>
       )}
       <CategoryChipsList>
