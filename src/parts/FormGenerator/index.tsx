@@ -9,6 +9,7 @@ import Select from "parts/Select";
 import CategoryChips from "parts/CategoryChips";
 
 import { formConfigType } from "./types";
+import TimeSchedule from "../TimeSchedule";
 
 interface IFormGenerator {
   config: formConfigType;
@@ -116,6 +117,14 @@ function FormGenerator({
         />
       )
     }
+    if(type === "timeSchedule"){
+      field = (
+        <TimeSchedule
+          title={props.label}
+        />
+      )
+    }
+
     return (
       <Item col={props.col || config.settings.defaultCol} key={props.name}>
         {field}

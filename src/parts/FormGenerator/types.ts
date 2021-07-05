@@ -1,4 +1,4 @@
-type FieldType = "text" | "select" | "textarea" | "chips";
+type FieldType = "text" | "select" | "textarea" | "chips" | "timeSchedule";
 type YupType = { key: string; args: any[] };
 
 type InputType = {

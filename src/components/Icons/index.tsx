@@ -10,6 +10,7 @@ import {IconCross} from "./components/IconCross";
 import {IconHeart} from "./components/IconHeart";
 import {IconArrowLineLeft} from "./components/IconArrowLineLeft";
 import {IconUser} from "./components/IconUser";
+import {IconCheck} from "./components/IconCheck";
 
 export {
   IconStar,
@@ -24,4 +25,5 @@ export {
   IconHeart,
   IconArrowLineLeft,
   IconUser,
+  IconCheck,
 };

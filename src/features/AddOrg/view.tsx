@@ -20,6 +20,7 @@ import {
 import { deleteImage, uploadImage, uploadExtraImage } from "./duck/actions";
 import PreviewCard from "./components/PreviewCard";
 import {TGeneralFormState, TContactsFormState, TFormalFormState} from "./types";
+import TimeSchedule from "../../parts/TimeSchedule";
 
 
 //TODO. Убрать из view логику и вынести в компоненты формы
@@ -158,7 +159,7 @@ function AddOrgView({
       <MainArea>
         <Left ref={refLeftElement}>
           <Tabs
-            activeId={1}
+            activeId={2}
             tabs={[
               {
                 id: 1,
@@ -231,6 +232,7 @@ function AddOrgView({
                         { name: "phoneNumber", label: "Телефон" },
                         { name: "email", label: "Email" },
                         { name: "site", label: "Сайт" },
+                        { name: "businessHours", label: "Режим работы", type: "timeSchedule"},
                       ],
                     }}
                     onSubmit={(values) => {

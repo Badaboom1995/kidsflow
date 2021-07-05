@@ -18,6 +18,7 @@
     "concurrently": "^6.2.0",
     "formik": "^2.2.6",
     "polished": "^4.1.1",
+    "rc-time-picker": "^3.7.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-id-generator": "^3.0.1",
