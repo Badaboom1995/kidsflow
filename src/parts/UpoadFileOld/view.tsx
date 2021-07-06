@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Wrapper, Preview, Label, CloseButton } from "./styled";
 import { IUpoadFile } from "./index";
 
 function UpoadFileView({ label, file, onAdd, onRemove, imageUrl }: IUpoadFile) {
+  const [src, setSrc] = useState(null);
+
   return (
     <Wrapper>
-      <Preview file={file} image={imageUrl}>
+      <Preview file={file} image={imageUrl || src}>
         <Label>
           {label}
           <input
             type="file"
             onChange={(e) => {
+              setSrc(URL.createObjectURL(e.target.files[0]));
               onAdd(e.target.files[0]);
             }}
           />
         </Label>
       </Preview>
-      {imageUrl && (
+      {(src || imageUrl) && (
         <CloseButton
           onClick={() => {
-            onRemove();
+            onRemove && onRemove();
+            setSrc(null);
           }}
         />
       )}

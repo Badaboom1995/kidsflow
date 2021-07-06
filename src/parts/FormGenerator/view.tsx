@@ -3,15 +3,19 @@ import { GridContainer } from "parts/styled";
 import { Form } from "formik";
 import { FormSectionTitle } from "parts/styled";
 import { Wrapper } from "./styled";
+import { TabsType } from "./types";
+import Tabs from "parts/Tabs";
 
 interface IAddUserFormView {
   title: string;
-  fieldsObj: { [name: string]: React.ReactElement };
+  tabs?: TabsType;
+  fields: React.ReactElement[];
   handleSubmit: any;
   transparent: boolean;
 }
 function ChildFormView({
-  fieldsObj,
+  fields,
+  tabs,
   handleSubmit,
   title,
   transparent,
@@ -25,7 +29,20 @@ function ChildFormView({
               {title}
             </FormSectionTitle>
           )}
-          {Object.keys(fieldsObj).map((key) => fieldsObj[key])}
+          {tabs ? (
+            <Tabs
+              activeId={0}
+              tabs={tabs.map((item, index) => ({
+                id: index,
+                name: item.name,
+                content: item.fields.map((fieldName) =>
+                  fields.find((fieldElem) => fieldName === fieldElem.key)
+                ),
+              }))}
+            />
+          ) : (
+            fields
+          )}
         </GridContainer>
       </Wrapper>
     </Form>

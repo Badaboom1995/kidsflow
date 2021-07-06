@@ -144,6 +144,8 @@ type GridContainerProps = {
   transparent?: boolean;
 };
 export const GridContainer = styled(GlassCard)<GridContainerProps>`
+  background-color: #fff;
+  width: 100%;
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -169,4 +171,17 @@ export const BackButton = styled.button`
     background-size: contain;
     background-repeat: no-repeat;
   }
+`;
+
+export const Subtitle = styled.span`
+  display: block;
+  font-size: 12px;
+  margin-bottom: -5px;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #ccc;
+`;
+export const Space = styled.span`
+  display: block;
+  padding: 9px;
 `;

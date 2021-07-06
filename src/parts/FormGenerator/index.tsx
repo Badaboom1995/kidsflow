@@ -101,22 +101,16 @@ function FormGenerator({
     );
   };
 
-  const makeFields = (errors, touched, handleChange) => {
-    const result = config.fields.reduce(
-      (accum, curr) => ({
-        ...accum,
-        [curr.name]: chooseFieldByType(
-          curr.type || config.settings.defaultType,
-          handleChange,
-          curr,
-          errors,
-          touched
-        ),
-      }),
-      {}
+  const makeFields = (errors, touched, handleChange) =>
+    config.fields.map((item) =>
+      chooseFieldByType(
+        item.type || config.settings.defaultType,
+        handleChange,
+        item,
+        errors,
+        touched
+      )
     );
-    return result;
-  };
 
   const yupSchema = Yup.object(makeYupSchema(config.fields));
 
@@ -141,12 +135,9 @@ function FormGenerator({
           <ChildFormView
             {...props}
             title={config.title}
+            tabs={config.tabs}
             transparent={transparent}
-            fieldsObj={makeFields(
-              props.errors,
-              props.touched,
-              props.handleChange
-            )}
+            fields={makeFields(props.errors, props.touched, props.handleChange)}
           />
         );
       }}

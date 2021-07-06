@@ -66,8 +66,6 @@ function TableView({ data, fields, changeSieveValue, pagination }: ITableView) {
           <Arrow
             right
             onClick={() => {
-              // pagination.pageNumber + 1 <
-              //   pagination.totalEntities / pagination.pageSize &&
               pagination.method(pagination.pageNumber + 1);
             }}
           />

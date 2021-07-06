@@ -9,7 +9,7 @@ export interface IUpoadFile {
   uploadId?: string;
   organizationId?: string;
   onAdd?: (file: any) => void;
-  onRemove?: (url?: string) => void;
+  onRemove?: () => void;
 }
 
 function UpoadFile(props: IUpoadFile) {
