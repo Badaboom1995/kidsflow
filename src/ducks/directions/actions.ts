@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "services/user";
 
-export const auth = createAsyncThunk<any, any>(
+type credentialsType = { phoneNumber: string; password: string };
+
+export const auth = createAsyncThunk<Record<string, string>, credentialsType>(
   "user/auth",
   async (credentials, { rejectWithValue }) => {
     const res = await userService.auth(credentials);

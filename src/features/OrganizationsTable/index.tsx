@@ -40,16 +40,17 @@ function OrganizationsTable() {
     },
     {
       label: "Фото",
-      key: "photo",
+      key: "uploads",
       props: { width: "7%" },
-      getComponent: (text) => (
-        <img src="https://via.placeholder.com/75" alt="" />
-      ),
+      getComponent: (uploads) => {
+        console.log(uploads);
+        return <img src={uploads[0]?.cloudUrl} alt="" />;
+      },
     },
     {
       label: "Название",
       key: "name",
-      props: { width: "20%" },
+      props: { width: "15%" },
       getComponent: (text) => <OrgName>{text}</OrgName>,
     },
     {
@@ -64,7 +65,7 @@ function OrganizationsTable() {
       props: { width: "13%" },
       getComponent: (adress) => <Adress>{adress}</Adress>,
     },
-    { label: "Направление", key: "eventCategory" },
+    { label: "Направление", key: "eventCategory", props: { width: "20%" } },
     {
       label: "Категория",
       key: "eventCategories",

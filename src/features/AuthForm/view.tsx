@@ -16,10 +16,10 @@ function AuthFormView() {
   return (
     <Wrapper>
       <Formik
-        onSubmit={(credentials) => {
+        onSubmit={(credentials: { phoneNumber: string; password: string }) => {
           dispatch(auth({ credentials, history }));
         }}
-        initialValues={{}}
+        initialValues={{ phoneNumber: "", password: "" }}
       >
         <FromArea>
           <Logo big />

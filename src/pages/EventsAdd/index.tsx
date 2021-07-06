@@ -3,7 +3,7 @@ import { Wrapper, Content, Right, Left, Head, Uploads, Footer } from "./styled";
 import BackSection from "parts/BackSection";
 import FormGenerator from "parts/FormGenerator";
 import EventCard from "./components/EventCard";
-import UpoadFile from "parts/UpoadFile";
+import UpoadFile from "parts/UpoadFileOld";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
 

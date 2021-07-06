@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Wrapper, Left, Right, Row } from "./styled";
 import FormGenerator from "parts/FormGenerator";
-import UpoadFile from "parts/UpoadFile";
+import UpoadFile from "parts/UpoadFileOld";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import BackSection from "parts/BackSection";
 import Button from "parts/Button";

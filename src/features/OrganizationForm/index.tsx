@@ -9,13 +9,11 @@ import AddOrgView from "./view";
 function AddOrg() {
   const dispatch = useDispatch();
 
-  const [formRefs, setFormRef] = useState({
-    general: null,
-    contacts: null,
-    legal: null,
-  });
+  const [generalRef, setGeneral] = useState(null);
+  const [contactsRef, setContacts] = useState(null);
+  const [legalRef, setLegal] = useState(null);
 
-  const { id }: any = useParams();
+  const { id }: { id: string } = useParams();
   const rawData = useSelector(currentOrganizationSelector);
   const loading = useSelector(loadingSelector);
 
@@ -32,8 +30,16 @@ function AddOrg() {
       ) : (
         <AddOrgView
           organizationId={organizationId}
-          formRefs={formRefs}
-          setFormRef={setFormRef}
+          formRefs={{
+            general: generalRef,
+            contacts: contactsRef,
+            legal: legalRef,
+          }}
+          setFormRef={{
+            general: setGeneral,
+            contacts: setContacts,
+            legal: setLegal,
+          }}
         />
       )}
     </>

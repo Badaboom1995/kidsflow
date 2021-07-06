@@ -15,9 +15,15 @@ type initialState = {
   uploadIds: string[];
   directions?: { name: string; value: string }[];
   currentDirection?: string;
-  categories?: any[];
+  categories?: Record<string, string>[];
   partners?: any[];
   currentOrganization?: any;
+  images?: { id: string; url: string }[];
+  data?: {
+    general: Record<string, string>;
+    contacts: Record<string, string>;
+    legal: Record<string, string>;
+  };
 };
 
 export const initialState: initialState = {
@@ -27,7 +33,13 @@ export const initialState: initialState = {
   directions: [],
   currentDirection: null,
   categories: [],
+  images: [],
   currentOrganization: null,
+  data: {
+    general: null,
+    contacts: null,
+    legal: null,
+  },
 };
 
 const addUserFormSlice = createSlice({
@@ -37,11 +49,14 @@ const addUserFormSlice = createSlice({
     addUploadId(state, { payload }) {
       state.uploadIds.push(payload);
     },
+    addData(state, { payload }: { payload: { key: string; values: string } }) {
+      state.data[payload.key] = payload.values;
+    },
     removeUploadIds(state) {
       state.uploadIds = [];
     },
     removeUploadId(state, { payload }) {
-      state.uploadIds = state.uploadIds.filter((item) => item !== payload);
+      state.images = state.images.filter((item) => item.id !== payload);
     },
   },
   extraReducers: (builder) => {
@@ -77,8 +92,9 @@ const addUserFormSlice = createSlice({
     makeReducer(
       builder,
       uploadImage,
-      (state, payload) => {
-        state.uploadIds.push(payload.data[0].uploadId);
+      (state, { id, url }) => {
+        state.uploadIds.push(id);
+        state.images.push({ id, url });
       },
       () => {
         toast.error("Не удалось загрузить");
@@ -88,9 +104,8 @@ const addUserFormSlice = createSlice({
     makeReducer(
       builder,
       uploadExtraImage,
-      (state, payload) => {
-        // state.uploadIds.push(payload.data[0].uploadId);
-        console.log(payload);
+      (state, response) => {
+        state.currentOrganization.photos.push(...response.data);
       },
       () => {
         toast.error("Не удалось загрузить");
@@ -138,6 +153,7 @@ export const {
   addUploadId,
   removeUploadIds,
   removeUploadId,
+  addData,
 } = addUserFormSlice.actions;
 
 export default addUserFormSlice.reducer;

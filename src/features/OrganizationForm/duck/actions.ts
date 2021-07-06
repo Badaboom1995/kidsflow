@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import organizationsService from "services/organizations";
 import directionsService from "services/directions";
 
+//TODO. Типизация всего
 export const getOrganizationById = createAsyncThunk<any, any>(
   "addOrganization/select",
   async (id, { rejectWithValue }) => {
@@ -27,7 +28,7 @@ export const uploadImage = createAsyncThunk<any, any>(
   async (file) => {
     try {
       const response = await organizationsService.uploadImage(file);
-      return response;
+      return { id: response.data[0].uploadId, url: URL.createObjectURL(file) };
     } catch (error) {
       throw error;
     }
