@@ -52,7 +52,7 @@ function PreviewCard({
   };
 
   return (
-    <Wrapper style={{ maxHeight: `${maxRightContentHeight}px` }}>
+    <Wrapper>
       <CoverImage>
         <PhoneInfoImage src={phoneInfoPlug} />
         <CoverTopActions>

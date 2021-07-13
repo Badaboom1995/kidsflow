@@ -135,7 +135,7 @@ function AddOrgView({
         </Left>
         <Right>
           <PreviewCard
-            maxRightContentHeight={window.innerHeight}
+            maxRightContentHeight={window.innerHeight + 200}
             generalFormState={data.general}
             contactFormState={data.contacts}
             formalFormState={data.legal}
