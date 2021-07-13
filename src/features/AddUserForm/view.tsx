@@ -13,7 +13,7 @@ import {
 import { ButtonsArea, FormSectionTitle, GlassCard } from "parts/styled";
 import Button from "parts/Button";
 import { Label } from "parts/styled";
-import UpoadFile from "parts/UpoadFile";
+import UpoadFile from "parts/UpoadFileOld";
 import FormGenerator from "parts/FormGenerator";
 import { useDispatch, useSelector } from "react-redux";
 import { selectChildrenArray } from "./duck/selectors";

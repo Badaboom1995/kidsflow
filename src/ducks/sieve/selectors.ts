@@ -14,7 +14,7 @@ export const selectFilter = createSelector(
 );
 export const selectSort = createSelector(sievesSelector, (state) => state.sort);
 
-const StringifyValues = (items: any[]) =>
+const StringifyValues = (items: Record<string, string>[]) =>
   items.map((item) =>
     Object.keys(item).reduce(
       (accum, key) => ({ ...accum, [key]: item[key]?.toString() }),
@@ -22,7 +22,7 @@ const StringifyValues = (items: any[]) =>
     )
   );
 // TODO. type for entities. generic??
-export const selectFilteredData = (entities: any) =>
+export const selectFilteredData = (entities: Record<string, string>[]) =>
   createSelector(selectFilter, (sieve) =>
     StringifyValues(entities).filter((item) => {
       let filterPassed = true;
@@ -36,7 +36,7 @@ export const selectFilteredData = (entities: any) =>
     })
   );
 // TODO.
-export const selectSortedData = (entities: any[]) => {
+export const selectSortedData = (entities: Record<string, string>[]) => {
   createSelector(
     selectFilteredData(entities),
     selectSort,

@@ -1,8 +1,10 @@
+export type configType = { title: string; settings: any; fields: any };
+
 export interface IPreviewCard {
   maxRightContentHeight: number;
-  generalFormState: TGeneralFormState,
-  contactFormState: TContactsFormState,
-  formalFormState: TFormalFormState,
+  generalFormState: TGeneralFormState;
+  contactFormState: TContactsFormState;
+  formalFormState: TFormalFormState;
 }
 
 export interface ICardHeader {
@@ -18,19 +20,19 @@ export type TGeneralFormState = {
   about: string;
   ageFrom: string;
   ageTo: string;
-  businessHours:string;
+  businessHours: string;
   category: any;
   directions: string;
   name: string;
   partnerId: string;
-}
+};
 
 export type TContactsFormState = {
   address: string;
   phoneNumber: string;
   email: string;
   site: string;
-}
+};
 
 export type TFormalFormState = {
   entity: string;
@@ -38,5 +40,4 @@ export type TFormalFormState = {
   taxIdNumber: string;
   primaryStateNumber: string;
   legalAddress: string;
-}
-
+};

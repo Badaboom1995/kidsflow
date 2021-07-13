@@ -1,29 +1,41 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import BackSection from "parts/BackSection";
 import FormGenerator from "parts/FormGenerator";
-import UpoadFile from "parts/UpoadFile";
+import UploadFile from "parts/UploadFile";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
 import EventCard from "./components/EventCard";
 
-import {Wrapper, Content, Right, Left, Head, Uploads, Footer, LeftInner} from "./styled";
-import {IFormContactsState, IFormState} from "./types";
+import {
+  Wrapper,
+  Content,
+  Right,
+  Left,
+  Head,
+  Uploads,
+  Footer,
+  LeftInner,
+} from "./styled";
+import { IFormContactsState, IFormState } from "./types";
 
 function EventsAdd() {
   const [generalRef, setGeneralRef] = useState(null);
   const [contactsRef, setContactsRef] = useState(null);
   const [formState, setFormState] = useState<IFormState>();
-  const [formContactsState, setFormContactsState] = useState<IFormContactsState>();
+  const [
+    formContactsState,
+    setFormContactsState,
+  ] = useState<IFormContactsState>();
 
   const refLeftElement = useRef<HTMLDivElement>(null);
   const [maxRightContentHeight, setMaxRightContentHeight] = useState<number>(0);
 
   useEffect(() => {
-    if(refLeftElement.current){
-      setMaxRightContentHeight(refLeftElement.current.clientHeight)
+    if (refLeftElement.current) {
+      setMaxRightContentHeight(refLeftElement.current.clientHeight);
     }
-  }, [refLeftElement])
+  }, [refLeftElement]);
 
   const submitForm = () => {
     generalRef?.current.handleSubmit();
@@ -83,7 +95,7 @@ function EventsAdd() {
                       { name: "2", value: "2" },
                       { name: "3", value: "3" },
                       { name: "4", value: "4" },
-                      { name: "5", value: "5" }
+                      { name: "5", value: "5" },
                     ],
                   },
                   {
@@ -96,21 +108,21 @@ function EventsAdd() {
                       { name: "2", value: "2" },
                       { name: "3", value: "3" },
                       { name: "4", value: "4" },
-                      { name: "5", value: "5" }
+                      { name: "5", value: "5" },
                     ],
                   },
                   {
                     name: "category",
                     label: "Категории",
                     type: "chips",
-                    options:[
+                    options: [
                       { name: "aaa1", value: "aaa1" },
                       { name: "bbb2", value: "bbb2" },
                       { name: "ccc3", value: "ccc3" },
                       { name: "ddd4", value: "ddd4" },
-                      { name: "eee5", value: "eee5" }
-                    ]
-                  }
+                      { name: "eee5", value: "eee5" },
+                    ],
+                  },
                 ],
                 settings: { defaultType: "text", defaultCol: 6 },
               }}
@@ -133,10 +145,10 @@ function EventsAdd() {
             />
             <Uploads>
               <FormSectionTitle>Логотип</FormSectionTitle>
-              <UpoadFile label="Добавить лого" />
-              <UpoadFile label="Добавить фото" />
-              <UpoadFile label="Добавить фото" />
-              <UpoadFile label="Добавить фото" />
+              <UploadFile label="Добавить лого" />
+              <UploadFile label="Добавить фото" />
+              <UploadFile label="Добавить фото" />
+              <UploadFile label="Добавить фото" />
             </Uploads>
           </LeftInner>
         </Left>

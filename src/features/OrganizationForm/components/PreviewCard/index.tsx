@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Wrapper,
@@ -16,26 +16,31 @@ import {
   CoverTopInfo,
 } from "./styled";
 
-import phoneInfoPlug from "../../../../common/images/svg/phone-top-actions.svg"
-import {IconArrowLineLeft, IconCategory, IconHeart, IconUser} from "../../../../components/Icons";
+import phoneInfoPlug from "../../../../common/images/svg/phone-top-actions.svg";
+import {
+  IconArrowLineLeft,
+  IconCategory,
+  IconHeart,
+  IconUser,
+} from "../../../../components/Icons";
 import Button from "../../../../parts/Button";
 import Slider from "../../../../parts/Slider";
 import CardHeader from "./components/CardHeader";
 import CardBody from "./components/CardBody";
 
-import {IPreviewCard} from "../../types";
-import {useSelector} from "react-redux";
-import {currentOrganizationSelector} from "../../duck/selectors";
+import { IPreviewCard } from "../../types";
+import { useSelector } from "react-redux";
+import { imagesSelector } from "../../duck/selectors";
 
 function PreviewCard({
   maxRightContentHeight,
   generalFormState,
   contactFormState,
   formalFormState,
-}:IPreviewCard) {
+}: IPreviewCard) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const currentOrganization = useSelector(currentOrganizationSelector);
-  const photos = currentOrganization?.photos;
+  const images = useSelector(imagesSelector);
+  const photos = images;
 
   const sliderSettings = {
     slidesToShow: 1,
@@ -43,30 +48,24 @@ function PreviewCard({
     arrows: true,
     dots: false,
     infinite: true,
-    className: "event-card_slider__wrapper"
-  }
+    className: "event-card_slider__wrapper",
+  };
 
   return (
-    <Wrapper style={{maxHeight: `${maxRightContentHeight}px`}}>
-
+    <Wrapper style={{ maxHeight: `${maxRightContentHeight}px` }}>
       <CoverImage>
-        <PhoneInfoImage src={phoneInfoPlug}/>
+        <PhoneInfoImage src={phoneInfoPlug} />
         <CoverTopActions>
           <TopActionBack>
-            <IconArrowLineLeft color="none"/>
+            <IconArrowLineLeft color="none" />
           </TopActionBack>
           <TopActionFavorite>
             <IconHeart color="none" />
           </TopActionFavorite>
         </CoverTopActions>
-        <Slider
-          settings={sliderSettings}
-          setCurrentSlide={setCurrentSlide}
-        >
+        <Slider settings={sliderSettings} setCurrentSlide={setCurrentSlide}>
           {!!photos?.length ? (
-            photos.map((item) => (
-              <Image key={item.id} src={item.cloudUrl}/>
-            ))
+            photos.map((item) => <Image key={item.id} src={item.url} />)
           ) : (
             <SliderPlug>Фото</SliderPlug>
           )}
@@ -78,18 +77,19 @@ function PreviewCard({
         )}
         <CoverTopInfoWrapper>
           <CoverTopInfo>
-            <IconCategory color="#FFC400" width={10} height={10}/>
-            {generalFormState?.directions ||  "Направление"}
+            <IconCategory color="#FFC400" width={10} height={10} />
+            {generalFormState?.directions || "Направление"}
           </CoverTopInfo>
           <CoverTopInfo>
-            <IconUser color="#FFC400" width={8} height={10}/>
-            {generalFormState?.ageFrom ||  "От"} - {generalFormState?.ageTo ||  "До"} лет
+            <IconUser color="#FFC400" width={8} height={10} />
+            {generalFormState?.ageFrom || "От"} -{" "}
+            {generalFormState?.ageTo || "До"} лет
           </CoverTopInfo>
         </CoverTopInfoWrapper>
       </CoverImage>
 
       <CoverInfo>
-        <CardHeader generalFormState={generalFormState}/>
+        <CardHeader generalFormState={generalFormState} />
         <CardBody
           generalFormState={generalFormState}
           contactFormState={contactFormState}
@@ -99,7 +99,6 @@ function PreviewCard({
       <ContactsWrapper>
         <Button>Смотреть контакты</Button>
       </ContactsWrapper>
-
     </Wrapper>
   );
 }

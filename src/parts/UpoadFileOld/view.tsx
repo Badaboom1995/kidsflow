@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { Wrapper, Preview, Label, CloseButton } from "./styled";
+import { IUpoadFile } from "./index";
 
-import {Wrapper, Preview, Label, CloseButton} from "./styled";
-
-import {IUpoadFile} from "./index";
-
-function UpoadFileView({label, file, onAdd, onRemove, imageUrl}: IUpoadFile) {
+function UpoadFileView({ label, file, onAdd, onRemove, imageUrl }: IUpoadFile) {
   const [src, setSrc] = useState(null);
 
   return (
@@ -16,7 +14,7 @@ function UpoadFileView({label, file, onAdd, onRemove, imageUrl}: IUpoadFile) {
             type="file"
             onChange={(e) => {
               setSrc(URL.createObjectURL(e.target.files[0]));
-              onAdd && onAdd(e.target.files[0]);
+              onAdd(e.target.files[0]);
             }}
           />
         </Label>
@@ -32,5 +30,4 @@ function UpoadFileView({label, file, onAdd, onRemove, imageUrl}: IUpoadFile) {
     </Wrapper>
   );
 }
-
 export default UpoadFileView;

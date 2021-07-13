@@ -14,7 +14,6 @@ interface IFormGenerator {
   config: formConfigType;
   resetOnSubmit?: boolean;
   transparent?: boolean;
-  // TODO. How to make type for dynamic object?
   initialValues?: any;
   setRef?: (ref: any) => void;
   onSubmit?: (values: any) => void;
@@ -53,7 +52,6 @@ function FormGenerator({
     }
   }, [formRef, setRef]);
 
-
   const makeYup = (yup) => {
     if (!yup) return Yup.string();
     const startYup =
@@ -78,7 +76,7 @@ function FormGenerator({
     props,
     errors,
     touched,
-    values,
+    values
   ) => {
     let field = null;
     if (type === "text" || type === "textarea") {
@@ -103,7 +101,7 @@ function FormGenerator({
         />
       );
     }
-    if(type === "chips"){
+    if (type === "chips") {
       field = (
         <CategoryChips
           title={props.label}
@@ -114,7 +112,7 @@ function FormGenerator({
           error={errors[props.name]}
           touched={touched[props.name]}
         />
-      )
+      );
     }
     return (
       <Item col={props.col || config.settings.defaultCol} key={props.name}>
@@ -123,22 +121,17 @@ function FormGenerator({
     );
   };
 
-  const makeFields = (errors, touched, handleChange, values) => {
-    return config.fields.reduce(
-      (accum, curr) => ({
-        ...accum,
-        [curr.name]: chooseFieldByType(
-          curr.type || config.settings.defaultType,
-          handleChange,
-          curr,
-          errors,
-          touched,
-          values,
-        ),
-      }),
-      {}
+  const makeFields = (errors, touched, handleChange) =>
+    config.fields.map((item) =>
+      chooseFieldByType(
+        item.type || config.settings.defaultType,
+        handleChange,
+        item,
+        errors,
+        touched,
+        initialValues
+      )
     );
-  };
 
   const yupSchema = Yup.object(makeYupSchema(config.fields));
 
@@ -157,20 +150,19 @@ function FormGenerator({
       }}
       validationSchema={yupSchema}
       innerRef={formRef}
+      validate={(values) => {
+        onSubmit(values);
+      }}
     >
       {(props) => {
-        {setFormState && setFormState(props.values)}
+        setFormState && setFormState(props.values);
         return (
           <ChildFormView
             {...props}
             title={config.title}
+            tabs={config.tabs}
             transparent={transparent}
-            fieldsObj={makeFields(
-              props.errors,
-              props.touched,
-              props.handleChange,
-              props.values
-            )}
+            fields={makeFields(props.errors, props.touched, props.handleChange)}
           />
         );
       }}

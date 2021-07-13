@@ -1,5 +1,6 @@
 type FieldType = "text" | "select" | "textarea" | "chips";
 type YupType = { key: string; args: any[] };
+export type TabsType = { name: string; fields: string[] }[];
 
 type InputType = {
   name: string;
@@ -15,6 +16,7 @@ type InputType = {
 
 export type formConfigType = {
   title?: string;
+  tabs?: { name: string; fields: string[] }[];
   settings: {
     defaultType: FieldType;
     defaultCol: number;

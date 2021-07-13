@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { colors } from "config/constants";
 import arrowLeft from "./assets/left.svg";
+import arrowDown from "./assets/right.svg";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -66,9 +67,21 @@ export const Row = styled.tr<RowProps>`
   }
 `;
 export const Controls = styled.div`
+  position: relative;
   display: flex;
   margin-bottom: 10px;
   border-bottom: 1px solid #fff;
+`;
+export const SubmitButton = styled.button`
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  background-color: #fff;
+  border: none;
+  padding: 12px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  cursor: pointer;
 `;
 type ControlsItemProps = {
   textalign?: string;
@@ -88,6 +101,40 @@ export const ControlsItem = styled.input<ControlsItemProps>`
     outline: none;
     border-bottom: 1px solid ${colors.primary};
     /* border-color: ${colors.primary}; */
+  }
+`;
+export const ConrolSelect = styled.input<ControlsItemProps>`
+  padding: 8px 0;
+  background-color: transparent;
+  border: none;
+  margin-bottom: -1px;
+  width: 100%;
+  flex-grow: ${(props) => (props.width ? 0 : 1)};
+  text-align: ${(props) => props.textalign || "left"};
+  border-bottom: 1px solid transparent;
+  color: #fff;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid ${colors.primary};
+    /* border-color: ${colors.primary}; */
+  }
+`;
+export const ConrolWrapper = styled.div<ControlsItemProps>`
+  display: flex;
+  align-items: center;
+  width: ${(props) => props.width};
+  flex-grow: ${(props) => (props.width ? 0 : 1)};
+  text-align: ${(props) => props.textalign || "left"};
+  border-bottom: 1px solid transparent;
+  &:before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 12px;
+    margin-right: 5px;
+    background-image: url(${arrowDown});
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 `;
 export const Tariff = styled.div`

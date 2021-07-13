@@ -1,7 +1,7 @@
 import React from "react";
 import { Wrapper } from "./styled";
 
-import AddOrg from "features/AddOrg";
+import AddOrg from "features/OrganizationForm";
 
 function Orgs() {
   return (

@@ -7,6 +7,10 @@ export const uploadIdsSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.uploadIds
 );
+export const imagesSelector = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.images
+);
 export const loadingSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.loading
@@ -23,11 +27,11 @@ export const partnerSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.partners
 );
-export const currentOrganizationSelector = createSelector(
-  AddUserFormSelector,
-  (addOrg) => addOrg.currentOrganization
-);
 export const currentDirectionSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.currentDirection
+);
+export const dataSelector = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.data
 );

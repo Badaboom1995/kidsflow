@@ -2,7 +2,7 @@ import React from "react";
 import UpoadFileView from "./view";
 
 export interface IUpoadFile {
-  label: string;
+  label?: string;
   bg?: string;
   file?: boolean;
   imageUrl?: string;
