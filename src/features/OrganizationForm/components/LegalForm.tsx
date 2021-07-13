@@ -2,7 +2,7 @@ import React from "react";
 import FormGenerator from "parts/FormGenerator";
 import { setStateFunc } from "common/types";
 import { useDispatch, useSelector } from "react-redux";
-import { currentOrganizationSelector } from "features/OrganizationForm/duck/selectors";
+import { dataSelector } from "features/OrganizationForm/duck/selectors";
 import { Row, Docs } from "../styled";
 import { FormSectionTitle } from "parts/styled";
 import UpoadFile from "parts/UpoadFileOld";
@@ -12,23 +12,9 @@ interface ILegalForm {
   setFormRef: setStateFunc;
 }
 function LegalForm({ setFormRef }: ILegalForm) {
-  const rawData = useSelector(currentOrganizationSelector);
+  const data = useSelector(dataSelector);
   const dispatch = useDispatch();
-  const {
-    entity,
-    accountNumber,
-    taxIdNumber,
-    primaryStateNumber,
-    legalAddress,
-  } = rawData || {};
 
-  const legalData = {
-    entity,
-    accountNumber,
-    taxIdNumber,
-    primaryStateNumber,
-    legalAddress,
-  };
   return (
     <>
       <FormGenerator
@@ -47,7 +33,7 @@ function LegalForm({ setFormRef }: ILegalForm) {
           dispatch(addData({ key: "legal", values }));
         }}
         setRef={(ref) => setFormRef(ref)}
-        initialValues={legalData}
+        initialValues={data.legal}
       />
       <Row>
         <FormSectionTitle>Документы:</FormSectionTitle>

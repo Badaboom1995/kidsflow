@@ -11,10 +11,12 @@ import {
   Footer,
   Arrow,
   ShadowContainer,
+  SubmitButton,
 } from "./styled";
 
 import { Field } from ".";
 import { SieveType } from "ducks/sieve/types";
+import FilterSelect from "features/OrganizationsTable/components/FilterSelect";
 
 interface ITableView {
   data: React.ReactNode[];
@@ -32,16 +34,21 @@ function TableView({ data, fields, changeSieveValue, pagination }: ITableView) {
   return (
     <Wrapper>
       <Controls>
-        {fields.map((item, index) => (
-          <ControlsItem
-            key={index}
-            {...item.props}
-            placeholder={item.label}
-            onChange={(e) => {
-              changeSieveValue(SieveType.Filter, item.key, e.target.value);
-            }}
-          />
-        ))}
+        {fields.map((item, index) =>
+          item.filterType === "select" ? (
+            <FilterSelect {...item.props} title={"Категории"} />
+          ) : (
+            <ControlsItem
+              key={index}
+              {...item.props}
+              placeholder={item.label}
+              onChange={(e) => {
+                changeSieveValue(SieveType.Filter, item.key, e.target.value);
+              }}
+            />
+          )
+        )}
+        <SubmitButton>Применить</SubmitButton>
       </Controls>
       <ShadowContainer>
         <TableContainer>

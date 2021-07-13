@@ -14,9 +14,8 @@ function OrganizationsTable() {
   const organizations = useSelector(selectOrganizations);
   const pagination = useSelector(selectPagination);
   const history = useHistory();
-  const prefix = "";
   const onRowClick = (entity: any) => {
-    history.push(`${prefix}/orgs/add-org/${entity.organizationId}`);
+    history.push(`/orgs/add-org/${entity.organizationId}`);
   };
 
   useEffect(() => {
@@ -50,13 +49,13 @@ function OrganizationsTable() {
     {
       label: "Название",
       key: "name",
-      props: { width: "15%" },
+      props: { width: "10%" },
       getComponent: (text) => <OrgName>{text}</OrgName>,
     },
     {
       label: "Партнер",
       key: "partner",
-      props: { width: "13%" },
+      props: { width: "10%" },
       getComponent: (partner) => partner.firstName,
     },
     {
@@ -65,16 +64,23 @@ function OrganizationsTable() {
       props: { width: "13%" },
       getComponent: (adress) => <Adress>{adress}</Adress>,
     },
-    { label: "Направление", key: "eventCategory", props: { width: "20%" } },
+    {
+      label: "Направление",
+      key: "eventCategory",
+      filterType: "select",
+      props: { width: "20%" },
+    },
     {
       label: "Категория",
       key: "eventCategories",
-      props: { width: "15%" },
+      filterType: "select",
+      props: { width: "17%" },
       getComponent: (item) => item.split(",")[0],
     },
     {
       label: "Статус",
       key: "status",
+      filterType: "select",
       getComponent: (status) => (
         <Status status={status === "Активный" ? "active" : "disabled"}>
           {status}
@@ -85,7 +91,7 @@ function OrganizationsTable() {
 
   return (
     <Wrapper>
-      <AddButton to={`${prefix}/orgs/add-org`} />
+      <AddButton to={`/orgs/add-org`} />
       <Table
         pagination={{
           ...pagination,

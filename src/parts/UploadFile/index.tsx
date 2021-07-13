@@ -1,7 +1,7 @@
 import React from "react";
-import UpoadFileView from "./view";
+import UploadFileView from "./view";
 
-export interface IUpoadFile {
+export interface IUploadFile {
   label?: string;
   bg?: string;
   file?: boolean;
@@ -12,7 +12,7 @@ export interface IUpoadFile {
   onRemove?: (url?: string) => void;
 }
 
-function UpoadFile(props: IUpoadFile) {
-  return <UpoadFileView {...props} />;
+function UploadFile(props: IUploadFile) {
+  return <UploadFileView {...props} />;
 }
-export default UpoadFile;
+export default UploadFile;

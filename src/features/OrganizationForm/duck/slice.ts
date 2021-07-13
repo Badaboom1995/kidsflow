@@ -9,6 +9,11 @@ import {
   uploadImage,
   uploadExtraImage,
 } from "./actions";
+import {
+  TGeneralFormState,
+  TContactsFormState,
+  TFormalFormState,
+} from "../types";
 
 type initialState = {
   loading: boolean;
@@ -17,12 +22,11 @@ type initialState = {
   currentDirection?: string;
   categories?: Record<string, string>[];
   partners?: any[];
-  currentOrganization?: any;
   images?: { id: string; url: string }[];
   data?: {
-    general: Record<string, string>;
-    contacts: Record<string, string>;
-    legal: Record<string, string>;
+    general: TGeneralFormState;
+    contacts: TContactsFormState;
+    legal: TFormalFormState;
   };
 };
 
@@ -34,7 +38,6 @@ export const initialState: initialState = {
   currentDirection: null,
   categories: [],
   images: [],
-  currentOrganization: null,
   data: {
     general: null,
     contacts: null,
@@ -51,6 +54,14 @@ const addUserFormSlice = createSlice({
     },
     addData(state, { payload }: { payload: { key: string; values: string } }) {
       state.data[payload.key] = payload.values;
+    },
+    clearData(state) {
+      state.data = {
+        general: null,
+        contacts: null,
+        legal: null,
+      };
+      state.images = [];
     },
     removeUploadIds(state) {
       state.uploadIds = [];
@@ -104,8 +115,8 @@ const addUserFormSlice = createSlice({
     makeReducer(
       builder,
       uploadExtraImage,
-      (state, response) => {
-        state.currentOrganization.photos.push(...response.data);
+      (state, { data }) => {
+        state.images.push({ id: data[0].id, url: data[0].cloudUrl });
       },
       () => {
         toast.error("Не удалось загрузить");
@@ -116,13 +127,7 @@ const addUserFormSlice = createSlice({
       builder,
       deleteImage,
       (state, payload) => {
-        const currentOrganization = {
-          ...state.currentOrganization,
-          photos: state.currentOrganization.photos.filter(
-            (item) => item.id !== payload
-          ),
-        };
-        state.currentOrganization = currentOrganization;
+        state.images = state.images.filter((item) => item.id !== payload);
       },
       () => {
         toast.error("Организация не найдена");
@@ -133,14 +138,54 @@ const addUserFormSlice = createSlice({
       builder,
       bootstrap,
       (state, payload) => {
-        state.partners = payload.partners.map((item) => ({
-          name: item.firstName,
-          value: item.partnerId,
-        }));
         state.partners = payload.partners;
         state.directions = payload.directions;
         state.categories = payload.categories;
-        state.currentOrganization = payload.currentOrganization;
+        if (payload.currentOrganization) {
+          const {
+            about,
+            name,
+            directions,
+            partner,
+            ageFrom,
+            ageTo,
+            address,
+            phoneNumber,
+            photos,
+            email,
+            site,
+            entity,
+            accountNumber,
+            taxIdNumber,
+            primaryStateNumber,
+            legalAddress,
+          } = payload.currentOrganization;
+
+          state.data.general = {
+            about,
+            name,
+            directions: directions?.find((item) => !item.parentId)
+              ?.eventDirectionId,
+            category: directions?.find((item) => item.parentId)
+              ?.eventDirectionId,
+            businessHours: "",
+            ageFrom: ageFrom?.toString(),
+            ageTo: ageTo?.toString(),
+            partnerId: partner?.partnerId,
+          };
+          state.images = photos.map((item) => ({
+            id: item.id,
+            url: item.cloudUrl,
+          }));
+          state.data.contacts = { address, phoneNumber, email, site };
+          state.data.legal = {
+            entity,
+            accountNumber,
+            taxIdNumber,
+            primaryStateNumber,
+            legalAddress,
+          };
+        }
       },
       () => {
         toast.error("Организация не найдена");
@@ -154,6 +199,7 @@ export const {
   removeUploadIds,
   removeUploadId,
   addData,
+  clearData,
 } = addUserFormSlice.actions;
 
 export default addUserFormSlice.reducer;

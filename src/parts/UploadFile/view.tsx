@@ -1,8 +1,14 @@
 import React from "react";
 import { Wrapper, Preview, Label, CloseButton } from "./styled";
-import { IUpoadFile } from "./index";
+import { IUploadFile } from "./index";
 
-function UpoadFileView({ label, file, onAdd, onRemove, imageUrl }: IUpoadFile) {
+function UpoadFileView({
+  label,
+  file,
+  onAdd,
+  onRemove,
+  imageUrl,
+}: IUploadFile) {
   return (
     <Wrapper>
       <Preview file={file} image={imageUrl}>
@@ -26,4 +32,5 @@ function UpoadFileView({ label, file, onAdd, onRemove, imageUrl }: IUpoadFile) {
     </Wrapper>
   );
 }
+
 export default UpoadFileView;

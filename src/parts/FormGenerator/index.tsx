@@ -1,21 +1,25 @@
-import React, { useRef, useEffect } from "react";
-import ChildFormView from "./view";
+import React, { useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
+import ChildFormView from "./view";
 import { Item } from "features/AddUserForm/styled";
 import Input from "parts/Input";
 import Select from "parts/Select";
+import CategoryChips from "parts/CategoryChips";
+
 import { formConfigType } from "./types";
 
 interface IFormGenerator {
   config: formConfigType;
   resetOnSubmit?: boolean;
   transparent?: boolean;
-  // TODO. How to make type for dynamic object?
   initialValues?: any;
   setRef?: (ref: any) => void;
   onSubmit?: (values: any) => void;
+  setFormState?: Dispatch<SetStateAction<{}>>;
 }
+
 /**
  * Form generator makes form depends on config
  * @param config main configuration
@@ -30,6 +34,7 @@ interface IFormGenerator {
  * @param fields.col OPTIONAL. Grid setting for field. (1 - 12)
  * @param fields.yup  OPTIONAL. settings for yup validation. Required on default, write: {key: optional, args[]} for not required field  Example, write: [{key: email, args['Not Email']}] for Yup.string().email('Not Email').
  */
+
 function FormGenerator({
   config,
   onSubmit,
@@ -37,6 +42,7 @@ function FormGenerator({
   setRef,
   transparent,
   initialValues,
+  setFormState,
 }: IFormGenerator) {
   const formRef = useRef();
 
@@ -44,7 +50,7 @@ function FormGenerator({
     if (formRef && setRef) {
       setRef(formRef);
     }
-  }, [formRef]);
+  }, [formRef, setRef]);
 
   const makeYup = (yup) => {
     if (!yup) return Yup.string();
@@ -69,7 +75,8 @@ function FormGenerator({
     handleChange,
     props,
     errors,
-    touched
+    touched,
+    values
   ) => {
     let field = null;
     if (type === "text" || type === "textarea") {
@@ -94,6 +101,19 @@ function FormGenerator({
         />
       );
     }
+    if (type === "chips") {
+      field = (
+        <CategoryChips
+          title={props.label}
+          text={props.text}
+          list={props.options}
+          name={props.name}
+          value={values[props.name]}
+          error={errors[props.name]}
+          touched={touched[props.name]}
+        />
+      );
+    }
     return (
       <Item col={props.col || config.settings.defaultCol} key={props.name}>
         {field}
@@ -108,7 +128,8 @@ function FormGenerator({
         handleChange,
         item,
         errors,
-        touched
+        touched,
+        initialValues
       )
     );
 
@@ -129,8 +150,12 @@ function FormGenerator({
       }}
       validationSchema={yupSchema}
       innerRef={formRef}
+      validate={(values) => {
+        onSubmit(values);
+      }}
     >
       {(props) => {
+        setFormState && setFormState(props.values);
         return (
           <ChildFormView
             {...props}

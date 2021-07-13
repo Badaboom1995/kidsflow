@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bootstrap } from "./duck/actions";
-import { currentOrganizationSelector, loadingSelector } from "./duck/selectors";
+import { loadingSelector } from "./duck/selectors";
+import organizationsService from "services/organizations";
 
 import AddOrgView from "./view";
+import { clearData } from "./duck/slice";
 
 function AddOrg() {
   const dispatch = useDispatch();
@@ -14,14 +16,14 @@ function AddOrg() {
   const [legalRef, setLegal] = useState(null);
 
   const { id }: { id: string } = useParams();
-  const rawData = useSelector(currentOrganizationSelector);
   const loading = useSelector(loadingSelector);
 
   useEffect(() => {
     dispatch(bootstrap(id));
+    return () => {
+      dispatch(clearData());
+    };
   }, []);
-
-  const { organizationId } = rawData || {};
 
   return (
     <>
@@ -29,7 +31,8 @@ function AddOrg() {
         "...Загрузка"
       ) : (
         <AddOrgView
-          organizationId={organizationId}
+          organizationId={id}
+          submitMethod={organizationsService[id ? "update" : "create"]}
           formRefs={{
             general: generalRef,
             contacts: contactsRef,

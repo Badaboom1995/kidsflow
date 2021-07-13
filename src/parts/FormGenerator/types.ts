@@ -1,4 +1,4 @@
-type FieldType = "text" | "select" | "textarea";
+type FieldType = "text" | "select" | "textarea" | "chips";
 type YupType = { key: string; args: any[] };
 export type TabsType = { name: string; fields: string[] }[];
 

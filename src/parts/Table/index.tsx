@@ -8,6 +8,7 @@ import { selectFilteredData } from "ducks/sieve/selectors";
 export type Field = {
   label: string;
   key: string;
+  filterType?: string;
   props?: { textalign?: string; width?: string };
   getComponent?: (value: any) => React.ReactNode;
 };

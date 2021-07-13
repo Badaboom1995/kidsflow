@@ -27,10 +27,6 @@ export const partnerSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.partners
 );
-export const currentOrganizationSelector = createSelector(
-  AddUserFormSelector,
-  (addOrg) => addOrg.currentOrganization
-);
 export const currentDirectionSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.currentDirection

@@ -11,6 +11,7 @@ export const getOrganizationById = createAsyncThunk<any, any>(
     return res;
   }
 );
+
 export const getCategories = createAsyncThunk<any, any>(
   "addOrganization/getCategories",
   async (parentId) => {

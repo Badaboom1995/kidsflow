@@ -6,23 +6,22 @@ import Button from "parts/Button";
 import Tabs from "parts/Tabs";
 import StatusHandler from "parts/StatusHandler";
 import { toast } from "react-toastify";
-import organizationsService from "services/organizations";
 import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUploadIds } from "features/OrganizationForm/duck/slice";
-import {
-  currentOrganizationSelector,
-  uploadIdsSelector,
-  imagesSelector,
-} from "features/OrganizationForm/duck/selectors";
+import { imagesSelector } from "features/OrganizationForm/duck/selectors";
 import { refType } from "common/types";
 import ContactsForm from "./components/ContactsForm";
 import LegalForm from "./components/LegalForm";
 import { dataSelector } from "./duck/selectors";
+import PreviewCard from "./components/PreviewCard";
 
 interface IAddOrgView {
   organizationId: string;
+  submitMethod:
+    | ((body: any) => Promise<any>)
+    | ((body: any, id: string) => Promise<any>);
   formRefs: {
     general: refType;
     contacts: refType;
@@ -33,22 +32,18 @@ interface IAddOrgView {
     contacts: (p: refType) => void;
     legal: (p: refType) => void;
   };
-  data?: {
-    general: Record<string, string>;
-    contacts: Record<string, string>;
-    legal: Record<string, string>;
-  };
 }
 
-function AddOrgView({ organizationId, formRefs, setFormRef }: IAddOrgView) {
+function AddOrgView({
+  organizationId,
+  formRefs,
+  setFormRef,
+  submitMethod,
+}: IAddOrgView) {
   const dispatch = useDispatch();
   const history = useHistory();
   const images = useSelector(imagesSelector);
   const data = useSelector(dataSelector);
-  const currentOrganization = useSelector(currentOrganizationSelector);
-  const submitMethod = currentOrganization
-    ? organizationsService.update
-    : organizationsService.create;
 
   const [dataReady, setReady] = useState(false);
 
@@ -63,6 +58,7 @@ function AddOrgView({ organizationId, formRefs, setFormRef }: IAddOrgView) {
 
   useEffect(() => {
     if (dataReady) {
+      console.log(organizationId);
       submitMethod(
         {
           ...data.general,
@@ -137,7 +133,14 @@ function AddOrgView({ organizationId, formRefs, setFormRef }: IAddOrgView) {
             ]}
           />
         </Left>
-        <Right></Right>
+        <Right>
+          <PreviewCard
+            maxRightContentHeight={window.innerHeight}
+            generalFormState={data.general}
+            contactFormState={data.contacts}
+            formalFormState={data.legal}
+          />
+        </Right>
       </MainArea>
       <ButtonsArea>
         <section>

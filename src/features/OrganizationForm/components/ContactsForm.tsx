@@ -2,17 +2,15 @@ import React from "react";
 import FormGenerator from "parts/FormGenerator";
 import { setStateFunc } from "common/types";
 import { useDispatch, useSelector } from "react-redux";
-import { currentOrganizationSelector } from "features/OrganizationForm/duck/selectors";
+import { dataSelector } from "features/OrganizationForm/duck/selectors";
 import { addData } from "features/OrganizationForm/duck/slice";
 
 interface IContactsForm {
   setFormRef: setStateFunc;
 }
 function ContactsForm({ setFormRef }: IContactsForm) {
-  const rawData = useSelector(currentOrganizationSelector);
+  const data = useSelector(dataSelector);
   const dispatch = useDispatch();
-  const { address, phoneNumber, email, site } = rawData || {};
-  const contactsData = { address, phoneNumber, email, site };
   return (
     <>
       <FormGenerator
@@ -30,7 +28,7 @@ function ContactsForm({ setFormRef }: IContactsForm) {
           dispatch(addData({ key: "contacts", values }));
         }}
         setRef={(ref) => setFormRef(ref)}
-        initialValues={contactsData}
+        initialValues={data.contacts}
       />
     </>
   );

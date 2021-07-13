@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "./styled";
-import UpoadFile from "parts/UpoadFile";
+import UploadFile from "parts/UploadFile";
 import { Row } from "./styled";
 
 interface IMultyUploader {
@@ -15,9 +15,9 @@ function MultyUploader({ addLabel, onAdd, onRemove, items }: IMultyUploader) {
     <Wrapper>
       <Row>
         {items?.map((item) => (
-          <UpoadFile imageUrl={item.url} onRemove={() => onRemove(item.id)} />
+          <UploadFile imageUrl={item.url} onRemove={() => onRemove(item.id)} />
         ))}
-        <UpoadFile label={addLabel} onAdd={onAdd} />
+        <UploadFile label={addLabel} onAdd={onAdd} />
       </Row>
     </Wrapper>
   );

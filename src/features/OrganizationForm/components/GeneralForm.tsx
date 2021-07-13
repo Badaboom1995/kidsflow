@@ -5,12 +5,11 @@ import { getAge } from "config/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { Row } from "../styled";
 import {
-  currentOrganizationSelector,
   directionSelector,
   categorySelector,
   partnerSelector,
-  currentDirectionSelector,
   imagesSelector,
+  dataSelector,
 } from "../duck/selectors";
 
 import { getCategories } from "features/OrganizationForm/duck/actions";
@@ -23,42 +22,22 @@ import { addData, removeUploadId } from "features/OrganizationForm/duck/slice";
 import MultyUploader from "parts/MultyUploader";
 
 import { configType } from "../types";
+import { useParams } from "react-router-dom";
 
 function GeneralForm({ setRef }) {
   const dispatch = useDispatch();
   const directionsDict = useSelector(directionSelector);
+  const data = useSelector(dataSelector);
   const categoriesDict = useSelector(categorySelector);
   const partners = useSelector(partnerSelector);
-  const currentOrganization = useSelector(currentOrganizationSelector);
-  const currentDirection = useSelector(currentDirectionSelector);
-
-  const addItems = useSelector(imagesSelector);
-  const updateItems = currentOrganization?.photos.map((item) => ({
-    id: item.id,
-    url: item.cloudUrl,
-  }));
-
-  const { about, name, ageFrom, ageTo, partner, directions } =
-    currentOrganization || {};
-
-  const generalData = {
-    about,
-    name,
-    directions:
-      currentDirection ||
-      directions?.find((item) => !item.parentId)?.eventDirectionId,
-    category: directions?.find((item) => item.parentId)?.eventDirectionId,
-    businessHours: "",
-    ageFrom: ageFrom?.toString(),
-    ageTo: ageTo?.toString(),
-    partnerId: partner?.partnerId,
-  };
+  const { id }: { id: string } = useParams();
+  const images = useSelector(imagesSelector);
 
   const onUpload = (file) => {
     dispatch(uploadImage(file));
   };
   const onExtraUpload = (file) => {
-    dispatch(uploadExtraImage({ file, orgId: currentOrganization.id }));
+    dispatch(uploadExtraImage({ file, orgId: id }));
   };
 
   const fields = [
@@ -154,24 +133,24 @@ function GeneralForm({ setRef }) {
         onSubmit={(values) => {
           dispatch(addData({ key: "general", values }));
         }}
-        initialValues={generalData}
+        initialValues={data.general}
         setRef={setRef}
       />
       <Row>
-        {currentOrganization ? (
+        {id ? (
           <>
             <MultyUploader
               onAdd={onExtraUpload}
-              onRemove={(id) => {
+              onRemove={(uploadId) => {
                 dispatch(
                   deleteImage({
-                    orgId: currentOrganization.id,
-                    uploadId: id,
+                    orgId: id,
+                    uploadId,
                   })
                 );
               }}
               addLabel="Добавить фото"
-              items={updateItems}
+              items={images}
             />
           </>
         ) : (
@@ -182,7 +161,7 @@ function GeneralForm({ setRef }) {
                 dispatch(removeUploadId(id));
               }}
               addLabel="Добавить фото"
-              items={addItems}
+              items={images}
             />
           </>
         )}
