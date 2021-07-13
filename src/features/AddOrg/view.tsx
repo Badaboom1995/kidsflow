@@ -159,7 +159,7 @@ function AddOrgView({
       <MainArea>
         <Left ref={refLeftElement}>
           <Tabs
-            activeId={2}
+            activeId={1}
             tabs={[
               {
                 id: 1,
