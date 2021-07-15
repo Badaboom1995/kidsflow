@@ -4,26 +4,7 @@ import { Cell, Row } from "./styled";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilterValue } from "ducks/sieve/slice";
 import { selectFilteredData } from "ducks/sieve/selectors";
-
-export type Field = {
-  label: string;
-  key: string;
-  filterType?: string;
-  props?: { textalign?: string; width?: string };
-  getComponent?: (value: any) => React.ReactNode;
-};
-
-interface ITable {
-  items: any[];
-  fields: Field[];
-  onRowClick?: { itemIdKey: string; method: (ItemId: string) => void };
-  pagination?: {
-    pageNumber: number;
-    pageSize: number;
-    totalEntities: number;
-    method: (nextPage: number) => void;
-  };
-}
+import { ITable } from "./types";
 
 /**
  * Table takes field's setting and items to show
@@ -34,7 +15,7 @@ interface ITable {
  * @param getComponent optional func. Return wrapper component for value
  */
 
-function Table({ fields, items, onRowClick, pagination }: ITable) {
+function Table({ fields, items, onRowClick, pagination, sort }: ITable) {
   const dispatch = useDispatch();
   const filteredItems = useSelector(selectFilteredData(items));
 
@@ -81,6 +62,7 @@ function Table({ fields, items, onRowClick, pagination }: ITable) {
 
   return (
     <TableView
+      sort={sort}
       data={getTableData()}
       fields={fields}
       changeSieveValue={changeSieveValue}

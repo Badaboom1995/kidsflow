@@ -24,6 +24,7 @@ const organizatonsSlice = createSlice({
       builder,
       getOrganizations,
       (state, payload) => {
+        console.log(payload);
         state.totalEntities = payload.totalEntities;
         state.pageSize = payload.pageSize;
         state.pageNumber = payload.pageNumber;

@@ -6,8 +6,12 @@ const serverUrl =
     : "https://api-dev.vzletaem.ru";
 
 const organizationsService = {
-  // prettier-ignore
-  getList: (page?) => makeRequest(`/api/v2/admin/organizations?sort=Descending&page=${page || 0}`,"GET"),
+  getList: (page?, name?, status?) =>
+    makeRequest(
+      // prettier-ignore
+      `/api/v2/admin/organizations?sort=${status === undefined ? '1' : status}${name ? "&OrderBy=" + name : ""}&page=${page || 0}`,
+      "GET"
+    ),
   getById: (id) => makeRequest(`/api/v2/admin/organizations/${id}`, "GET"),
   create: (body) => makeRequest("/api/v2/admin/organizations", "POST", body),
   // prettier-ignore
