@@ -19,7 +19,7 @@ function OrganizationsTable() {
   };
 
   useEffect(() => {
-    dispatch(getOrganizations(0));
+    dispatch(getOrganizations({ page: 0 }));
   }, []);
 
   const normalizedOrganizations = organizations.map((item) => {
@@ -41,14 +41,12 @@ function OrganizationsTable() {
       label: "Фото",
       key: "uploads",
       props: { width: "7%" },
-      getComponent: (uploads) => {
-        console.log(uploads);
-        return <img src={uploads[0]?.cloudUrl} alt="" />;
-      },
+      getComponent: (uploads) => <img src={uploads[0]?.cloudUrl} alt="" />,
     },
     {
       label: "Название",
       key: "name",
+      sortable: true,
       props: { width: "10%" },
       getComponent: (text) => <OrgName>{text}</OrgName>,
     },
@@ -61,6 +59,7 @@ function OrganizationsTable() {
     {
       label: "Адрес",
       key: "address",
+      sortable: true,
       props: { width: "13%" },
       getComponent: (adress) => <Adress>{adress}</Adress>,
     },
@@ -80,6 +79,7 @@ function OrganizationsTable() {
     {
       label: "Статус",
       key: "status",
+      sortable: true,
       filterType: "select",
       getComponent: (status) => (
         <Status status={status === "Активный" ? "active" : "disabled"}>
@@ -96,7 +96,14 @@ function OrganizationsTable() {
         pagination={{
           ...pagination,
           method: (nextPage) => {
-            dispatch(getOrganizations(nextPage));
+            dispatch(getOrganizations({ page: nextPage }));
+          },
+        }}
+        sort={{
+          name: "address",
+          status: "2",
+          method: (name, status) => {
+            dispatch(getOrganizations({ page: 0, name, status }));
           },
         }}
         onRowClick={{ method: onRowClick, itemIdKey: "entityId" }}

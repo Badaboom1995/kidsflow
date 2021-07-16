@@ -14,23 +14,18 @@ import {
   SubmitButton,
 } from "./styled";
 
-import { Field } from ".";
+import { ITableView } from "./types";
 import { SieveType } from "ducks/sieve/types";
 import FilterSelect from "features/OrganizationsTable/components/FilterSelect";
+import SortControl from "./components/SortControl/SortControl";
 
-interface ITableView {
-  data: React.ReactNode[];
-  fields: Field[];
-  changeSieveValue: any;
-  pagination?: {
-    pageNumber: number;
-    pageSize: number;
-    totalEntities: number;
-    method: (nextPage: number) => void;
-  };
-}
-
-function TableView({ data, fields, changeSieveValue, pagination }: ITableView) {
+function TableView({
+  data,
+  fields,
+  changeSieveValue,
+  pagination,
+  sort,
+}: ITableView) {
   return (
     <Wrapper>
       <Controls>
@@ -56,7 +51,13 @@ function TableView({ data, fields, changeSieveValue, pagination }: ITableView) {
             <Row head>
               {fields.map((item, index) => (
                 <Cell key={index} textalign={item.props?.textalign}>
-                  {item.label}
+                  {item.sortable ? (
+                    <SortControl name={item.key} callback={sort.method}>
+                      {item.label}
+                    </SortControl>
+                  ) : (
+                    item.label
+                  )}
                 </Cell>
               ))}
             </Row>

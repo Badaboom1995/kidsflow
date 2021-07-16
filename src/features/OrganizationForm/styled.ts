@@ -3,6 +3,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 35px);
+  overflow: hidden;
 `;
 export const Header = styled.div`
   padding: 10px 0;
@@ -28,6 +29,7 @@ export const Left = styled.div`
 `;
 export const Right = styled.div`
   grid-column: span 4;
+  max-height: (100vh - 106px);
   padding-left: 30px;
 `;
 export const Partner = styled.div`

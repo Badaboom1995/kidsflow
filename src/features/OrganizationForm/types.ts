@@ -1,7 +1,6 @@
 export type configType = { title: string; settings: any; fields: any };
 
 export interface IPreviewCard {
-  maxRightContentHeight: number;
   generalFormState: TGeneralFormState;
   contactFormState: TContactsFormState;
   formalFormState: TFormalFormState;

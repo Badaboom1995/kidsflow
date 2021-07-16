@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  flex-grow: 1;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 300px);
   box-sizing: border-box;
   margin-top: 0;
   border-radius: 10px;
@@ -25,7 +26,7 @@ export const CoverImage = styled.div`
   position: sticky;
   height: 340px;
   top: 0;
-  &:before{
+  &:before {
     position: absolute;
     content: "";
     top: 0;
@@ -38,27 +39,27 @@ export const CoverImage = styled.div`
     background-position: center;
     z-index: 1;
   }
-  .slick-slider_wrapper{
+  .slick-slider_wrapper {
     height: 100%;
   }
-  .slick-slider_fade-block{
+  .slick-slider_fade-block {
     display: none;
   }
-  .event-card_slider__wrapper{
+  .event-card_slider__wrapper {
     height: 100%;
-    .slick-list{
+    .slick-list {
       height: 100%;
     }
-    .slick-track{
+    .slick-track {
       height: 100%;
     }
-    .slick-slide{
-      & > div{
+    .slick-slide {
+      & > div {
         height: 100%;
         position: relative;
         overflow: hidden;
       }
-      img{
+      img {
         position: absolute;
         top: 0;
         left: 50%;
@@ -71,23 +72,23 @@ export const CoverImage = styled.div`
         width: auto !important;
       }
     }
-    .slick-arrow{
+    .slick-arrow {
       background: rgba(0, 0, 0, 0.5);
       width: 30px;
       height: 30px;
-      &:before{
+      &:before {
         width: 50%;
         height: 50%;
       }
-      &.slick-prev{
+      &.slick-prev {
         left: 0;
         transform: translate(10px, -50%) rotate(180deg);
       }
-      &.slick-next{
+      &.slick-next {
         right: 0;
         transform: translate(-10px, -50%);
       }
-      &:hover{
+      &:hover {
         background: rgba(0, 0, 0, 0.8);
       }
     }
@@ -140,7 +141,7 @@ export const TopActionBack = styled.span`
   width: 44px;
   height: 44px;
   margin-right: auto;
-  background: rgba(255,255,255, .5);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
 `;
 
@@ -150,7 +151,7 @@ export const TopActionFavorite = styled.span`
   align-items: center;
   width: 44px;
   height: 44px;
-  background: rgba(255,255,255, .5);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
 `;
 
@@ -168,10 +169,10 @@ export const CoverTopInfo = styled.span`
   margin-right: 5px;
   padding: 4px 8px;
   border-radius: 6px;
-  background-color: #FFFBED;
+  background-color: #fffbed;
   font-size: 12px;
   line-height: 14px;
-  svg{
+  svg {
     margin-right: 7px;
   }
 `;
@@ -187,8 +188,8 @@ export const CoverInfo = styled.div`
 
 export const CoverMainInfo = styled.div`
   padding: 25px 20px;
-  background-color: #FFFBED;
-  border-bottom: 2px solid #FFEAA7;
+  background-color: #fffbed;
+  border-bottom: 2px solid #ffeaa7;
 `;
 
 export const MainInfoTitle = styled.h3`
@@ -209,9 +210,9 @@ export const MainInfoCategory = styled.div`
 export const MainInfoCategoryItem = styled.span`
   padding: 6px 12px;
   margin-right: 10px;
-  background-color: #FFEAA7;
+  background-color: #ffeaa7;
   border-radius: 6px;
-  border: 1px solid #FFEAA7;
+  border: 1px solid #ffeaa7;
 `;
 
 export const InfoBody = styled.div`
@@ -238,7 +239,7 @@ export const InfoAddressText = styled.div`
 `;
 
 export const InfoAddressMapLink = styled.div`
-  color: #00BFA5;
+  color: #00bfa5;
 `;
 
 export const BodyInfoTime = styled.div``;
@@ -256,7 +257,7 @@ export const BodyDescriptionTitle = styled.h3`
   line-height: 17px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #BEC2CE;
+  color: #bec2ce;
 `;
 
 export const BodyDescriptionText = styled.p`
@@ -266,12 +267,12 @@ export const BodyDescriptionText = styled.p`
 `;
 
 export const ContactsWrapper = styled.div`
-  position: sticky;  
+  position: sticky;
   bottom: 15px;
   display: flex;
   justify-content: center;
   width: 100%;
-  button{
+  button {
     width: calc(100% - 40px);
     border-radius: 12px;
     padding: 14px 20px;

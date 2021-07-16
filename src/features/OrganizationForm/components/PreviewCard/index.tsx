@@ -33,7 +33,6 @@ import { useSelector } from "react-redux";
 import { imagesSelector } from "../../duck/selectors";
 
 function PreviewCard({
-  maxRightContentHeight,
   generalFormState,
   contactFormState,
   formalFormState,
@@ -52,7 +51,7 @@ function PreviewCard({
   };
 
   return (
-    <Wrapper style={{ maxHeight: `${maxRightContentHeight}px` }}>
+    <Wrapper>
       <CoverImage>
         <PhoneInfoImage src={phoneInfoPlug} />
         <CoverTopActions>
