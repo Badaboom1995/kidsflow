@@ -3,7 +3,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 35px);
-  overflow: hidden;
+  
 `;
 export const Header = styled.div`
   padding: 10px 0;

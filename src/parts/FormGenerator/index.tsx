@@ -9,6 +9,8 @@ import Select from "parts/Select";
 import CategoryChips from "parts/CategoryChips";
 
 import { formConfigType } from "./types";
+import TimeSchedule from "../TimeSchedule";
+import Search from "parts/Search";
 
 interface IFormGenerator {
   config: formConfigType;
@@ -76,13 +78,17 @@ function FormGenerator({
     props,
     errors,
     touched,
-    values
+    values,
+    onChange?
   ) => {
     let field = null;
     if (type === "text" || type === "textarea") {
       field = (
         <Input
           {...props}
+          onChange={(value) => {
+            console.log(value);
+          }}
           error={errors[props.name]}
           touched={touched[props.name]}
         />
@@ -108,12 +114,26 @@ function FormGenerator({
           text={props.text}
           list={props.options}
           name={props.name}
-          value={values[props.name]}
+          value={initialValues && values[props.name]}
           error={errors[props.name]}
           touched={touched[props.name]}
         />
       );
     }
+    if (type === "timeSchedule") {
+      field = <TimeSchedule title={props.label} />;
+    }
+    if (type === "search") {
+      field = (
+        <Search
+          {...props}
+          onChange={onChange}
+          error={errors[props.name]}
+          touched={touched[props.name]}
+        />
+      );
+    }
+
     return (
       <Item col={props.col || config.settings.defaultCol} key={props.name}>
         {field}
@@ -129,7 +149,8 @@ function FormGenerator({
         item,
         errors,
         touched,
-        initialValues
+        initialValues,
+        item.onChange
       )
     );
 

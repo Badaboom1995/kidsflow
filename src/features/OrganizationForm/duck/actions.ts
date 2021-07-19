@@ -1,8 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import organizationsService from "services/organizations";
 import directionsService from "services/directions";
+import geoService from "services/geo";
 
 //TODO. Типизация всего
+export const getAddressSuggest = createAsyncThunk<any, string>(
+  "addOrganization/addressSuggest",
+  async (address, { rejectWithValue }) => {
+    const res = await geoService.getSuggest(address);
+    if (!res) return rejectWithValue("error");
+    return res;
+  }
+);
 export const getOrganizationById = createAsyncThunk<any, any>(
   "addOrganization/select",
   async (id, { rejectWithValue }) => {
@@ -65,6 +74,7 @@ export const bootstrap = createAsyncThunk<any, any>(
       organizationsService.partnersList(),
       directionsService.getList(1),
       directionsService.getList(2),
+      geoService.getStations(),
     ];
     id && tasks.push(organizationsService.getById(id));
     try {
@@ -72,6 +82,7 @@ export const bootstrap = createAsyncThunk<any, any>(
         partners: null,
         directions: null,
         categories: null,
+        metro: null,
         currentOrganization: null,
       };
       await Promise.all(tasks).then((values) => {
@@ -87,8 +98,10 @@ export const bootstrap = createAsyncThunk<any, any>(
           name: item.name,
           value: item?.eventDirectionId,
         }));
-        result.currentOrganization = values[3];
+        result.metro = values[3].data.lines;
+        result.currentOrganization = values[4];
       });
+      console.log(result);
       return result;
     } catch (error) {
       throw error;

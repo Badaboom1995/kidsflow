@@ -8,6 +8,7 @@ import {
   deleteImage,
   uploadImage,
   uploadExtraImage,
+  getAddressSuggest,
 } from "./actions";
 import {
   TGeneralFormState,
@@ -21,7 +22,9 @@ type initialState = {
   directions?: { name: string; value: string }[];
   currentDirection?: string;
   categories?: Record<string, string>[];
+  stations?: { value: string; name: string }[];
   partners?: any[];
+  prompts: string[];
   images?: { id: string; url: string }[];
   data?: {
     general: TGeneralFormState;
@@ -32,11 +35,13 @@ type initialState = {
 
 export const initialState: initialState = {
   loading: true,
-  uploadIds: [],
-  partners: null,
-  directions: [],
   currentDirection: null,
+  partners: null,
+  uploadIds: [],
+  directions: [],
   categories: [],
+  stations: [],
+  prompts: [],
   images: [],
   data: {
     general: null,
@@ -70,7 +75,20 @@ const addUserFormSlice = createSlice({
       state.images = state.images.filter((item) => item.id !== payload);
     },
   },
+
   extraReducers: (builder) => {
+    makeReducer(
+      builder,
+      getAddressSuggest,
+      (state, payload) => {
+        console.log(payload);
+        state.prompts = [payload];
+      },
+      () => {
+        toast.error("Организация не найдена");
+      },
+      true
+    );
     makeReducer(
       builder,
       getCategories,
@@ -141,6 +159,18 @@ const addUserFormSlice = createSlice({
         state.partners = payload.partners;
         state.directions = payload.directions;
         state.categories = payload.categories;
+        state.stations = payload.metro
+          .reduce(
+            (accum, line) => [
+              ...accum,
+              ...line.stations.map((station) => ({
+                value: station.id,
+                name: station.name,
+              })),
+            ],
+            []
+          )
+          .sort((a, b) => (a.name < b.name ? -1 : 1));
         if (payload.currentOrganization) {
           const {
             about,
@@ -154,6 +184,7 @@ const addUserFormSlice = createSlice({
             photos,
             email,
             site,
+            metro,
             entity,
             accountNumber,
             taxIdNumber,
@@ -166,8 +197,9 @@ const addUserFormSlice = createSlice({
             name,
             directions: directions?.find((item) => !item.parentId)
               ?.eventDirectionId,
-            category: directions?.find((item) => item.parentId)
-              ?.eventDirectionId,
+            category: directions
+              ?.filter((item) => item.parentId)
+              .map((item) => item.eventDirectionId),
             businessHours: "",
             ageFrom: ageFrom?.toString(),
             ageTo: ageTo?.toString(),

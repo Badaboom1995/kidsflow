@@ -3,9 +3,7 @@ import { Field } from "formik";
 
 const placeholderColor = "#6c757d";
 
-export const Wrapper = styled.div`
-position: relative;
-`;
+export const Wrapper = styled.div``;
 export const Textarea = styled.textarea`
   font-size: 16px;
   background-color: transparent;
@@ -20,9 +18,10 @@ export const Textarea = styled.textarea`
     outline: none;
   }
 `;
-
-export const StyledInput = styled(Field)`
-  color: ${(props) => props.error && props.touched === 1 && "#A2A2A2"};
+type TStyledInput = {
+  centered: boolean
+}
+export const StyledInput = styled.input<TStyledInput>`
   width: 100%;
   background-color: transparent;
   font-size: 16px;
@@ -55,6 +54,17 @@ export const StyledInput = styled(Field)`
     outline: none;
   }
 `;
+export const Prompt = styled.div`
+ position: absolute;
+ width: calc(100% - 20px);
+ left: 0;
+ bottom: -6px;
+ background-color: #ccc;
+ z-index: 1;
+ padding: 10px;
+ transform: translateY(100%);
+ border-radius: 10px;
+`;
 export const ErrorText = styled.p`
   color: #e82828;
   font-size: 10px;
@@ -62,17 +72,6 @@ export const ErrorText = styled.p`
   margin: 4px 0px;
   min-height: 12px;
   font-family: "Roboto";
-`;
-export const Prompt = styled.div`
- position: absolute;
- width: calc(100% - 22px);
- left: 1px;
- bottom: 8px;
- background-color: #fff0d3;
- z-index: 1;
- padding: 10px;
- transform: translateY(100%);
- border-radius: 0 0 10px 10px;
 `;
 type InputContainerProps = {
   icon?: string;

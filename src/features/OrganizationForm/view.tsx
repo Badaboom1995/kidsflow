@@ -10,11 +10,10 @@ import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUploadIds } from "features/OrganizationForm/duck/slice";
-import { imagesSelector } from "features/OrganizationForm/duck/selectors";
 import { refType } from "common/types";
 import ContactsForm from "./components/ContactsForm";
 import LegalForm from "./components/LegalForm";
-import { dataSelector } from "./duck/selectors";
+import { dataSelector, imagesSelector } from "./duck/selectors";
 import PreviewCard from "./components/PreviewCard";
 
 interface IAddOrgView {
@@ -58,13 +57,12 @@ function AddOrgView({
 
   useEffect(() => {
     if (dataReady) {
-      console.log(organizationId);
       submitMethod(
         {
           ...data.general,
           ...data.contacts,
           ...data.legal,
-          directions: [data.general?.directions, data.general?.category],
+          directions: [data.general?.directions, ...data.general?.category],
           businessHours: [
             {
               day: 0,

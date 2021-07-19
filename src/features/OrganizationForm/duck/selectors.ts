@@ -11,6 +11,10 @@ export const imagesSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.images
 );
+export const stationsSelector = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.stations
+);
 export const loadingSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.loading

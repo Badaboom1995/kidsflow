@@ -73,6 +73,17 @@ function GeneralForm({ setRef }) {
       options: getAge(25),
     },
     {
+      name: "partnerId",
+      label: (
+        <span>
+          Партнер
+          <Subtitle>выберите одного из списка</Subtitle>
+        </span>
+      ),
+      type: "select",
+      options: partners || [],
+    },
+    {
       name: "directions",
       label: (
         <span>
@@ -87,17 +98,6 @@ function GeneralForm({ setRef }) {
       options: directionsDict || [],
     },
     {
-      name: "category",
-      label: (
-        <span>
-          Категория
-          <Subtitle>И одну категорию</Subtitle>
-        </span>
-      ),
-      type: "select",
-      options: categoriesDict || [],
-    },
-    {
       name: "about",
       label: (
         <span>
@@ -108,15 +108,15 @@ function GeneralForm({ setRef }) {
       type: "textarea",
     },
     {
-      name: "partnerId",
+      name: "category",
       label: (
         <span>
-          Партнер
-          <Space></Space>
+          Категория
+          <Subtitle>Можно выбрать несколько категорий</Subtitle>
         </span>
       ),
-      type: "select",
-      options: partners || [],
+      type: "chips",
+      options: categoriesDict || [],
     },
   ];
 
@@ -154,17 +154,17 @@ function GeneralForm({ setRef }) {
             />
           </>
         ) : (
-          <>
-            <MultyUploader
-              onAdd={onUpload}
-              onRemove={(id) => {
-                dispatch(removeUploadId(id));
-              }}
-              addLabel="Добавить фото"
-              items={images}
-            />
-          </>
-        )}
+            <>
+              <MultyUploader
+                onAdd={onUpload}
+                onRemove={(id) => {
+                  dispatch(removeUploadId(id));
+                }}
+                addLabel="Добавить фото"
+                items={images}
+              />
+            </>
+          )}
       </Row>
     </>
   );

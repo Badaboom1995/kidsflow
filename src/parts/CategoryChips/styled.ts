@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {Field} from "formik";
+import { Field } from "formik";
 
 export const Wrapper = styled.div``;
 
-export const CategoryChipsTitle = styled.p `
+export const CategoryChipsTitle = styled.p`
   padding-left: 40px;
   margin: 0 0 10px 0;
   font-family: "Muli",sans-serif;
@@ -22,14 +22,14 @@ export const CategoryChipsText = styled.p`
   margin-bottom: 10px;
 `;
 
-export const CategoryChipsList = styled.div `
+export const CategoryChipsList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  max-height: 375px;
+  max-height: 145px;
   overflow-y: auto;
 `;
 
-export const CategoryChipsItem = styled.span `
+export const CategoryChipsItem = styled.span`
   position: relative;
   display: inline-flex;
   align-items: center;

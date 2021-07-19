@@ -48,16 +48,16 @@ export const Status = styled.div<StatusProps>`
     height: 7px;
     margin-right: 7px;
     background-color: ${(props) => {
-      switch (props.status) {
-        case "active":
-          return "#27AE60";
-        case "disabled":
-          return colors.primary;
-        case "waiting":
-          return "#FFC400";
-      }
-      return props.status ? "#27AE60" : colors.primary;
-    }};
+    switch (props.status) {
+      case "active":
+        return "#27AE60";
+      case "disabled":
+        return colors.primary;
+      case "waiting":
+        return "#FFC400";
+    }
+    return props.status ? "#27AE60" : colors.primary;
+  }};
     border-radius: 50%;
   }
 `;
@@ -143,7 +143,7 @@ export const ButtonsArea = styled.div`
 type GridContainerProps = {
   transparent?: boolean;
 };
-export const GridContainer = styled(GlassCard)<GridContainerProps>`
+export const GridContainer = styled(GlassCard) <GridContainerProps>`
   background-color: #fff;
   width: 100%;
   margin-bottom: 10px;
@@ -176,10 +176,10 @@ export const BackButton = styled.button`
 export const Subtitle = styled.span`
   display: block;
   font-size: 12px;
-  margin-bottom: -5px;
+  /* margin-bottom: -5px; */
   margin-top: 10px;
   font-weight: 500;
-  color: #ccc;
+  color: rgba(37, 39, 51, 0.5);
 `;
 export const Space = styled.span`
   display: block;
