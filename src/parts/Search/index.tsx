@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ErrorContainier from "../ErrorContainier";
-import { StyledInput, Wrapper, InputContainer, Prompt } from "./styled";
+import { StyledInput, Wrapper, InputContainer, Prompt, Option } from "./styled";
 import { Label } from "../styled";
 import { Field } from "formik";
 
@@ -15,7 +15,7 @@ interface ISearch {
   centered?: boolean;
   value?: string;
   onChange: (value: string) => void;
-  prompts: { id: string; value: string }[];
+  prompts: string[];
 }
 
 export default function Search({
@@ -28,34 +28,47 @@ export default function Search({
   centered,
   onChange,
   prompts,
+  value,
 }: ISearch) {
+  const [searchInput, setSearchInput] = useState("");
+  const [choosedAddress, setChoosedAddress] = useState("");
+
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
       <ErrorContainier error={touched ? error : ""}>
         <InputContainer icon={icon} centered={centered}>
-          <Field name={name}>
-            {({ field }) => (
-              <StyledInput
-                type={"text"}
-                name={name}
-                value={field.value}
-                onChange={(e) => {
-                  field.onChange(e);
-                  onChange(e.target.value);
-                }}
-                placeholder={placeholder || "-- -- -- -- --"}
-                centered={centered}
-              />
-            )}
-          </Field>
+          <StyledInput
+            type={"text"}
+            name={name}
+            value={searchInput || value}
+            onChange={(e) => {
+              onChange(e.target.value);
+              setSearchInput(e.target.value);
+            }}
+            placeholder={placeholder || "-- -- -- -- --"}
+            centered={centered}
+          />
         </InputContainer>
         {!!prompts.length && (
-          <Prompt>
-            {prompts.map((item) => (
-              <p>{item}</p>
-            ))}
-          </Prompt>
+          <Field name={name} value={choosedAddress}>
+            {({ field, form }) => (
+              <Prompt>
+                {prompts.map((item) => (
+                  <Option
+                    onClick={() => {
+                      setSearchInput(item);
+                      setChoosedAddress(item);
+                      form.setFieldValue(name, item);
+                      onChange("");
+                    }}
+                  >
+                    {item}
+                  </Option>
+                ))}
+              </Prompt>
+            )}
+          </Field>
         )}
       </ErrorContainier>
     </Wrapper>

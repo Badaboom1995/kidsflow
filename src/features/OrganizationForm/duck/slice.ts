@@ -22,6 +22,7 @@ type initialState = {
   directions?: { name: string; value: string }[];
   currentDirection?: string;
   categories?: Record<string, string>[];
+  cities?: { value: string; name: string }[];
   stations?: { value: string; name: string }[];
   partners?: any[];
   prompts: string[];
@@ -81,11 +82,11 @@ const addUserFormSlice = createSlice({
       builder,
       getAddressSuggest,
       (state, payload) => {
-        console.log(payload);
-        state.prompts = [payload];
+        const suggests = payload.data.map((item) => item.value);
+        state.prompts = suggests;
       },
-      () => {
-        toast.error("Организация не найдена");
+      (state) => {
+        state.prompts = [];
       },
       true
     );
@@ -184,12 +185,13 @@ const addUserFormSlice = createSlice({
             photos,
             email,
             site,
-            metro,
+            metroStation,
             entity,
             accountNumber,
             taxIdNumber,
             primaryStateNumber,
             legalAddress,
+            referralLink,
           } = payload.currentOrganization;
 
           state.data.general = {
@@ -209,7 +211,14 @@ const addUserFormSlice = createSlice({
             id: item.id,
             url: item.cloudUrl,
           }));
-          state.data.contacts = { address, phoneNumber, email, site };
+          state.data.contacts = {
+            address,
+            phoneNumber,
+            email,
+            site,
+            metroStation,
+            referralLink,
+          };
           state.data.legal = {
             entity,
             accountNumber,

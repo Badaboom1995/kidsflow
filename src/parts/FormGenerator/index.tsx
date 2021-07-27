@@ -130,6 +130,7 @@ function FormGenerator({
           onChange={onChange}
           error={errors[props.name]}
           touched={touched[props.name]}
+          value={initialValues && values[props.name]}
         />
       );
     }

@@ -7,6 +7,7 @@ import geoService from "services/geo";
 export const getAddressSuggest = createAsyncThunk<any, string>(
   "addOrganization/addressSuggest",
   async (address, { rejectWithValue }) => {
+    if (!address) return rejectWithValue("error");
     const res = await geoService.getSuggest(address);
     if (!res) return rejectWithValue("error");
     return res;

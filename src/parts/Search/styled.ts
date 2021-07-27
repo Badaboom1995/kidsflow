@@ -19,8 +19,11 @@ export const Textarea = styled.textarea`
   }
 `;
 type TStyledInput = {
-  centered: boolean
-}
+  centered: boolean;
+};
+export const HiddenField = styled(Field)`
+  display: none;
+`;
 export const StyledInput = styled.input<TStyledInput>`
   width: 100%;
   background-color: transparent;
@@ -55,15 +58,22 @@ export const StyledInput = styled.input<TStyledInput>`
   }
 `;
 export const Prompt = styled.div`
- position: absolute;
- width: calc(100% - 20px);
- left: 0;
- bottom: -6px;
- background-color: #ccc;
- z-index: 1;
- padding: 10px;
- transform: translateY(100%);
- border-radius: 10px;
+  position: absolute;
+  width: calc(100% - 20px);
+  left: 0;
+  bottom: -6px;
+  background-color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  transform: translateY(100%);
+  border-radius: 10px;
+`;
+export const Option = styled.p`
+  cursor: pointer;
+  padding: 10px;
+  &:hover {
+    background-color: #f4f4f4;
+  }
 `;
 export const ErrorText = styled.p`
   color: #e82828;

@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import FormGenerator from "parts/FormGenerator";
 import { setStateFunc } from "common/types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   dataSelector,
+  promptsSelector,
   stationsSelector,
 } from "features/OrganizationForm/duck/selectors";
 import { addData } from "features/OrganizationForm/duck/slice";
-import Search from "parts/Search";
-
+import { getAddressSuggest } from "../duck/actions";
 interface IContactsForm {
   setFormRef: setStateFunc;
 }
 function ContactsForm({ setFormRef }: IContactsForm) {
   const data = useSelector(dataSelector);
   const stationsDict = useSelector(stationsSelector);
-  const [prompts, setPrompt] = useState<string[]>([]);
+  const prompts = useSelector(promptsSelector);
   const dispatch = useDispatch();
   return (
     <>
@@ -27,20 +27,18 @@ function ContactsForm({ setFormRef }: IContactsForm) {
             {
               name: "address",
               label: "Адрес",
-              // type: "search",
-              // prompts: prompts,
-              // onChange: (value) => {
-              //   setPrompt([...prompts, value]);
-              // },
+              type: "search",
+              prompts: prompts,
+              onChange: (value) => {
+                dispatch(getAddressSuggest(value));
+              },
             },
             { name: "phoneNumber", label: "Телефон" },
             { name: "email", label: "Email" },
             { name: "site", label: "Сайт" },
             {
-              name: "city",
-              label: "Город",
-              type: "select",
-              options: [],
+              name: "referralLink",
+              label: "Реферальная ссылка",
             },
             {
               name: "metroStation",
@@ -48,7 +46,6 @@ function ContactsForm({ setFormRef }: IContactsForm) {
               type: "select",
               options: stationsDict || [],
             },
-            { name: "businessHours", label: "Часы работы" },
           ],
         }}
         onSubmit={(values) => {

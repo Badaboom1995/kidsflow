@@ -7,6 +7,10 @@ export const uploadIdsSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.uploadIds
 );
+export const promptsSelector = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.prompts
+);
 export const imagesSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.images
