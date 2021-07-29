@@ -27,6 +27,7 @@ type initialState = {
   partners?: any[];
   prompts: string[];
   images?: { id: string; url: string }[];
+  imagesUpload?: boolean;
   data?: {
     general: TGeneralFormState;
     contacts: TContactsFormState;
@@ -44,6 +45,7 @@ export const initialState: initialState = {
   stations: [],
   prompts: [],
   images: [],
+  imagesUpload: false,
   data: {
     general: null,
     contacts: null,
@@ -128,8 +130,7 @@ const addUserFormSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить");
-      },
-      true
+      }
     );
     makeReducer(
       builder,
@@ -139,8 +140,7 @@ const addUserFormSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить");
-      },
-      true
+      }
     );
     makeReducer(
       builder,
