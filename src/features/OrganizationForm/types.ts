@@ -31,6 +31,7 @@ export type TContactsFormState = {
   phoneNumber: string;
   email: string;
   site: string;
+  stations: { id: string, name: string }[]
 };
 
 export type TFormalFormState = {

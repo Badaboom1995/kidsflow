@@ -1,6 +1,6 @@
 import Table from "parts/Table";
 import React, { useEffect } from "react";
-import { Wrapper, OrgName, Adress } from "./styled";
+import { Wrapper, OrgName, Address, Category, Photo } from "./styled";
 import { Status } from "parts/styled";
 
 import AddButton from "parts/AddButton";
@@ -22,14 +22,16 @@ function OrganizationsTable() {
     dispatch(getOrganizations({ page: 0 }));
   }, []);
 
-  const normalizedOrganizations = organizations.map((item) => {
-    return {
-      ...item,
-      eventCategory: item.eventCategories[0],
-      partner: item.partner ? item.partner.firstName : "Нет партнера",
-      status: item.isActive ? "Активный" : "Заблокирован",
-    };
-  });
+  const normalizedOrganizations = organizations.map((item) => ({
+    ...item,
+    eventType: item.eventTypes[0],
+    eventCategories: item.eventCategories
+      .filter((category) => item.eventTypes[0] !== category)
+      .join(),
+    uploads: item.uploads[0]?.cloudUrl,
+    partner: item.partner ? item.partner.firstName : "Нет партнера",
+    status: item.isActive ? "Активный" : "Заблокирован",
+  }));
 
   const fields = [
     {
@@ -41,7 +43,7 @@ function OrganizationsTable() {
       label: "Фото",
       key: "uploads",
       props: { width: "7%" },
-      getComponent: (uploads) => <img src={uploads[0]?.cloudUrl} alt="" />,
+      getComponent: (url) => <Photo src={url} alt="" />,
     },
     {
       label: "Название",
@@ -60,27 +62,29 @@ function OrganizationsTable() {
       label: "Адрес",
       key: "address",
       sortable: true,
-      props: { width: "13%" },
-      getComponent: (adress) => <Adress>{adress}</Adress>,
+      props: { width: "15%" },
+      getComponent: (adress) => <Address>{adress}</Address>,
     },
     {
       label: "Направление",
-      key: "eventCategory",
+      key: "eventType",
       filterType: "select",
-      props: { width: "20%" },
+      align: "center",
     },
     {
       label: "Категория",
       key: "eventCategories",
       filterType: "select",
-      props: { width: "17%" },
-      getComponent: (item) => item.split(",")[0],
+      props: { width: "25%" },
+      getComponent: (categories) =>
+        categories.split(",").map((item) => <Category>{item}</Category>),
     },
     {
       label: "Статус",
       key: "status",
       sortable: true,
       filterType: "select",
+      props: { width: "10%" },
       getComponent: (status) => (
         <Status status={status === "Активный" ? "active" : "disabled"}>
           {status}

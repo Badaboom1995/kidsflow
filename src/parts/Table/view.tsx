@@ -28,7 +28,7 @@ function TableView({
 }: ITableView) {
   return (
     <Wrapper>
-      <Controls>
+      {/* <Controls>
         {fields.map((item, index) =>
           item.filterType === "select" ? (
             <FilterSelect {...item.props} title={"Категории"} />
@@ -44,7 +44,7 @@ function TableView({
           )
         )}
         <SubmitButton>Применить</SubmitButton>
-      </Controls>
+      </Controls> */}
       <ShadowContainer>
         <TableContainer>
           <THead>

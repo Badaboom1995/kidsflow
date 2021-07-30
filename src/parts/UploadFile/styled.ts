@@ -9,6 +9,7 @@ type WrapperProps = {
 };
 export const Wrapper = styled.div`
   position: relative;
+  margin-bottom: 10px;
 `;
 export const Preview = styled.label<WrapperProps>`
   display: flex;

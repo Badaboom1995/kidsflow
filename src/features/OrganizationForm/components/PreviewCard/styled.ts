@@ -4,9 +4,9 @@ export const Wrapper = styled.div`
   flex-grow: 1;
   position: relative;
   width: 100%;
-  height: calc(100vh - 300px);
+  height: 600px;
   box-sizing: border-box;
-  margin-top: 0;
+  margin-top: 66px;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);

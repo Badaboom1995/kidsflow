@@ -8,6 +8,7 @@ import {
   deleteImage,
   uploadImage,
   uploadExtraImage,
+  getAddressSuggest,
 } from "./actions";
 import {
   TGeneralFormState,
@@ -21,8 +22,12 @@ type initialState = {
   directions?: { name: string; value: string }[];
   currentDirection?: string;
   categories?: Record<string, string>[];
+  cities?: { value: string; name: string }[];
+  stations?: { value: string; name: string }[];
   partners?: any[];
+  prompts: string[];
   images?: { id: string; url: string }[];
+  imagesUpload?: boolean;
   data?: {
     general: TGeneralFormState;
     contacts: TContactsFormState;
@@ -32,12 +37,15 @@ type initialState = {
 
 export const initialState: initialState = {
   loading: true,
-  uploadIds: [],
-  partners: null,
-  directions: [],
   currentDirection: null,
+  partners: null,
+  uploadIds: [],
+  directions: [],
   categories: [],
+  stations: [],
+  prompts: [],
   images: [],
+  imagesUpload: false,
   data: {
     general: null,
     contacts: null,
@@ -70,7 +78,20 @@ const addUserFormSlice = createSlice({
       state.images = state.images.filter((item) => item.id !== payload);
     },
   },
+
   extraReducers: (builder) => {
+    makeReducer(
+      builder,
+      getAddressSuggest,
+      (state, payload) => {
+        const suggests = payload.data.map((item) => item.value);
+        state.prompts = suggests;
+      },
+      (state) => {
+        state.prompts = [];
+      },
+      true
+    );
     makeReducer(
       builder,
       getCategories,
@@ -109,8 +130,7 @@ const addUserFormSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить");
-      },
-      true
+      }
     );
     makeReducer(
       builder,
@@ -120,8 +140,7 @@ const addUserFormSlice = createSlice({
       },
       () => {
         toast.error("Не удалось загрузить");
-      },
-      true
+      }
     );
     makeReducer(
       builder,
@@ -141,6 +160,18 @@ const addUserFormSlice = createSlice({
         state.partners = payload.partners;
         state.directions = payload.directions;
         state.categories = payload.categories;
+        state.stations = payload.metro
+          .reduce(
+            (accum, line) => [
+              ...accum,
+              ...line.stations.map((station) => ({
+                value: station.id,
+                name: station.name,
+              })),
+            ],
+            []
+          )
+          .sort((a, b) => (a.name < b.name ? -1 : 1));
         if (payload.currentOrganization) {
           const {
             about,
@@ -154,11 +185,13 @@ const addUserFormSlice = createSlice({
             photos,
             email,
             site,
+            metroStation,
             entity,
             accountNumber,
             taxIdNumber,
             primaryStateNumber,
             legalAddress,
+            referralLink,
           } = payload.currentOrganization;
 
           state.data.general = {
@@ -166,8 +199,9 @@ const addUserFormSlice = createSlice({
             name,
             directions: directions?.find((item) => !item.parentId)
               ?.eventDirectionId,
-            category: directions?.find((item) => item.parentId)
-              ?.eventDirectionId,
+            category: directions
+              ?.filter((item) => item.parentId)
+              .map((item) => item.eventDirectionId),
             businessHours: "",
             ageFrom: ageFrom?.toString(),
             ageTo: ageTo?.toString(),
@@ -177,7 +211,14 @@ const addUserFormSlice = createSlice({
             id: item.id,
             url: item.cloudUrl,
           }));
-          state.data.contacts = { address, phoneNumber, email, site };
+          state.data.contacts = {
+            address,
+            phoneNumber,
+            email,
+            site,
+            metroStation,
+            referralLink,
+          };
           state.data.legal = {
             entity,
             accountNumber,

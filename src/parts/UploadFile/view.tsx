@@ -16,8 +16,9 @@ function UpoadFileView({
           {label}
           <input
             type="file"
+            multiple
             onChange={(e) => {
-              onAdd(e.target.files[0]);
+              Array.from(e.target.files).forEach((item) => onAdd(item));
             }}
           />
         </Label>
