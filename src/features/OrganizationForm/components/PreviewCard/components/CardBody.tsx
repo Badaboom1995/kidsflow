@@ -14,7 +14,6 @@ import {
   BodyDescriptionWrapper,
   BodyDescriptionTitle,
   BodyDescriptionText,
-  ContactsWrapper,
 } from "../styled";
 
 import { ICardBody } from "../../../types";

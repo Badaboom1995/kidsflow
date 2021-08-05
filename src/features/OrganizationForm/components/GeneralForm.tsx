@@ -43,9 +43,6 @@ function GeneralForm({ setRef }) {
   const onExtraUpload = (file) => {
     dispatch(uploadExtraImage({ file, orgId: id }));
   };
-  const onScheduleChange = (schedule) => {
-    dispatch(setSchedule(schedule));
-  };
 
   const fields = [
     {
@@ -125,12 +122,6 @@ function GeneralForm({ setRef }) {
       type: "chips",
       options: categoriesDict || [],
     },
-    // {
-    //   name: "businessHours",
-    //   label: "Часы работы",
-    //   type: "timeSchedule",
-    //   onChange: onScheduleChange,
-    // },
   ];
 
   const config: configType = {

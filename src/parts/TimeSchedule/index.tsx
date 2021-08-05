@@ -80,7 +80,6 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
     const newData = data?.map((item, index) =>
       index.toString() === activeIndex ? { ...item, completed: true } : item
     );
-    console.log(newData);
     onChange(
       newData.reduce((accum, item, index) => {
         if (!item.closeTime) return accum;
@@ -146,7 +145,11 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
                   )}
                   {currentData === null ||
                     (!currentData?.openTime && !currentData?.closeTime && (
-                      <Rest>😴</Rest>
+                      <Rest>
+                        <span role="img" aria-label="sleep">
+                          😴
+                        </span>
+                      </Rest>
                     ))}
                 </DaysItem>
               );
@@ -220,7 +223,7 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
                   checked={isDayOff}
                   value="123"
                   className="checkbox"
-                  onClick={() => {
+                  onChange={() => {
                     setDayOff();
                   }}
                 />
