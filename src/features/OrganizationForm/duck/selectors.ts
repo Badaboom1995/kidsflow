@@ -7,6 +7,10 @@ export const uploadIdsSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.uploadIds
 );
+export const scheduleSelector = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.businessHours
+);
 export const promptsSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.prompts

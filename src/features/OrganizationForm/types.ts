@@ -20,7 +20,6 @@ export type TGeneralFormState = {
   about: string;
   ageFrom: string;
   ageTo: string;
-  businessHours: string;
   category: any;
   directions: string;
   name: string;
@@ -32,7 +31,8 @@ export type TContactsFormState = {
   phoneNumber: string;
   email: string;
   site: string;
-  stations: { id: string, name: string }[]
+  businessHours: { openTime: string; closeTime: string; day: number }[];
+  stations: { id: string; name: string }[];
 };
 
 export type TFormalFormState = {

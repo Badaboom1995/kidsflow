@@ -5,18 +5,27 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   dataSelector,
   promptsSelector,
+  scheduleSelector,
   stationsSelector,
 } from "features/OrganizationForm/duck/selectors";
-import { addData } from "features/OrganizationForm/duck/slice";
+import { addData, setSchedule } from "features/OrganizationForm/duck/slice";
 import { getAddressSuggest } from "../duck/actions";
+
 interface IContactsForm {
   setFormRef: setStateFunc;
 }
+
 function ContactsForm({ setFormRef }: IContactsForm) {
   const data = useSelector(dataSelector);
   const stationsDict = useSelector(stationsSelector);
   const prompts = useSelector(promptsSelector);
+  const businessHours = useSelector(scheduleSelector);
   const dispatch = useDispatch();
+
+  const onScheduleChange = (schedule) => {
+    dispatch(setSchedule(schedule));
+  };
+
   return (
     <>
       <FormGenerator
@@ -46,13 +55,19 @@ function ContactsForm({ setFormRef }: IContactsForm) {
               type: "select",
               options: stationsDict || [],
             },
+            {
+              name: "businessHours",
+              label: "Часы работы",
+              type: "timeSchedule",
+              onChange: onScheduleChange,
+            },
           ],
         }}
         onSubmit={(values) => {
           dispatch(addData({ key: "contacts", values }));
         }}
         setRef={(ref) => setFormRef(ref)}
-        initialValues={data.contacts}
+        initialValues={{ ...data.contacts, businessHours }}
       />
     </>
   );

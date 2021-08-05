@@ -18,7 +18,11 @@ import {
   uploadExtraImage,
   uploadImage,
 } from "features/OrganizationForm/duck/actions";
-import { addData, removeUploadId } from "features/OrganizationForm/duck/slice";
+import {
+  addData,
+  removeUploadId,
+  setSchedule,
+} from "features/OrganizationForm/duck/slice";
 import MultyUploader from "parts/MultyUploader";
 
 import { configType } from "../types";
@@ -38,6 +42,9 @@ function GeneralForm({ setRef }) {
   };
   const onExtraUpload = (file) => {
     dispatch(uploadExtraImage({ file, orgId: id }));
+  };
+  const onScheduleChange = (schedule) => {
+    dispatch(setSchedule(schedule));
   };
 
   const fields = [
@@ -118,6 +125,12 @@ function GeneralForm({ setRef }) {
       type: "chips",
       options: categoriesDict || [],
     },
+    // {
+    //   name: "businessHours",
+    //   label: "Часы работы",
+    //   type: "timeSchedule",
+    //   onChange: onScheduleChange,
+    // },
   ];
 
   const config: configType = {
@@ -154,17 +167,17 @@ function GeneralForm({ setRef }) {
             />
           </>
         ) : (
-            <>
-              <MultyUploader
-                onAdd={onUpload}
-                onRemove={(id) => {
-                  dispatch(removeUploadId(id));
-                }}
-                addLabel="Добавить фото"
-                items={images}
-              />
-            </>
-          )}
+          <>
+            <MultyUploader
+              onAdd={onUpload}
+              onRemove={(id) => {
+                dispatch(removeUploadId(id));
+              }}
+              addLabel="Добавить фото"
+              items={images}
+            />
+          </>
+        )}
       </Row>
     </>
   );

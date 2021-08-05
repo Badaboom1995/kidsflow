@@ -21,6 +21,7 @@ function AddOrg() {
   useEffect(() => {
     dispatch(bootstrap(id));
     return () => {
+      console.log("clear");
       dispatch(clearData());
     };
   }, []);

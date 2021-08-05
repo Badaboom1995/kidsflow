@@ -1,6 +1,6 @@
 import React from "react";
 
-import {IconClock, IconMapMarker} from "../../../../../components/Icons";
+import { IconClock, IconMapMarker } from "../../../../../components/Icons";
 
 import {
   BodyInfoAddress,
@@ -17,17 +17,19 @@ import {
   ContactsWrapper,
 } from "../styled";
 
-import {ICardBody} from "../../../types";
+import { ICardBody } from "../../../types";
 
-function CardBody({generalFormState, contactFormState}:ICardBody) {
-  return(
+function CardBody({ generalFormState, contactFormState }: ICardBody) {
+  return (
     <InfoBody>
       <BodyInfoItemWrapper>
         <BodyInfoIcon>
           <IconMapMarker color="#BEC2CE" />
         </BodyInfoIcon>
         <BodyInfoAddress>
-          <InfoAddressText>{contactFormState?.address || "Адрес"}</InfoAddressText>
+          <InfoAddressText>
+            {contactFormState?.address || "Адрес"}
+          </InfoAddressText>
           <InfoAddressMapLink>Показать на карте</InfoAddressMapLink>
         </BodyInfoAddress>
       </BodyInfoItemWrapper>
@@ -38,22 +40,18 @@ function CardBody({generalFormState, contactFormState}:ICardBody) {
         </BodyInfoIcon>
         <BodyInfoTime>
           <BodyTimeStatus>Сейчас открыто</BodyTimeStatus>
-          {generalFormState?.businessHours || "00:00:00"}
+          {/* {contactFormState?.businessHours || "00:00:00"} */}
         </BodyInfoTime>
       </BodyInfoItemWrapper>
 
       <BodyDescriptionWrapper>
-        <BodyDescriptionTitle>
-          Описание
-        </BodyDescriptionTitle>
+        <BodyDescriptionTitle>Описание</BodyDescriptionTitle>
         <BodyDescriptionText>
           {generalFormState?.about || "Описание"}
         </BodyDescriptionText>
       </BodyDescriptionWrapper>
-
     </InfoBody>
-  )
+  );
 }
 
 export default CardBody;
-

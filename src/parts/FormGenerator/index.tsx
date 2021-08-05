@@ -121,7 +121,13 @@ function FormGenerator({
       );
     }
     if (type === "timeSchedule") {
-      field = <TimeSchedule title={props.label} />;
+      field = (
+        <TimeSchedule
+          title={props.label}
+          onChange={onChange}
+          initialValues={initialValues}
+        />
+      );
     }
     if (type === "search") {
       field = (
