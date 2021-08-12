@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 `;
 export const ShadowContainer = styled.div`
   box-shadow: 0px 3px 15px 0px #00000032;
+  background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
 `;
@@ -19,21 +20,24 @@ export const TableContainer = styled.table`
   padding: 0;
   width: 100%;
   max-height: calc(100vh - 120px);
+  margin-bottom: 95px;
   background-color: #fff;
 
   border-radius: 9px;
-  margin-bottom: 1px;
   overflow: scroll;
 `;
 export const TBody = styled.tbody``;
 export const Footer = styled.footer`
+  position: fixed;
+  width: calc(100% - 250px);
+  bottom: 0px;
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
+  justify-content: flex-end;
   background-color: #fff;
   padding: 25px 30px;
   font-weight: 400;
-  border-radius: 0 0 9px 9px;
+  box-shadow: 0px 3px 15px 0px #00000032;
 `;
 type CellProps = {
   textalign?: string;
@@ -164,6 +168,22 @@ export const PaginationText = styled.div`
   display: flex;
   margin-bottom: 10px;
   border-bottom: 1px solid #fff;
+`;
+type PaginationProps = {
+  active?: boolean;
+};
+export const PaginationButton = styled.button<PaginationProps>`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 2px;
+  background-color: ${(props) => props.active && "#fff0d3"};
+  &:hover {
+    background-color: #fff0d3;
+  }
 `;
 type ArrowProps = {
   right?: boolean;
