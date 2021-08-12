@@ -25,7 +25,7 @@ function ChildFormView({
       <Wrapper>
         <GridContainer transparent={transparent}>
           {title && (
-            <FormSectionTitle offsetLeft={50} marginBottom={20}>
+            <FormSectionTitle offsetLeft={50} marginBottom={30}>
               {title}
             </FormSectionTitle>
           )}

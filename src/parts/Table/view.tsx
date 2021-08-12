@@ -14,6 +14,7 @@ import {
 import { ITableView } from "./types";
 
 import SortControl from "./components/SortControl/SortControl";
+import Pagination from "./components/Pagination";
 
 function TableView({ data, fields, pagination, sort }: ITableView) {
   return (
@@ -60,7 +61,8 @@ function TableView({ data, fields, pagination, sort }: ITableView) {
             )}
           </TBody>
         </TableContainer>
-        <Footer>
+        {data && <Pagination pagination={pagination} />}
+        {/* <Footer>
           <Arrow
             right
             onClick={() => {
@@ -83,7 +85,7 @@ function TableView({ data, fields, pagination, sort }: ITableView) {
               : "0 - 0"}{" "}
             из {pagination ? pagination?.totalEntities : "0"}
           </span>
-        </Footer>
+        </Footer> */}
       </ShadowContainer>
     </Wrapper>
   );

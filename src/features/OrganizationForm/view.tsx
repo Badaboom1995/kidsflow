@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Wrapper, MainArea, Left, Right, Header } from "./styled";
+import {
+  Wrapper,
+  MainArea,
+  Left,
+  Right,
+  TopMenu,
+  Handlers,
+  Header,
+} from "./styled";
 import BackSection from "parts/BackSection";
-import { FormSectionTitle, ButtonsArea } from "parts/styled";
+import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
 import Tabs from "parts/Tabs";
-import StatusHandler from "parts/StatusHandler";
 import { toast } from "react-toastify";
 import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
@@ -14,11 +21,14 @@ import { refType } from "common/types";
 import ContactsForm from "./components/ContactsForm";
 import LegalForm from "./components/LegalForm";
 import {
+  isOnlineSchool,
   dataSelector,
   imagesSelector,
   scheduleSelector,
 } from "./duck/selectors";
 import PreviewCard from "./components/PreviewCard";
+import Choose from "parts/Choose";
+import { Status } from "parts/styled";
 
 interface IAddOrgView {
   organizationId: string;
@@ -45,6 +55,7 @@ function AddOrgView({
 }: IAddOrgView) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const isOnline = useSelector(isOnlineSchool);
   const images = useSelector(imagesSelector);
   const data = useSelector(dataSelector);
   const businessHours = useSelector(scheduleSelector);
@@ -61,13 +72,18 @@ function AddOrgView({
   };
 
   useEffect(() => {
+    const onlineSchool = isOnline ? "OnlineSchool" : null;
     if (dataReady) {
       submitMethod(
         {
           ...data.general,
           ...data.contacts,
           ...data.legal,
-          directions: [data.general?.directions, ...data.general?.category],
+          directions: [
+            data.general?.directions,
+            ...data.general?.category,
+            onlineSchool,
+          ],
           businessHours,
           uploadIds: images.map((item) => item.id),
           status: "Active",
@@ -88,23 +104,24 @@ function AddOrgView({
 
   return (
     <Wrapper>
-      <BackSection />
+      <TopMenu>
+        <BackSection />
+      </TopMenu>
       <Header>
-        <Left>
-          <FormSectionTitle offsetLeft={60}>
-            Карточка организации (251489):
-          </FormSectionTitle>
-        </Left>
-        <Right>
-          <StatusHandler
-            options={[
-              { name: "Заблокирован", status: "disabled" },
-              { name: "Активен", status: "active" },
-            ]}
-            current="Активен"
-          />
-        </Right>
+        <FormSectionTitle>Карточка организации</FormSectionTitle>
+        <Choose
+          getViewComponent={(status, name) => (
+            <Status status={status}>{name}</Status>
+          )}
+          onChange={() => {}}
+          options={[
+            { name: "Заблокирован", status: "disabled" },
+            { name: "Активен", status: "active" },
+          ]}
+          current="Активен"
+        />
       </Header>
+
       <MainArea>
         <Left>
           <Tabs

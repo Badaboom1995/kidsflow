@@ -3,12 +3,27 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 35px);
-  
+`;
+export const TopMenu = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ccc;
+`;
+export const PageTitle = styled.h2`
+  color: #51535e;
+  font-size: 18px;
+  margin: 0;
+  font-weight: normal;
+  text-align: center;
+`;
+export const Handlers = styled.div`
+  display: flex;
 `;
 export const Header = styled.div`
-  padding: 10px 0;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  display: flex;
+  justify-content: space-between;
 `;
 export const MainArea = styled.div`
   flex-grow: 1;
@@ -49,4 +64,9 @@ export const Partners = styled.div`
 `;
 export const PartnersField = styled.div`
   width: calc(50% - 10px);
+`;
+export const SchoolTypeHandler = styled.div`
+  transform: translateY(calc(100% + 15px));
+  position: relative;
+  z-index: 9;
 `;

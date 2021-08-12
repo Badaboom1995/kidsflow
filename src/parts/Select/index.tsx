@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import SelectView from "./view";
+import useOutsideAlerter from "hooks/useOutsideAlerter";
 
 function Select(props) {
   const [isOpen, setOpen] = useState(false);
   const [selectedValue, setValue] = useState(props.value);
+  const ref = useRef(null);
   const toggleSelect = () => {
     isOpen ? setOpen(false) : setOpen(true);
   };
@@ -19,6 +21,18 @@ function Select(props) {
     setSelected,
     ...props,
   };
-  return <SelectView {...viewProps} />;
+
+  useOutsideAlerter({
+    ref,
+    onEvent: () => {
+      setOpen(false);
+    },
+  });
+
+  return (
+    <div ref={ref}>
+      <SelectView {...viewProps} />
+    </div>
+  );
 }
 export default Select;

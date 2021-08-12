@@ -18,6 +18,7 @@ import {
 
 type initialState = {
   loading: boolean;
+  isOnline: boolean;
   uploadIds: string[];
   directions?: { name: string; value: string }[];
   currentDirection?: string;
@@ -37,6 +38,7 @@ type initialState = {
 };
 
 export const initialState: initialState = {
+  isOnline: false,
   loading: true,
   currentDirection: null,
   partners: null,
@@ -64,6 +66,9 @@ const addUserFormSlice = createSlice({
     },
     addData(state, { payload }: { payload: { key: string; values: string } }) {
       state.data[payload.key] = payload.values;
+    },
+    switchOnline(state) {
+      state.isOnline = !state.isOnline;
     },
     setSchedule(
       state,
@@ -168,6 +173,9 @@ const addUserFormSlice = createSlice({
       builder,
       bootstrap,
       (state, payload) => {
+        state.isOnline = payload.currentOrganization?.directions
+          .map((item) => item.eventDirectionId)
+          .includes("OnlineSchool");
         state.partners = payload.partners;
         state.directions = payload.directions;
         state.categories = payload.categories;
@@ -268,6 +276,7 @@ export const {
   removeUploadId,
   addData,
   clearData,
+  switchOnline,
 } = addUserFormSlice.actions;
 
 export default addUserFormSlice.reducer;

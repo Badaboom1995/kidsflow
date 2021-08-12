@@ -27,9 +27,12 @@ export const loadingSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.loading
 );
-export const directionSelector = createSelector(
+export const directionSelector = createSelector(AddUserFormSelector, (addOrg) =>
+  addOrg.directions.filter((item) => item.value !== "OnlineSchool")
+);
+export const isOnlineSchool = createSelector(
   AddUserFormSelector,
-  (addOrg) => addOrg.directions
+  (addOrg) => addOrg.isOnline
 );
 export const categorySelector = createSelector(
   AddUserFormSelector,
