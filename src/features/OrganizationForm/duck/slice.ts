@@ -33,6 +33,7 @@ type initialState = {
     contacts: TContactsFormState;
     legal: TFormalFormState;
   };
+  businessHours: { day: number; openTime: string; closeTime: string }[];
 };
 
 export const initialState: initialState = {
@@ -45,6 +46,7 @@ export const initialState: initialState = {
   stations: [],
   prompts: [],
   images: [],
+  businessHours: [],
   imagesUpload: false,
   data: {
     general: null,
@@ -63,6 +65,14 @@ const addUserFormSlice = createSlice({
     addData(state, { payload }: { payload: { key: string; values: string } }) {
       state.data[payload.key] = payload.values;
     },
+    setSchedule(
+      state,
+      {
+        payload,
+      }: { payload: { day: number; openTime: string; closeTime: string }[] }
+    ) {
+      state.businessHours = payload;
+    },
     clearData(state) {
       state.data = {
         general: null,
@@ -70,6 +80,7 @@ const addUserFormSlice = createSlice({
         legal: null,
       };
       state.images = [];
+      state.businessHours = [];
     },
     removeUploadIds(state) {
       state.uploadIds = [];
@@ -172,6 +183,7 @@ const addUserFormSlice = createSlice({
             []
           )
           .sort((a, b) => (a.name < b.name ? -1 : 1));
+
         if (payload.currentOrganization) {
           const {
             about,
@@ -192,7 +204,21 @@ const addUserFormSlice = createSlice({
             primaryStateNumber,
             legalAddress,
             referralLink,
+            businessHours,
           } = payload.currentOrganization;
+
+          const businessHoursNormalized = new Array(7)
+            .fill({ completed: true })
+            .map((item, index) => {
+              const currentDay = businessHours.find(
+                (item) => item.day === index
+              );
+              return {
+                ...item,
+                openTime: currentDay?.openTime.slice(0, 5),
+                closeTime: currentDay?.closeTime.slice(0, 5),
+              };
+            });
 
           state.data.general = {
             about,
@@ -202,15 +228,10 @@ const addUserFormSlice = createSlice({
             category: directions
               ?.filter((item) => item.parentId)
               .map((item) => item.eventDirectionId),
-            businessHours: "",
             ageFrom: ageFrom?.toString(),
             ageTo: ageTo?.toString(),
             partnerId: partner?.partnerId,
           };
-          state.images = photos.map((item) => ({
-            id: item.id,
-            url: item.cloudUrl,
-          }));
           state.data.contacts = {
             address,
             phoneNumber,
@@ -226,6 +247,11 @@ const addUserFormSlice = createSlice({
             primaryStateNumber,
             legalAddress,
           };
+          state.images = photos.map((item) => ({
+            id: item.id,
+            url: item.cloudUrl,
+          }));
+          state.businessHours = businessHoursNormalized;
         }
       },
       () => {
@@ -238,6 +264,7 @@ const addUserFormSlice = createSlice({
 export const {
   addUploadId,
   removeUploadIds,
+  setSchedule,
   removeUploadId,
   addData,
   clearData,

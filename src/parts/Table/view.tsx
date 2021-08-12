@@ -6,26 +6,16 @@ import {
   Cell,
   THead,
   TBody,
-  Controls,
-  ControlsItem,
   Footer,
   Arrow,
   ShadowContainer,
-  SubmitButton,
 } from "./styled";
 
 import { ITableView } from "./types";
-import { SieveType } from "ducks/sieve/types";
-import FilterSelect from "features/OrganizationsTable/components/FilterSelect";
+
 import SortControl from "./components/SortControl/SortControl";
 
-function TableView({
-  data,
-  fields,
-  changeSieveValue,
-  pagination,
-  sort,
-}: ITableView) {
+function TableView({ data, fields, pagination, sort }: ITableView) {
   return (
     <Wrapper>
       {/* <Controls>

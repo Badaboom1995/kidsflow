@@ -15,7 +15,11 @@ function MultyUploader({ addLabel, onAdd, onRemove, items }: IMultyUploader) {
     <Wrapper>
       <Row>
         {items?.map((item) => (
-          <UploadFile imageUrl={item.url} onRemove={() => onRemove(item.id)} />
+          <UploadFile
+            key={item.url}
+            imageUrl={item.url}
+            onRemove={() => onRemove(item.id)}
+          />
         ))}
         <UploadFile label={addLabel} onAdd={onAdd} />
       </Row>

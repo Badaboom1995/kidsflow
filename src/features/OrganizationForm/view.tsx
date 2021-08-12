@@ -13,7 +13,11 @@ import { removeUploadIds } from "features/OrganizationForm/duck/slice";
 import { refType } from "common/types";
 import ContactsForm from "./components/ContactsForm";
 import LegalForm from "./components/LegalForm";
-import { dataSelector, imagesSelector } from "./duck/selectors";
+import {
+  dataSelector,
+  imagesSelector,
+  scheduleSelector,
+} from "./duck/selectors";
 import PreviewCard from "./components/PreviewCard";
 
 interface IAddOrgView {
@@ -43,6 +47,7 @@ function AddOrgView({
   const history = useHistory();
   const images = useSelector(imagesSelector);
   const data = useSelector(dataSelector);
+  const businessHours = useSelector(scheduleSelector);
 
   const [dataReady, setReady] = useState(false);
 
@@ -63,13 +68,7 @@ function AddOrgView({
           ...data.contacts,
           ...data.legal,
           directions: [data.general?.directions, ...data.general?.category],
-          businessHours: [
-            {
-              day: 0,
-              openTime: "10:00",
-              closeTime: "19:00",
-            },
-          ],
+          businessHours,
           uploadIds: images.map((item) => item.id),
           status: "Active",
         },

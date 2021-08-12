@@ -9,6 +9,7 @@ function Checkbox({
   children,
   setTouched,
   touched,
+  onClick,
 }: CheckboxInterface) {
   const setCheckboxTouched = () => {
     setTouched({ ...touched, [name]: true });
@@ -17,7 +18,13 @@ function Checkbox({
     <ErrorContainier error={touched[name] ? error : ""}>
       <Wrapper>
         <HiddenCheckbox id={name} type="checkbox" name={name} />
-        <Title onClick={setCheckboxTouched} htmlFor={name}>
+        <Title
+          onClick={() => {
+            onClick();
+            setCheckboxTouched();
+          }}
+          htmlFor={name}
+        >
           {children}
         </Title>
       </Wrapper>
