@@ -79,11 +79,20 @@ function AddOrgView({
           ...data.general,
           ...data.contacts,
           ...data.legal,
-          directions: [
-            data.general?.directions,
-            ...data.general?.category,
-            onlineSchool,
-          ],
+          ...(onlineSchool
+            ? {
+                directions: [
+                  data.general?.directions,
+                  ...data.general?.category,
+                  onlineSchool,
+                ],
+              }
+            : {
+                directions: [
+                  data.general?.directions,
+                  ...data.general?.category,
+                ],
+              }),
           businessHours,
           uploadIds: images.map((item) => item.id),
           status: "Active",
