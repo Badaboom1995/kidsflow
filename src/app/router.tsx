@@ -26,7 +26,7 @@ export default function Router(props: IRouter) {
       <Route path={`${prefix}/catalog`} exact={true} component={Catalog} />
       <Route path={`${prefix}/catalog/add`} component={CatalogAdd} />
       <Route path={`${prefix}/events`} exact={true} component={Events} />
-      <Route path={`${prefix}/events`} component={EventsAdd} />
+      <Route path={`${prefix}/events/add/:id?`} component={EventsAdd} />
     </Switch>
   );
 }

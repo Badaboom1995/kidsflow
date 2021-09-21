@@ -61,31 +61,7 @@ function TableView({ data, fields, pagination, sort }: ITableView) {
             )}
           </TBody>
         </TableContainer>
-        {data && <Pagination pagination={pagination} />}
-        {/* <Footer>
-          <Arrow
-            right
-            onClick={() => {
-              pagination.method(pagination.pageNumber + 1);
-            }}
-          />
-          <Arrow
-            onClick={() => {
-              pagination.pageNumber > 0 &&
-                pagination.method(pagination.pageNumber - 1);
-            }}
-          />
-          <span>
-            {pagination?.pageSize
-              ? `${
-                  (pagination.pageNumber + 1) * pagination.pageSize -
-                  pagination.pageSize +
-                  1
-                } - ${(pagination.pageNumber + 1) * pagination.pageSize}`
-              : "0 - 0"}{" "}
-            из {pagination ? pagination?.totalEntities : "0"}
-          </span>
-        </Footer> */}
+        {data && pagination && <Pagination pagination={pagination} />}
       </ShadowContainer>
     </Wrapper>
   );

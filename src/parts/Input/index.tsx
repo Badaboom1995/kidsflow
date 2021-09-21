@@ -11,7 +11,7 @@ interface IInput {
   name: string;
   password?: boolean;
   touched?: boolean;
-  label?: string;
+  label?: string | React.ReactNode;
   type?: string;
   centered?: boolean;
   value?: string;
@@ -45,18 +45,17 @@ export default function Input({
             </Field>
           </InputContainer>
         ) : (
-            <InputContainer icon={icon} centered={centered}>
-              <StyledInput
-                type={type || "text"}
-                name={name}
-                placeholder={placeholder || "-- -- -- -- --"}
-                error={error}
-                touched={touched ? 1 : 0}
-                centered={centered}
-              // onChange={(value) => value}
-              />
-            </InputContainer>
-          )}
+          <InputContainer icon={icon} centered={centered}>
+            <StyledInput
+              type={type || "text"}
+              name={name}
+              placeholder={placeholder || "-- -- -- -- --"}
+              error={error}
+              touched={touched ? 1 : 0}
+              centered={centered}
+            />
+          </InputContainer>
+        )}
       </ErrorContainier>
     </Wrapper>
   );

@@ -1,3 +1,8 @@
+export const serverUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.vzletaem.ru"
+    : "https://api-dev.vzletaem.ru";
+
 export const colors = {
   primary: "#FF5A57",
   secondary: "#FFC400",

@@ -3,12 +3,14 @@ import { Wrapper } from "./styled";
 import Table from "parts/Table";
 import { Status } from "parts/Table/styled";
 import AddButton from "parts/AddButton";
+import EventsTable from "features/EventsTable";
 
 function Events() {
   return (
     <Wrapper>
       <AddButton to="events/add" />
-      <Table
+      <EventsTable />
+      {/* <Table
         fields={[
           {
             label: "ID",
@@ -58,7 +60,7 @@ function Events() {
             status: "Заблокирован",
           },
         ]}
-      ></Table>
+      ></Table> */}
     </Wrapper>
   );
 }

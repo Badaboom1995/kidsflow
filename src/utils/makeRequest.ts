@@ -1,14 +1,18 @@
-const serverUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://api.vzletaem.ru"
-    : "https://api-dev.vzletaem.ru";
+import { serverUrl } from "config/constants";
 
 type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE";
 
-const makeRequest = async (url: string, method: MethodType, body?: any) => {
+const makeRequest = async (
+  url: string,
+  method: MethodType,
+  body?: Record<string, string>,
+  extraHeaders?: { key: string; value: string }[]
+) => {
   const token = localStorage.getItem("vzletaemAdminToken");
   const commonHeaders: HeadersInit = new Headers();
   commonHeaders.set("Content-Type", "application/json");
+  extraHeaders &&
+    extraHeaders.forEach((item) => commonHeaders.set(item.key, item.value));
 
   // TODO remove
   commonHeaders.append("Authorization", `Bearer ${token}`);

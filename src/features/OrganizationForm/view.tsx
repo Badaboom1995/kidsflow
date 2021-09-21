@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Wrapper,
-  MainArea,
-  Left,
-  Right,
-  TopMenu,
-  Handlers,
-  Header,
-} from "./styled";
+import { Wrapper, MainArea, Left, Right, Header } from "./styled";
 import BackSection from "parts/BackSection";
 import { ButtonsArea, FormSectionTitle } from "parts/styled";
 import Button from "parts/Button";
@@ -17,7 +9,6 @@ import GeneralForm from "./components/GeneralForm";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUploadIds } from "features/OrganizationForm/duck/slice";
-import { refType } from "common/types";
 import ContactsForm from "./components/ContactsForm";
 import LegalForm from "./components/LegalForm";
 import {
@@ -30,22 +21,7 @@ import PreviewCard from "./components/PreviewCard";
 import Choose from "parts/Choose";
 import { Status } from "parts/styled";
 
-interface IAddOrgView {
-  organizationId: string;
-  submitMethod:
-    | ((body: any) => Promise<any>)
-    | ((body: any, id: string) => Promise<any>);
-  formRefs: {
-    general: refType;
-    contacts: refType;
-    legal: refType;
-  };
-  setFormRef: {
-    general: (p: refType) => void;
-    contacts: (p: refType) => void;
-    legal: (p: refType) => void;
-  };
-}
+import { IAddOrgView } from "./types";
 
 function AddOrgView({
   organizationId,
@@ -113,9 +89,7 @@ function AddOrgView({
 
   return (
     <Wrapper>
-      <TopMenu>
-        <BackSection />
-      </TopMenu>
+      <BackSection />
       <Header>
         <FormSectionTitle>Карточка организации</FormSectionTitle>
         <Choose

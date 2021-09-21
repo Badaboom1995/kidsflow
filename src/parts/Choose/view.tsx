@@ -47,6 +47,7 @@ function ChooseView({
           <Dropdown>
             {options.map((item) => (
               <DropdownItem
+                key={item.name}
                 onClick={() => {
                   setActive(item.name);
                   onChange(item.status);

@@ -10,8 +10,10 @@ type TPagination = {
 
 function Pagination({ pagination }: { pagination: TPagination }) {
   const stepsFromCenter = 1;
-  const pagesTotal = Math.floor(pagination.totalEntities / pagination.pageSize);
-  const currentCenter = pagination.pageNumber;
+  const pagesTotal = Math.floor(
+    pagination?.totalEntities / pagination?.pageSize
+  );
+  const currentCenter = pagination?.pageNumber;
 
   let centerPages = [currentCenter];
   for (let i = 1; i <= stepsFromCenter; i++) {
@@ -20,8 +22,9 @@ function Pagination({ pagination }: { pagination: TPagination }) {
   const getPagesButtons = (pages) => {
     return pages.map((pageNumber) => (
       <PaginationButton
+        key={pageNumber}
         active={pageNumber === currentCenter}
-        onClick={() => pagination.method(pageNumber)}
+        onClick={() => pagination?.method(pageNumber)}
       >
         {pageNumber + 1}
       </PaginationButton>
@@ -31,8 +34,8 @@ function Pagination({ pagination }: { pagination: TPagination }) {
     <Footer>
       <Arrow
         onClick={() => {
-          pagination.pageNumber > 0 &&
-            pagination.method(pagination.pageNumber - 1);
+          pagination?.pageNumber > 0 &&
+            pagination.method(pagination?.pageNumber - 1);
         }}
       />
       {currentCenter - stepsFromCenter < 1 && getPagesButtons([0, 1, 2])}
@@ -55,7 +58,7 @@ function Pagination({ pagination }: { pagination: TPagination }) {
         right
         onClick={() => {
           currentCenter < pagesTotal &&
-            pagination.method(pagination.pageNumber + 1);
+            pagination.method(pagination?.pageNumber + 1);
         }}
       />
     </Footer>

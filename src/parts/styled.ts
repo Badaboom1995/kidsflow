@@ -36,7 +36,7 @@ export const Tariff = styled.div<TariffProps>`
   color: ${(props) => selectTariffColor(props.type)};
   text-transform: uppercase;
 `;
-type StatusProps = { status?: string };
+type StatusProps = { status?: "active" | "disabled" | "waiting" | string };
 export const Status = styled.div<StatusProps>`
   display: flex;
   align-items: center;
@@ -142,14 +142,22 @@ export const ButtonsArea = styled.div`
 `;
 type GridContainerProps = {
   transparent?: boolean;
+  col?: number;
 };
-export const GridContainer = styled(GlassCard)<GridContainerProps>`
+export const GridContainer = styled.div<GridContainerProps>`
   background-color: #fff;
   width: 100%;
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-column: span ${(props) => props.col || 6};
   background-color: ${(props) => props.transparent && "transparent"};
+`;
+type TGridElement = {
+  col?: number;
+};
+export const GridElement = styled(GlassCard)<TGridElement>`
+  grid-column: span ${(props) => props.col || 6};
 `;
 
 export const BackButton = styled.button`

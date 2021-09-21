@@ -11,7 +11,7 @@ export const SelectBox = styled.div<SelectBoxProps>`
   display: block;
   background-color: #fff0d3;
 
-  padding: 11.5px;
+  padding: 10.5px;
   border-radius: 8px;
   border: none;
   font-size: 14px;

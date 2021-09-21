@@ -1,5 +1,22 @@
 export type configType = { title: string; settings: any; fields: any };
+import { refType } from "common/types";
 
+export interface IAddOrgView {
+  organizationId: string;
+  submitMethod:
+    | ((body: any) => Promise<any>)
+    | ((body: any, id: string) => Promise<any>);
+  formRefs: {
+    general: refType;
+    contacts: refType;
+    legal: refType;
+  };
+  setFormRef: {
+    general: (p: refType) => void;
+    contacts: (p: refType) => void;
+    legal: (p: refType) => void;
+  };
+}
 export interface IPreviewCard {
   generalFormState: TGeneralFormState;
   contactFormState: TContactsFormState;

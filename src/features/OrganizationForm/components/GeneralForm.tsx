@@ -18,11 +18,7 @@ import {
   uploadExtraImage,
   uploadImage,
 } from "features/OrganizationForm/duck/actions";
-import {
-  addData,
-  removeUploadId,
-  setSchedule,
-} from "features/OrganizationForm/duck/slice";
+import { addData, removeUploadId } from "features/OrganizationForm/duck/slice";
 import MultyUploader from "parts/MultyUploader";
 
 import { configType } from "../types";

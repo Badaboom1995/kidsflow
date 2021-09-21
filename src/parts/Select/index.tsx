@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import SelectView from "./view";
 import useOutsideAlerter from "hooks/useOutsideAlerter";
+import { TSelect } from "./types";
 
-function Select(props) {
+function Select(props: TSelect) {
   const [isOpen, setOpen] = useState(false);
   const [selectedValue, setValue] = useState(props.value);
   const ref = useRef(null);

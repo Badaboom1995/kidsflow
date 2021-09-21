@@ -1,3 +1,4 @@
+import { Field } from "formik";
 import React from "react";
 import ErrorContainier from "../ErrorContainier";
 import { Label } from "../styled";
@@ -22,7 +23,7 @@ function SelectView({
   touched,
   label,
   side,
-}) {
+}: any) {
   const showSelected = (selectedValue) =>
     options[0]?.value
       ? options.find((item) => item.value === selectedValue)?.name
@@ -36,26 +37,27 @@ function SelectView({
           {selectedValue ? showSelected(selectedValue) : title}
         </SelectBox>
       </ErrorContainier>
-      <OptionsContainer>
-        {options?.map(
-          (option) =>
-            option.name &&
-            option.value && (
-              <Option key={option?.value || option}>
-                <OptionTitle>{option?.name || option}</OptionTitle>
-                <Radio
-                  type="radio"
-                  onChange={(value) => {
-                    side && side(value);
-                    setSelected(value);
-                  }}
-                  name={name}
-                  value={option?.value || option}
-                />
-              </Option>
-            )
+      <Field name={name}>
+        {({ field }) => (
+          <OptionsContainer>
+            {!!options.length &&
+              options.map((option) => (
+                <Option key={option.value}>
+                  <OptionTitle>{option.name}</OptionTitle>
+                  <Radio
+                    type="radio"
+                    name={name}
+                    value={option.value}
+                    onChange={(value) => {
+                      side && side(value);
+                      setSelected(value);
+                    }}
+                  />
+                </Option>
+              ))}
+          </OptionsContainer>
         )}
-      </OptionsContainer>
+      </Field>
     </Wrapper>
   );
 }

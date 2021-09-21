@@ -39,6 +39,7 @@ const organizationsService = {
     const data = await response?.json();
     return data;
   },
+
   uploadExtraImage: async (image: any, orgId: string) => {
     const token = localStorage.getItem("vzletaemAdminToken");
     var myHeaders = new Headers();

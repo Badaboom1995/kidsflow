@@ -39,6 +39,12 @@ export const StyledButton = styled.button<StyledButtonProps>`
   &:focus {
     outline: none;
   }
+  &:hover {
+    background-color: ${(props) => props.customType !== "ghost" && "#ffd447"};
+  }
+  &:active {
+    background-color: #ffc60a;
+  }
   img {
     width: 40px;
     position: absolute;
