@@ -28,7 +28,9 @@ function OrganizationsTable() {
     eventCategories: item.eventCategories
       .filter((category) => item.eventTypes[0] !== category)
       .join(),
-    photos: item.photos[0]?.cloudUrl,
+    photos: item.photos
+      ? item.photos[0]?.cloudUrl
+      : "https://i.stack.imgur.com/mwFzF.png",
     partner: item.partner ? item.partner.firstName : "Нет партнера",
     status: item.isActive ? "Активный" : "Заблокирован",
   }));
