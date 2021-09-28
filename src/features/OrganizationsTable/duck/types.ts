@@ -10,7 +10,7 @@ export type OrganizationType = {
   name: string;
   organizationId: string;
   partner: any;
-  uploads: any[];
+  photos: any[];
   address: string;
   phoneNumber: string;
   email: string;

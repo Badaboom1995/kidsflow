@@ -28,10 +28,14 @@ import {
 
 import { ITimeSchedule, TData } from "./types";
 
-const dayDefaultData = { openTime: "10:00", closeTime: "19:00" };
-const dataArray = new Array(7).fill(dayDefaultData);
-
 function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
+  const [dayDefaultData, setDayDefaultData] = useState({
+    openTime: "10:00",
+    closeTime: "20:00",
+  });
+  const dataArray = new Array(7)
+    .fill(dayDefaultData)
+    .map((item, index) => ({ completed: true, day: index, ...item }));
   const [data, SetData] = useState<TData>(
     initialValues?.businessHours.length
       ? initialValues?.businessHours
@@ -102,7 +106,6 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
     SetActive((parseInt(activeIndex) + 1).toString());
   };
 
-  // JSX
   return (
     <Wrapper>
       <TitleCover>
@@ -119,7 +122,31 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
 
       <ScheduleCover>
         <DaysCover>
-          <DaysTitle>Выберите дни недели</DaysTitle>
+          <DaysTitle>
+            Выберите дни недели
+            {/* <div>
+              <button
+                onClick={() =>
+                  setDayDefaultData({
+                    openTime: "9:00",
+                    closeTime: "22:30",
+                  })
+                }
+              >
+                9:00 - 22:30
+              </button>
+              <button
+                onClick={() =>
+                  setDayDefaultData({
+                    openTime: "8:30",
+                    closeTime: "21:00",
+                  })
+                }
+              >
+                8:30 - 21:00
+              </button>
+            </div> */}
+          </DaysTitle>
           <DaysList>
             {days.map(({ index, name }, i) => {
               const currentData = data[i];

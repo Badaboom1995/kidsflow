@@ -86,6 +86,7 @@ export const bootstrap = createAsyncThunk<any, any>(
         metro: null,
         currentOrganization: null,
       };
+
       await Promise.all(tasks).then((values) => {
         result.partners = values[0].data.list.map((item) => ({
           name: item.partner.firstName,
@@ -100,9 +101,9 @@ export const bootstrap = createAsyncThunk<any, any>(
           value: item?.eventDirectionId,
         }));
         result.metro = values[3].data.lines;
-        result.currentOrganization = values[4];
+        result.currentOrganization = values[4]?.organization;
       });
-      console.log(result);
+
       return result;
     } catch (error) {
       throw error;

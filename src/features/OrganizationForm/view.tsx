@@ -37,6 +37,9 @@ function AddOrgView({
   const businessHours = useSelector(scheduleSelector);
 
   const [dataReady, setReady] = useState(false);
+  const [status, setStatus] = useState(
+    data.general?.isActive ? "Активен" : "Заблокирован"
+  );
 
   const submitAll = () => {
     formRefs.general?.current.handleSubmit();
@@ -69,9 +72,12 @@ function AddOrgView({
                   ...data.general?.category,
                 ],
               }),
+          about:
+            data.general.about.charAt(0).toUpperCase() +
+            data.general.about.slice(1),
           businessHours,
           uploadIds: images.map((item) => item.id),
-          status: "Active",
+          isActive: status === "Активен" ? true : false,
         },
         organizationId
       )
@@ -96,12 +102,15 @@ function AddOrgView({
           getViewComponent={(status, name) => (
             <Status status={status}>{name}</Status>
           )}
-          onChange={() => {}}
+          onChange={(value) => {
+            console.log(value);
+            setStatus(value);
+          }}
           options={[
-            { name: "Заблокирован", status: "disabled" },
-            { name: "Активен", status: "active" },
+            { name: "Заблокирован", status: "Заблокирован" },
+            { name: "Активен", status: "Активен" },
           ]}
-          current="Активен"
+          current={status}
         />
       </Header>
 

@@ -2,6 +2,7 @@ import { Field } from "formik";
 import React from "react";
 import ErrorContainier from "../ErrorContainier";
 import { Label } from "../styled";
+
 import {
   Wrapper,
   OptionTitle,
@@ -41,8 +42,8 @@ function SelectView({
         {({ field }) => (
           <OptionsContainer>
             {!!options.length &&
-              options.map((option) => (
-                <Option key={option.value}>
+              options.map((option, index) => (
+                <Option key={index}>
                   <OptionTitle>{option.name}</OptionTitle>
                   <Radio
                     type="radio"

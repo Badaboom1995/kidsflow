@@ -28,7 +28,7 @@ function OrganizationsTable() {
     eventCategories: item.eventCategories
       .filter((category) => item.eventTypes[0] !== category)
       .join(),
-    uploads: item.uploads[0]?.cloudUrl,
+    photos: item.photos[0]?.cloudUrl,
     partner: item.partner ? item.partner.firstName : "Нет партнера",
     status: item.isActive ? "Активный" : "Заблокирован",
   }));
@@ -41,7 +41,7 @@ function OrganizationsTable() {
     },
     {
       label: "Фото",
-      key: "uploads",
+      key: "photos",
       props: { width: "7%" },
       getComponent: (url) => <Photo src={url} alt="" />,
     },

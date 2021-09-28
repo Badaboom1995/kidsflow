@@ -40,6 +40,7 @@ export type TGeneralFormState = {
   directions: string;
   name: string;
   partnerId: string;
+  isActive: boolean;
 };
 
 export type TContactsFormState = {

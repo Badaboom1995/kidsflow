@@ -59,6 +59,8 @@ export const ScheduleCover = styled.div`
 export const DaysCover = styled.div``;
 
 export const DaysTitle = styled.p`
+  display: flex;
+  justify-content: space-between;
   margin: 0 0 10px 0;
   font-family: "Muli", sans-serif;
   font-style: normal;
@@ -67,6 +69,14 @@ export const DaysTitle = styled.p`
   line-height: 18px;
   letter-spacing: 0.3px;
   color: #252733;
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+    text-decoration: underline;
+    color: #444;
+    cursor: pointer;
+  }
 `;
 
 export const DaysList = styled.div`

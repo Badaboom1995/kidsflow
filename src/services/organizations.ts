@@ -13,10 +13,17 @@ const organizationsService = {
       "GET"
     ),
   getById: (id) => makeRequest(`/api/v2/admin/organizations/${id}`, "GET"),
-  create: (body) => makeRequest("/api/v2/admin/organizations", "POST", body),
+  create: (body) =>
+    makeRequest("/api/v2/admin/organizations", "POST", body, false, [
+      {
+        key: "X-Execute-As",
+        value: body.partnerId,
+      },
+    ]),
   // prettier-ignore
   update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
-  partnersList: () => makeRequest("/api/v2/admin/partners/find", "GET"),
+  partnersList: () =>
+    makeRequest("/api/v2/admin/partners/find", "GET", null, true),
   deleteImage: (orgId, uploadId) =>
     makeRequest(`/api/producercenter/${orgId}/upload/${uploadId}`, "DELETE"),
   //TODO. Переделаать на makeRequest

@@ -39,7 +39,7 @@ type initialState = {
 
 export const initialState: initialState = {
   isOnline: false,
-  loading: true,
+  loading: false,
   currentDirection: null,
   partners: null,
   uploadIds: [],
@@ -173,6 +173,7 @@ const addUserFormSlice = createSlice({
       builder,
       bootstrap,
       (state, payload) => {
+        console.log(payload);
         state.isOnline = payload.currentOrganization?.directions
           .map((item) => item.eventDirectionId)
           .includes("OnlineSchool");
@@ -184,7 +185,7 @@ const addUserFormSlice = createSlice({
             (accum, line) => [
               ...accum,
               ...line.stations.map((station) => ({
-                value: station.id,
+                value: station.name,
                 name: station.name,
               })),
             ],
@@ -213,7 +214,24 @@ const addUserFormSlice = createSlice({
             legalAddress,
             referralLink,
             businessHours,
+            isActive,
           } = payload.currentOrganization;
+
+          // Нормализуем направление оргаанизации
+          const directionId = state.directions.find(
+            (item) =>
+              directions.find((direction) => !direction.parent)?.name ===
+              item.name
+          )?.value;
+          // Нормализуем категории организации
+          const categoryIds = state.categories
+            .filter((item) =>
+              directions
+                .filter((direction) => direction.parent)
+                .map((item) => item.name)
+                .includes(item.name)
+            )
+            .map((item) => item.value);
 
           const businessHoursNormalized = new Array(7)
             .fill({ completed: true })
@@ -223,6 +241,7 @@ const addUserFormSlice = createSlice({
               );
               return {
                 ...item,
+                day: index,
                 openTime: currentDay?.openTime.slice(0, 5),
                 closeTime: currentDay?.closeTime.slice(0, 5),
               };
@@ -231,14 +250,12 @@ const addUserFormSlice = createSlice({
           state.data.general = {
             about,
             name,
-            directions: directions?.find((item) => !item.parentId)
-              ?.eventDirectionId,
-            category: directions
-              ?.filter((item) => item.parentId)
-              .map((item) => item.eventDirectionId),
+            directions: directionId,
+            category: categoryIds,
             ageFrom: ageFrom?.toString(),
             ageTo: ageTo?.toString(),
             partnerId: partner?.partnerId,
+            isActive,
           };
           state.data.contacts = {
             address,
@@ -262,8 +279,8 @@ const addUserFormSlice = createSlice({
           state.businessHours = businessHoursNormalized;
         }
       },
-      () => {
-        toast.error("Организация не найдена");
+      (error) => {
+        toast.error("Ошибка");
       }
     );
   },
