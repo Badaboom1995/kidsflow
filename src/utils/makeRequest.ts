@@ -12,9 +12,9 @@ const makeRequest = async (
   const token = localStorage.getItem("vzletaemAdminToken");
   const commonHeaders: HeadersInit = new Headers();
   commonHeaders.set("Content-Type", "application/json");
-  !old && commonHeaders.append("X-Server-Select", "migration");
-  extraHeaders &&
-    extraHeaders.forEach((item) => commonHeaders.set(item.key, item.value));
+  // !old && commonHeaders.append("X-Server-Select", "migration");
+  // extraHeaders &&
+  //   extraHeaders.forEach((item) => commonHeaders.set(item.key, item.value));
 
   // TODO remove
   commonHeaders.append("Authorization", `Bearer ${token}`);

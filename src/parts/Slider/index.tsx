@@ -11,13 +11,14 @@ function Slider(props: any) {
     slidesToShow: 6.4,
     slidesToScroll: 1,
     nextArrow: <Arrow />,
-    prevArrow: <Arrow rotate />,
+    // one means true
+    prevArrow: <Arrow rotate={1} />,
     afterChange: (currentSlide: number) => props.setCurrentSlide(currentSlide),
   };
   const settings = { ...defaultSettings, ...props.settings };
   return (
     <Wrapper className="slick-slider_wrapper">
-      <Fade className="slick-slider_fade-block"/>
+      <Fade className="slick-slider_fade-block" />
       <Slick {...settings}>{props.children}</Slick>
     </Wrapper>
   );

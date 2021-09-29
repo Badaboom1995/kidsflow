@@ -5,13 +5,13 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 type ArrowProps = {
-  rotate?: boolean;
+  rotate?: number;
 };
 export const Arrow = styled.div<ArrowProps>`
   opacity: 1;
   background: #ff5a57;
   transform: translate(-50%, -50%)
-    ${(props) => props.rotate && "rotate(180deg)"};
+    ${(props) => (props.rotate ? "rotate(180deg)" : "")};
   width: 75px;
   height: 75px;
   border-radius: 50%;

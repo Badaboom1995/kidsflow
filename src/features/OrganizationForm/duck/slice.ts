@@ -173,13 +173,13 @@ const addUserFormSlice = createSlice({
       builder,
       bootstrap,
       (state, payload) => {
-        console.log(payload);
         state.isOnline = payload.currentOrganization?.directions
           .map((item) => item.eventDirectionId)
           .includes("OnlineSchool");
         state.partners = payload.partners;
         state.directions = payload.directions;
         state.categories = payload.categories;
+
         state.stations = payload.metro
           .reduce(
             (accum, line) => [
@@ -192,6 +192,14 @@ const addUserFormSlice = createSlice({
             []
           )
           .sort((a, b) => (a.name < b.name ? -1 : 1));
+
+        state.businessHours = new Array(7)
+          .fill({
+            completed: true,
+            openTime: "9:00",
+            closeTime: "21:00",
+          })
+          .map((item, index) => ({ ...item, day: index }));
 
         if (payload.currentOrganization) {
           const {
@@ -216,36 +224,22 @@ const addUserFormSlice = createSlice({
             businessHours,
             isActive,
           } = payload.currentOrganization;
-
-          // Нормализуем направление оргаанизации
-          const directionId = state.directions.find(
-            (item) =>
-              directions.find((direction) => !direction.parent)?.name ===
-              item.name
-          )?.value;
+          console.log("pidor");
+          // Нормализуем направление организации
+          const directionId = directions.find(
+            (direction) => !direction.parentId
+          ).eventDirectionId;
           // Нормализуем категории организации
-          const categoryIds = state.categories
-            .filter((item) =>
-              directions
-                .filter((direction) => direction.parent)
-                .map((item) => item.name)
-                .includes(item.name)
-            )
-            .map((item) => item.value);
+          const categoryIds = directions
+            .filter((direction) => direction.parentId)
+            .map((item) => item.eventDirectionId);
 
-          const businessHoursNormalized = new Array(7)
-            .fill({ completed: true })
-            .map((item, index) => {
-              const currentDay = businessHours.find(
-                (item) => item.day === index
-              );
-              return {
-                ...item,
-                day: index,
-                openTime: currentDay?.openTime.slice(0, 5),
-                closeTime: currentDay?.closeTime.slice(0, 5),
-              };
-            });
+          const businessHoursNormalized = businessHours.map((item, index) => ({
+            ...item,
+            completed: true,
+            openTime: item.openTime.slice(0, 5),
+            closeTime: item.closeTime.slice(0, 5),
+          }));
 
           state.data.general = {
             about,

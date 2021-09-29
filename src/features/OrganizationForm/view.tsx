@@ -35,10 +35,14 @@ function AddOrgView({
   const images = useSelector(imagesSelector);
   const data = useSelector(dataSelector);
   const businessHours = useSelector(scheduleSelector);
-
+  const defaultStatus = data.general
+    ? data.general?.isActive
+      ? "Активен"
+      : "Заблокирован"
+    : null;
   const [dataReady, setReady] = useState(false);
   const [status, setStatus] = useState(
-    data.general?.isActive ? "Активен" : "Заблокирован"
+    defaultStatus ? defaultStatus : "Активен"
   );
 
   const submitAll = () => {
