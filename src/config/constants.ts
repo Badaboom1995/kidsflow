@@ -1,3 +1,5 @@
+import { boolean } from "yup/lib/locale";
+
 export const serverUrl =
   process.env.NODE_ENV === "production"
     ? "https://api.vzletaem.ru"

@@ -224,7 +224,6 @@ const addUserFormSlice = createSlice({
             businessHours,
             isActive,
           } = payload.currentOrganization;
-          console.log("pidor");
           // Нормализуем направление организации
           const directionId = directions.find(
             (direction) => !direction.parentId
@@ -234,12 +233,19 @@ const addUserFormSlice = createSlice({
             .filter((direction) => direction.parentId)
             .map((item) => item.eventDirectionId);
 
-          const businessHoursNormalized = businessHours.map((item, index) => ({
-            ...item,
-            completed: true,
-            openTime: item.openTime.slice(0, 5),
-            closeTime: item.closeTime.slice(0, 5),
-          }));
+          const businessHoursNormalized = new Array(7)
+            .fill({ completed: true })
+            .map((item, index) => {
+              const currentDayObject = businessHours.find(
+                (elem) => elem.day === index
+              );
+              return {
+                ...item,
+                day: index,
+                openTime: currentDayObject?.openTime.slice(0, 5),
+                closeTime: currentDayObject?.closeTime.slice(0, 5),
+              };
+            });
 
           state.data.general = {
             about,

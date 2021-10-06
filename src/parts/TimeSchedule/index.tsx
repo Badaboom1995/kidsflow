@@ -32,17 +32,20 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
   const [dayDefaultData, setDayDefaultData] = useState({
     openTime: "10:00",
     closeTime: "20:00",
+    completed: true,
   });
+  const [isDisabled, SetIsDisabled] = useState<boolean>(false);
+  const [activeIndex, SetActive] = useState<string>(null);
+
   const dataArray = new Array(7)
     .fill(dayDefaultData)
-    .map((item, index) => ({ completed: true, day: index, ...item }));
+    .map((item, index) => ({ day: index, ...item }));
+
   const [data, SetData] = useState<TData>(
     initialValues?.businessHours.length
       ? initialValues?.businessHours
       : dataArray
   );
-  const [isDisabled, SetIsDisabled] = useState<boolean>(false);
-  const [activeIndex, SetActive] = useState<string>(null);
 
   const isDayOff =
     !data[activeIndex]?.openTime && !data[activeIndex]?.closeTime;

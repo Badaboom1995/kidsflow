@@ -19,7 +19,7 @@ function OrganizationsTable() {
   };
 
   useEffect(() => {
-    dispatch(getOrganizations({ page: 0 }));
+    dispatch(getOrganizations({ page: pagination.pageNumber || 0 }));
   }, []);
 
   const normalizedOrganizations = organizations.map((item) => ({
