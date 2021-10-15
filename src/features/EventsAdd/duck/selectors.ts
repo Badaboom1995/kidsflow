@@ -11,3 +11,7 @@ export const selectLoading = createSelector(
   eventsSelector,
   (state) => state.loading
 );
+export const selectPrompts = createSelector(
+  eventsSelector,
+  (state) => state.orgPrompts
+);

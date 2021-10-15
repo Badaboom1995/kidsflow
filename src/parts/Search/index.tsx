@@ -3,6 +3,7 @@ import ErrorContainier from "../ErrorContainier";
 import { StyledInput, Wrapper, InputContainer, Prompt, Option } from "./styled";
 import { Label } from "../styled";
 import { Field } from "formik";
+import { TDict } from "common/types";
 
 interface ISearch {
   placeholder?: string;
@@ -14,8 +15,9 @@ interface ISearch {
   label?: string;
   centered?: boolean;
   value?: string;
+  prompts: TDict[];
   onChange: (value: string) => void;
-  prompts: string[];
+  onChoose?: (value: TDict) => void;
 }
 
 export default function Search({
@@ -26,9 +28,10 @@ export default function Search({
   touched,
   label,
   centered,
-  onChange,
   prompts,
   value,
+  onChange,
+  onChoose,
 }: ISearch) {
   const [searchInput, setSearchInput] = useState("");
   const [choosedAddress, setChoosedAddress] = useState("");
@@ -57,13 +60,13 @@ export default function Search({
                 {prompts.map((item) => (
                   <Option
                     onClick={() => {
-                      setSearchInput(item);
-                      setChoosedAddress(item);
-                      form.setFieldValue(name, item);
-                      onChange("");
+                      setSearchInput(item.name);
+                      setChoosedAddress(item.value);
+                      onChoose && onChoose(item);
+                      form.setFieldValue(name, item.value);
                     }}
                   >
-                    {item}
+                    {item.name}
                   </Option>
                 ))}
               </Prompt>

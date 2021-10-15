@@ -6,7 +6,6 @@ const directionsService = {
       `/api/v2/eventDirections?levelFrom=${level}&levelTo=${level}`,
       "GET",
       null,
-      true
     ),
 };
 

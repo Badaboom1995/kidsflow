@@ -107,7 +107,6 @@ function AddOrgView({
             <Status status={status}>{name}</Status>
           )}
           onChange={(value) => {
-            console.log(value);
             setStatus(value);
           }}
           options={[

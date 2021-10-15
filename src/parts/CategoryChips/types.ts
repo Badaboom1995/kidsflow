@@ -1,8 +1,8 @@
 export interface ICategoryChips {
-  title?: string;
+  title?: any;
   text?: string;
   list: { name: string; value: string }[];
-  value: string;
+  value: any;
   name: string;
   error?: string;
   touched?: boolean;

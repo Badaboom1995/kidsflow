@@ -100,8 +100,10 @@ const addUserFormSlice = createSlice({
       builder,
       getAddressSuggest,
       (state, payload) => {
-        const suggests = payload.data.map((item) => item.value);
-        state.prompts = suggests;
+        state.prompts = payload.data.map((item) => ({
+          name: item.value,
+          value: `${item.data.geo_lat},${item.data.geo_lon}`,
+        }));
       },
       (state) => {
         state.prompts = [];

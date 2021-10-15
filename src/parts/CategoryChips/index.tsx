@@ -44,7 +44,9 @@ function CategoryChips({
               name={name}
               value={item.value}
             />
-            {value && value.includes(item.value) && <IconCross width={10} height={10} />}
+            {value && value.includes(item.value) && (
+              <IconCross width={10} height={10} />
+            )}
             {item.name}
           </CategoryChipsItem>
         ))}

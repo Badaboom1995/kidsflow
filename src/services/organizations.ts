@@ -1,4 +1,5 @@
 import makeRequest from "utils/makeRequest";
+import {TOrganizationService} from './types'
 
 const serverUrl =
   process.env.NODE_ENV === "production"
@@ -6,18 +7,18 @@ const serverUrl =
     : "https://api-dev.vzletaem.ru";
 
 const organizationsService = {
-  getList: (page?, name?, status?) =>
+  getList: (payload: TOrganizationService) =>
     makeRequest(
-      // prettier-ignore
-      `/api/v2/admin/organizations?sort=${status === undefined ? '1' : status}${name ? "&OrderBy=" + name : ""}&page=${page || 0}`,
-      "GET"
+      `/api/v2/admin/organizations?sort=${payload.sort === undefined ? '1' : payload.sort}${payload.orderBy ? "&OrderBy=" + payload.orderBy : ""}&page=${payload.page || 0}&pageSize=${payload.pageSize || 20}&search=${payload.name}`,
+      "GET",
+      null,
+      [{key:"X-Server-Select", value:"migration"}]
     ),
   getById: (id) => makeRequest(`/api/v2/admin/organizations/${id}`, "GET"),
   create: (body) => makeRequest("/api/v2/admin/organizations", "POST", body),
-  // prettier-ignore
   update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
   partnersList: () =>
-    makeRequest("/api/v2/admin/partners/find", "GET", null, true),
+    makeRequest("/api/v2/admin/partners/find", "GET", null),
   deleteImage: (orgId, uploadId) =>
     makeRequest(`/api/producercenter/${orgId}/upload/${uploadId}`, "DELETE"),
   //TODO. Переделаать на makeRequest

@@ -1,5 +1,3 @@
-import { boolean } from "yup/lib/locale";
-
 export const serverUrl =
   process.env.NODE_ENV === "production"
     ? "https://api.vzletaem.ru"
@@ -11,6 +9,11 @@ export const colors = {
   black: "#2f2f2f",
   gray: "#4F4F4F",
 };
+export const gender = [
+  { name: "Мужской", value: '0' },
+  { name: "Женский", value: '1' },
+  { name: "Неважно", value: '2' },
+];
 
 export const getSchedule = () => {
   var quarterHours = ["00", "15", "30", "45"];

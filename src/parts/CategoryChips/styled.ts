@@ -6,7 +6,7 @@ export const Wrapper = styled.div``;
 export const CategoryChipsTitle = styled.p`
   padding-left: 40px;
   margin: 0 0 10px 0;
-  font-family: "Muli",sans-serif;
+  font-family: "Muli", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -16,10 +16,18 @@ export const CategoryChipsTitle = styled.p`
 `;
 
 export const CategoryChipsText = styled.p`
-  color: rgba(37,39,51,0.5);
+  color: rgba(37, 39, 51, 0.5);
   font-size: 12px;
   line-height: 14px;
   margin-bottom: 10px;
+`;
+
+export const EmptyMessage = styled.p`
+  color: rgba(37, 39, 51, 0.5);
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  margin-left: 40px;
 `;
 
 export const CategoryChipsList = styled.div`
@@ -36,15 +44,15 @@ export const CategoryChipsItem = styled.span`
   padding: 6px 12px;
   margin-right: 10px;
   margin-bottom: 10px;
-  background-color: #FFEAA7;
+  background-color: #ffeaa7;
   border-radius: 6px;
-  border: 1px solid #FFEAA7;
+  border: 1px solid #ffeaa7;
   cursor: pointer;
-  &.active{
+  &.active {
     border-color: #ffc402;
     background-color: #fff7dd;
   }
-  svg{
+  svg {
     margin-right: 7px;
   }
 `;

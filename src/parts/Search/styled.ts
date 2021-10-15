@@ -60,6 +60,8 @@ export const StyledInput = styled.input<TStyledInput>`
 export const Prompt = styled.div`
   position: absolute;
   width: calc(100% - 20px);
+  max-height: 300px;
+  overflow: scroll;
   left: 0;
   bottom: -6px;
   background-color: #fff;

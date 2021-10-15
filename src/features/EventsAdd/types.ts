@@ -20,13 +20,11 @@ export interface IFormContactsState {
 }
 
 export interface IFormView {
-  prompts: string[];
-  // categories: Dictionary[];
-  // directions: Dictionary[];
-  getSearchPrompts: (p: string) => void;
+  prompts: { name: string; value: string }[];
   currentEvent: Record<string, string>;
   isLoading: boolean;
-  // setCurrentDirection: (p: string) => void;
+  setFieldValue: (name: string, value: string) => void;
+  handleChange: (name: string) => void;
 }
 
 export interface IEventCard {

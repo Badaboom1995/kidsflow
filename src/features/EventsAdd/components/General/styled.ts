@@ -17,27 +17,27 @@ export const CoverImage = styled.div`
   position: sticky;
   height: 340px;
   top: 0;
-  .slick-slider_wrapper{
+  .slick-slider_wrapper {
     height: 100%;
   }
-  .slick-slider_fade-block{
+  .slick-slider_fade-block {
     display: none;
   }
-  .event-card_slider__wrapper{
+  .event-card_slider__wrapper {
     height: 100%;
-    .slick-list{
+    .slick-list {
       height: 100%;
     }
-    .slick-track{
+    .slick-track {
       height: 100%;
     }
-    .slick-slide{
-      & > div{
+    .slick-slide {
+      & > div {
         height: 100%;
         position: relative;
         overflow: hidden;
       }
-      img{
+      img {
         position: absolute;
         top: 0;
         left: 50%;
@@ -50,19 +50,19 @@ export const CoverImage = styled.div`
         width: auto !important;
       }
     }
-    .slick-arrow{
+    .slick-arrow {
       background: rgba(0, 0, 0, 0.3);
       width: 30px;
       height: 30px;
-      &:before{
+      &:before {
         width: 50%;
         height: 50%;
       }
-      &.slick-prev{
+      &.slick-prev {
         left: 0;
         transform: translate(10px, -50%) rotate(180deg);
       }
-      &.slick-next{
+      &.slick-next {
         right: 0;
         transform: translate(-10px, -50%);
       }
@@ -112,7 +112,7 @@ export const TopActionBack = styled.span`
   width: 44px;
   height: 44px;
   margin-right: auto;
-  background: rgba(255,255,255, .3);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
 `;
 
@@ -122,7 +122,7 @@ export const TopActionFavorite = styled.span`
   align-items: center;
   width: 44px;
   height: 44px;
-  background: rgba(255,255,255, .3);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
 `;
 
@@ -134,7 +134,7 @@ export const CoverInfo = styled.div`
 
 export const CoverMainInfo = styled.div`
   padding: 10px 20px 20px;
-  background-color: #FFFBED;
+  background-color: #fffbed;
   border-radius: 30px 30px 0 0;
 `;
 
@@ -149,7 +149,7 @@ export const MainInfoHead = styled.div`
 export const MainInfoStatus = styled.span`
   font-size: 13px;
   line-height: 15px;
-  color: #00BFA5;
+  color: #00bfa5;
 `;
 
 export const MainInfoLogo = styled.span`
@@ -162,10 +162,10 @@ export const MainInfoLogo = styled.span`
   overflow: hidden;
   width: 36px;
   height: 36px;
-  color: #00BFA5;
+  color: #00bfa5;
   flex: 0 0 auto;
   border: 1px solid grey;
-  img{
+  img {
     max-width: 100%;
     max-height: 100%;
   }
@@ -191,8 +191,8 @@ export const MainInfoSubItem = styled.div`
   margin-right: 15px;
   font-size: 13px;
   line-height: 15px;
-  color: rgba(52,52,52,0.5);
-  svg{
+  color: rgba(52, 52, 52, 0.5);
+  svg {
     margin-right: 7px;
   }
 `;
@@ -206,9 +206,9 @@ export const MainInfoCategory = styled.div`
 export const MainInfoCategoryItem = styled.span`
   padding: 6px 12px;
   margin-right: 10px;
-  background-color: #FFEAA7;
+  background-color: #ffeaa7;
   border-radius: 6px;
-  border: 1px solid #FFEAA7;
+  border: 1px solid #ffeaa7;
 `;
 
 export const InfoBody = styled.div`
@@ -251,7 +251,7 @@ export const InfoAddressStationMark = styled.span`
 `;
 
 export const InfoAddressMapLink = styled.div`
-  color: #00BFA5;
+  color: #00bfa5;
 `;
 
 export const BodyInfoTime = styled.div``;
@@ -264,15 +264,15 @@ export const BodyActions = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  button{
-    background-color: #FFF6D9;
+  button {
+    background-color: #fff6d9;
     width: calc(50% - 8px);
     color: #343434;
-    span{
+    span {
       display: inline-flex;
       align-items: center;
     }
-    svg{
+    svg {
       margin-right: 7px;
     }
   }
@@ -281,13 +281,13 @@ export const BodyActions = styled.div`
 export const BodyDescription = styled.p`
   margin-bottom: 25px;
   padding-bottom: 25px;
-  border-bottom: 1px solid rgba(190,194,206,0.3);
+  border-bottom: 1px solid rgba(190, 194, 206, 0.3);
 `;
 
 export const BodyFeatures = styled.div`
   margin-bottom: 25px;
   padding-bottom: 15px;
-  border-bottom: 1px solid rgba(190,194,206,0.3);
+  border-bottom: 1px solid rgba(190, 194, 206, 0.3);
 `;
 
 export const BodyFeaturesTitle = styled.h4`
@@ -305,14 +305,14 @@ export const BodyFeaturesItem = styled.div`
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 50px;
-  background-color: #FFF6D9;
+  background-color: #fff6d9;
   padding: 5px 14px;
 `;
 
 export const BodyTrainers = styled.div`
   margin-bottom: 25px;
   padding-bottom: 25px;
-  border-bottom: 1px solid rgba(190,194,206,0.3);
+  border-bottom: 1px solid rgba(190, 194, 206, 0.3);
 `;
 
 export const BodyTrainersTitle = styled.h4`
@@ -323,17 +323,17 @@ export const BodyTrainersTitle = styled.h4`
 
 export const BodyTrainersText = styled.p`
   position: relative;
-  color: rgba(52,52,52,0.5);
+  color: rgba(52, 52, 52, 0.5);
   margin-top: 0;
   margin-bottom: 0;
   padding-right: 30px;
-  &:before{
+  &:before {
     position: absolute;
     content: "";
     width: 8px;
     height: 8px;
-    border-top: 2px solid #00BFA5;
-    border-right: 2px solid #00BFA5;
+    border-top: 2px solid #00bfa5;
+    border-right: 2px solid #00bfa5;
     right: 0;
     top: 5px;
     transform: rotate(45deg);
@@ -341,8 +341,8 @@ export const BodyTrainersText = styled.p`
 `;
 
 export const BodyReviews = styled.div`
-  button{
-    background-color: #FFF6D9;
+  button {
+    background-color: #fff6d9;
     color: #343434;
     width: 100%;
   }
@@ -377,7 +377,7 @@ export const ReviewsItemAvatar = styled.div`
   overflow: hidden;
   border-radius: 50%;
   text-transform: uppercase;
-  background-color: #FFF6D9;
+  background-color: #fff6d9;
 `;
 
 export const ReviewsItemName = styled.h5`

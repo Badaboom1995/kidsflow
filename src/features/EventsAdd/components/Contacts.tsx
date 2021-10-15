@@ -1,12 +1,13 @@
+import React from "react";
 import Input from "parts/Input";
 import { GridContainer, GridElement } from "parts/styled";
-import React from "react";
+import Address from "parts/Address";
 
 function EventsContactForm() {
   return (
     <GridContainer>
       <GridElement>
-        <Input label="Адрес" name="address" />
+        <Address />
       </GridElement>
       <GridElement>
         <Input label="Телефон" name="phone" />
