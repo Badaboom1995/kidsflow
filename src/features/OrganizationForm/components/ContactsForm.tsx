@@ -9,7 +9,11 @@ import {
   scheduleSelector,
   stationsSelector,
 } from "features/OrganizationForm/duck/selectors";
-import { addData, setSchedule } from "features/OrganizationForm/duck/slice";
+import {
+  addData,
+  setSchedule,
+  setAddress,
+} from "features/OrganizationForm/duck/slice";
 import { getAddressSuggest } from "../duck/actions";
 import Choose from "parts/Choose";
 import { SchoolTypeHandler } from "../styled";
@@ -65,12 +69,16 @@ function ContactsForm({ setFormRef }: IContactsForm) {
     }
     setFields([
       {
-        name: "address",
+        name: "coords",
         label: "Адрес",
         type: "search",
         prompts: prompts,
         onChange: (value) => {
           dispatch(getAddressSuggest(value));
+        },
+        onChoose: (address) => {
+          dispatch(getAddressSuggest(""));
+          dispatch(setAddress({ address: address.name }));
         },
       },
       ...defaultFields,

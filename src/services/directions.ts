@@ -3,7 +3,7 @@ import makeRequest from "utils/makeRequest";
 const directionsService = {
   getList: (level: 1 | 2) =>
     makeRequest(
-      `/api/v2/eventDirections?levelFrom=${level}&levelTo=${level}`,
+      `/api/v2/admin/event-directions/find?levelFrom=${level}&levelTo=${level}`,
       "GET",
       null,
     ),

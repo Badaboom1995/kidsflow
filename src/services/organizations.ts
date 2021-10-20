@@ -1,5 +1,5 @@
 import makeRequest from "utils/makeRequest";
-import {TOrganizationService} from './types'
+import { TOrganizationService } from './types'
 
 const serverUrl =
   process.env.NODE_ENV === "production"
@@ -9,23 +9,23 @@ const serverUrl =
 const organizationsService = {
   getList: (payload: TOrganizationService) =>
     makeRequest(
-      `/api/v2/admin/organizations?sort=${payload.sort === undefined ? '1' : payload.sort}${payload.orderBy ? "&OrderBy=" + payload.orderBy : ""}&page=${payload.page || 0}&pageSize=${payload.pageSize || 20}&search=${payload.name}`,
-      "GET",
-      null,
-      [{key:"X-Server-Select", value:"migration"}]
+      `/api/v2/admin/organizations?sort=${payload.sort === undefined ? '1' : payload.sort}&page=${payload.page || 0}&pageSize=${payload.pageSize || 20}${payload.orderBy ? "&OrderBy=" + payload.orderBy : ""}${payload.name ? `&search=${payload.name}` : ''}`,
+      "GET"
     ),
   getById: (id) => makeRequest(`/api/v2/admin/organizations/${id}`, "GET"),
-  create: (body) => makeRequest("/api/v2/admin/organizations", "POST", body),
+  create: (body, partnerId) => makeRequest("/api/v2/admin/organizations", "POST", body, [{ key: "X-Execute-As", value: partnerId }]),
   update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
   partnersList: () =>
     makeRequest("/api/v2/admin/partners/find", "GET", null),
   deleteImage: (orgId, uploadId) =>
     makeRequest(`/api/producercenter/${orgId}/upload/${uploadId}`, "DELETE"),
+
   //TODO. Переделаать на makeRequest
   uploadImage: async (image: any) => {
     const token = localStorage.getItem("vzletaemAdminToken");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("X-Server-Select", "migration");
 
     var formdata = new FormData();
     formdata.append("Media", image, image.name);
@@ -46,6 +46,7 @@ const organizationsService = {
     const token = localStorage.getItem("vzletaemAdminToken");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("X-Server-Select", "migration");
 
     var formdata = new FormData();
     formdata.append("Media", image, image.name);

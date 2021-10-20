@@ -89,7 +89,7 @@ export const bootstrap = createAsyncThunk<any, any>(
 
       await Promise.all(tasks).then((values) => {
         console.log(values);
-        result.partners = values[0].data.list.map((item) => ({
+        result.partners = values[0].entities.map((item) => ({
           name: item.partner.firstName,
           value: item.partner.partnerId,
         }));
@@ -102,11 +102,12 @@ export const bootstrap = createAsyncThunk<any, any>(
           value: item?.eventDirectionId,
         }));
         result.metro = values[3].data.lines;
-        result.currentOrganization = values[4];
+        result.currentOrganization = values[4] ? values[4].organization : null;
       });
 
       return result;
     } catch (error) {
+      console.log(error)
       throw error;
     }
   }

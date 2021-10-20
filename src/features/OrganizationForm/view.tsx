@@ -16,6 +16,7 @@ import {
   dataSelector,
   imagesSelector,
   scheduleSelector,
+  addressSelector,
 } from "./duck/selectors";
 import PreviewCard from "./components/PreviewCard";
 import Choose from "parts/Choose";
@@ -34,6 +35,8 @@ function AddOrgView({
   const isOnline = useSelector(isOnlineSchool);
   const images = useSelector(imagesSelector);
   const data = useSelector(dataSelector);
+  const address = useSelector(addressSelector);
+
   const businessHours = useSelector(scheduleSelector);
   const defaultStatus = data.general
     ? data.general?.isActive
@@ -57,6 +60,7 @@ function AddOrgView({
   useEffect(() => {
     const onlineSchool = isOnline ? "OnlineSchool" : null;
     if (dataReady) {
+      const coords = data.contacts.coords.split(",");
       submitMethod(
         {
           ...data.general,
@@ -79,11 +83,14 @@ function AddOrgView({
           about:
             data.general.about.charAt(0).toUpperCase() +
             data.general.about.slice(1),
+          address,
+          lat: coords[0],
+          lon: coords[1],
           businessHours,
           uploadIds: images.map((item) => item.id),
           isActive: status === "Активен" ? true : false,
         },
-        organizationId
+        organizationId || data.general.partnerId
       )
         .then(() => {
           toast.success("Готово!");

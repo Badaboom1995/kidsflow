@@ -27,6 +27,7 @@ type initialState = {
   stations?: { value: string; name: string }[];
   partners?: any[];
   prompts: string[];
+  address: string;
   images?: { id: string; url: string }[];
   imagesUpload?: boolean;
   data?: {
@@ -50,6 +51,7 @@ export const initialState: initialState = {
   images: [],
   businessHours: [],
   imagesUpload: false,
+  address: '',
   data: {
     general: null,
     contacts: null,
@@ -66,6 +68,9 @@ const addUserFormSlice = createSlice({
     },
     addData(state, { payload }: { payload: { key: string; values: string } }) {
       state.data[payload.key] = payload.values;
+    },
+    setAddress(state, { payload }: { payload: { address: string } }) {
+      state.address = payload.address;
     },
     switchOnline(state) {
       state.isOnline = !state.isOnline;
@@ -212,6 +217,7 @@ const addUserFormSlice = createSlice({
             ageFrom,
             ageTo,
             address,
+            lat, lon,
             phoneNumber,
             photos,
             email,
@@ -228,11 +234,11 @@ const addUserFormSlice = createSlice({
           } = payload.currentOrganization;
           // Нормализуем направление организации
           const directionId = directions.find(
-            (direction) => !direction.parentId
+            (direction) => !direction.parent
           ).eventDirectionId;
           // Нормализуем категории организации
           const categoryIds = directions
-            .filter((direction) => direction.parentId)
+            .filter((direction) => direction.parent)
             .map((item) => item.eventDirectionId);
 
           const businessHoursNormalized = new Array(7)
@@ -261,6 +267,7 @@ const addUserFormSlice = createSlice({
           };
           state.data.contacts = {
             address,
+            coords: `${lat},${lon}`,
             phoneNumber,
             email,
             site,
@@ -294,6 +301,7 @@ export const {
   setSchedule,
   removeUploadId,
   addData,
+  setAddress,
   clearData,
   switchOnline,
 } = addUserFormSlice.actions;

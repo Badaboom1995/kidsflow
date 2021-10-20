@@ -22,7 +22,7 @@ export const getPartners = createAsyncThunk<Record<string, string>, void>(
   "dicts/getPartners",
   async (_, { rejectWithValue }) => {
     const res = await organizationsService.partnersList();
-    if (!res.data) return rejectWithValue("error");
+    if (!res.entities) return rejectWithValue("error");
     return res;
   }
 );

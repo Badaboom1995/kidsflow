@@ -31,7 +31,7 @@ const organizatonsSlice = createSlice({
           value: item.eventDirectionId,
         }));
       },
-      () => {}
+      () => { }
     );
     makeReducer(
       builder,
@@ -43,21 +43,21 @@ const organizatonsSlice = createSlice({
           parentId: item.parentId,
         }));
       },
-      () => {}
+      () => { }
     );
     makeReducer(
       builder,
       getPartners,
       (state, payload) => {
-        state.partners = payload.data.list.map((item) => ({
+        state.partners = payload.entities.map((item) => ({
           name: item.partner.firstName,
           value: item.partner.partnerId,
         }));
       },
-      () => {}
+      () => { }
     );
   },
 });
-export const {} = organizatonsSlice.actions;
+export const { } = organizatonsSlice.actions;
 
 export default organizatonsSlice.reducer;

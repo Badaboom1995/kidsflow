@@ -50,3 +50,7 @@ export const dataSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.data
 );
+export const addressSelector = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.address
+);

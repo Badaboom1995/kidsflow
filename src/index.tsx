@@ -11,13 +11,13 @@ import "rc-time-picker/assets/index.css";
 const store = configureAppStore();
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <BrowserRouter basename="/admin">
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 

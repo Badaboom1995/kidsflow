@@ -7,12 +7,11 @@ const makeRequest = async (
   method: MethodType,
   body?: Record<string, string>,
   extraHeaders?: { key: string; value: string }[],
-  old?: boolean,
 ) => {
   const token = localStorage.getItem("vzletaemAdminToken");
   const commonHeaders: HeadersInit = new Headers();
   commonHeaders.set("Content-Type", "application/json");
-  // !old && commonHeaders.append("X-Server-Select", "migration");
+  commonHeaders.append("X-Server-Select", "migration");
   extraHeaders &&
     extraHeaders.forEach((item) => commonHeaders.set(item.key, item.value));
 
@@ -28,7 +27,7 @@ const makeRequest = async (
     return Promise.reject(data.errorMessage);
   }
   const data = await (response.status !== 204 ? response?.json() : "");
-  commonHeaders.delete("Authorization"); 
+  commonHeaders.delete("Authorization");
   return data;
 };
 

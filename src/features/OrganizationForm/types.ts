@@ -4,8 +4,8 @@ import { refType } from "common/types";
 export interface IAddOrgView {
   organizationId: string;
   submitMethod:
-    | ((body: any) => Promise<any>)
-    | ((body: any, id: string) => Promise<any>);
+  | ((body: any, partnerId) => Promise<any>)
+  | ((body: any, id: string) => Promise<any>);
   formRefs: {
     general: refType;
     contacts: refType;
@@ -44,6 +44,7 @@ export type TGeneralFormState = {
 };
 
 export type TContactsFormState = {
+  coords: string;
   address: string;
   phoneNumber: string;
   email: string;

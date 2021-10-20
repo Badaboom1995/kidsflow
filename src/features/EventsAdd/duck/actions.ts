@@ -65,6 +65,7 @@ export const getOrganizationsPrompt = createAsyncThunk<any, string>(
   async (name) => {
     try {
       const res = await organizationsService.getList({ name, pageSize: 10 });
+      console.log(name, res)
       return res;
     } catch (error) {
       console.log(error);
