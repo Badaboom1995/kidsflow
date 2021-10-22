@@ -15,7 +15,14 @@ import { ITable } from "./types";
  * @param getComponent optional func. Return wrapper component for value
  */
 
-function Table({ fields, items, onRowClick, pagination, sort }: ITable) {
+function Table({
+  fields,
+  items,
+  onRowClick,
+  pagination,
+  sort,
+  searchByName,
+}: ITable) {
   const dispatch = useDispatch();
   const filteredItems = useSelector(selectFilteredData(items));
 
@@ -63,6 +70,7 @@ function Table({ fields, items, onRowClick, pagination, sort }: ITable) {
   return (
     <TableView
       sort={sort}
+      searchByName={searchByName}
       data={getTableData()}
       fields={fields}
       changeSieveValue={changeSieveValue}

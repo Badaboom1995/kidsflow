@@ -6,19 +6,41 @@ import {
   Cell,
   THead,
   TBody,
-  Footer,
-  Arrow,
   ShadowContainer,
+  Controls,
+  SubmitButton,
+  ControlsItem,
 } from "./styled";
 
 import { ITableView } from "./types";
 
 import SortControl from "./components/SortControl/SortControl";
 import Pagination from "./components/Pagination";
+import FilterSelect from "features/EventsTable/components/FilterSelect";
 
-function TableView({ data, fields, pagination, sort }: ITableView) {
+function TableView({
+  data,
+  fields,
+  pagination,
+  sort,
+  searchByName,
+}: ITableView) {
   return (
     <Wrapper>
+      <Controls>
+        {fields.map((item, index) => (
+          <ControlsItem
+            key={index}
+            active={item.key === "name"}
+            {...item.props}
+            placeholder={item.label}
+            onChange={(e) => {
+              searchByName(e.target.value);
+            }}
+          />
+        ))}
+        {/* <SubmitButton>Применить</SubmitButton> */}
+      </Controls>
       {/* <Controls>
         {fields.map((item, index) =>
           item.filterType === "select" ? (
@@ -29,7 +51,8 @@ function TableView({ data, fields, pagination, sort }: ITableView) {
               {...item.props}
               placeholder={item.label}
               onChange={(e) => {
-                changeSieveValue(SieveType.Filter, item.key, e.target.value);
+                searchByName(e.target.value);
+                // changeSieveValue(SieveType.Filter, item.key, e.target.value);
               }}
             />
           )

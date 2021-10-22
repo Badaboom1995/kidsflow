@@ -10,6 +10,10 @@ const uploadsSlice = createSlice({
     deleteImage(state, { payload }) {
       state.images = state.images.filter((item) => item.id !== payload);
     },
+    clearUploads(state) {
+      console.log('nu eba')
+      state.images = []
+    },
   },
   extraReducers: (builder) => {
     makeReducer(
@@ -25,6 +29,6 @@ const uploadsSlice = createSlice({
   },
 });
 
-export const { deleteImage } = uploadsSlice.actions;
+export const { deleteImage, clearUploads } = uploadsSlice.actions;
 
 export default uploadsSlice.reducer;

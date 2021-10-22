@@ -12,6 +12,7 @@ import {
 } from "./duck/selectors";
 import { Formik } from "formik";
 import { imagesSelector } from "parts/UploadSection/duck/selectors";
+import { clearUploads } from "parts/UploadSection/duck/slice";
 
 function EventsAdd() {
   const { id }: { id: string } = useParams();
@@ -28,6 +29,9 @@ function EventsAdd() {
     dispatch(getDirections());
     dispatch(getCategories());
     dispatch(getPartners());
+    return () => {
+      dispatch(clearUploads());
+    };
   }, []);
 
   return (

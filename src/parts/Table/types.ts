@@ -18,6 +18,7 @@ export interface ITable {
   items: any[];
   fields: Field[];
   sort?: TSort;
+  searchByName?: (name: string) => void
   onRowClick?: { itemIdKey: string; method: (ItemId: string) => void };
   pagination?: {
     pageNumber: number;
@@ -31,6 +32,7 @@ export interface ITableView {
   data: React.ReactNode[];
   fields: Field[];
   changeSieveValue: any;
+  searchByName?: (name: string) => void
   sort?: TSort;
   pagination?: {
     pageNumber: number;

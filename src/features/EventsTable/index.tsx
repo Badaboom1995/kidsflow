@@ -1,9 +1,8 @@
 import Table from "parts/Table";
 import React, { useEffect } from "react";
-import { Wrapper, OrgName, Address, Category, Photo } from "./styled";
+import { Wrapper, OrgName } from "./styled";
 import { Status } from "parts/styled";
 
-import AddButton from "parts/AddButton";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getEvents } from "./duck/actions";
@@ -14,9 +13,12 @@ function EventsTable() {
   const events = useSelector(selectEvents);
   const pagination = useSelector(selectPagination);
   const history = useHistory();
+
   const onRowClick = (entity: any) => {
-    console.log(entity);
     history.push(`/events/add/${entity.eventId}`);
+  };
+  const sortByName = (name: string) => {
+    dispatch(getEvents({ page: 0, name }));
   };
 
   useEffect(() => {
@@ -82,11 +84,12 @@ function EventsTable() {
             dispatch(getEvents({ page: nextPage }));
           },
         }}
+        searchByName={sortByName}
         sort={{
           name: "address",
-          status: "2",
+          status: "0",
           method: (name, status) => {
-            dispatch(getEvents({ page: 0, name, status }));
+            dispatch(getEvents({ page: 0, name }));
           },
         }}
         onRowClick={{ method: onRowClick, itemIdKey: "entityId" }}

@@ -20,6 +20,7 @@ export const createEvent = createAsyncThunk<any, Record<any, any>>(
       organizationId,
       isActive,
       address,
+      partner
     } = payload.values;
 
     const data = {
@@ -39,7 +40,7 @@ export const createEvent = createAsyncThunk<any, Record<any, any>>(
       eventDate: `${eventDate}T${time}`
     };
     try {
-      const res = await eventsService.create(data);
+      const res = await eventsService.create(data, partner);
       payload.history.push('/events')
       return res;
     } catch (error) {
@@ -65,7 +66,6 @@ export const getOrganizationsPrompt = createAsyncThunk<any, string>(
   async (name) => {
     try {
       const res = await organizationsService.getList({ name, pageSize: 10 });
-      console.log(name, res)
       return res;
     } catch (error) {
       console.log(error);

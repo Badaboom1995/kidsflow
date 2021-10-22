@@ -13,7 +13,7 @@ import {
   selectPartners,
 } from "ducks/dicts/selectors";
 import { getOrganizationsPrompt } from "../../duck/actions";
-import { clearPrompts } from "features/EventsAdd/duck/slice";
+import { clearEventData, clearOrgPrompts } from "features/EventsAdd/duck/slice";
 
 import UploadSection from "parts/UploadSection";
 import uploadsService from "services/uploads";
@@ -39,8 +39,8 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
   const getPrompts = (name) => {
     dispatch(getOrganizationsPrompt(name));
   };
-  const clear = () => {
-    dispatch(clearPrompts());
+  const clearPrompts = () => {
+    dispatch(clearOrgPrompts());
   };
 
   const [currentDirectionId, setCurrentDirection] = useState<string>(null);
@@ -85,7 +85,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
               getPrompts(value);
             }}
             onChoose={() => {
-              clear();
+              clearPrompts();
             }}
           />
         </GridElement>

@@ -59,6 +59,7 @@ export default function Search({
               <Prompt>
                 {prompts.map((item) => (
                   <Option
+                    key={item.name}
                     onClick={() => {
                       setSearchInput(item.name);
                       setChoosedAddress(item.value);

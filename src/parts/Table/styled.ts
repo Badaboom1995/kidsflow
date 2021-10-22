@@ -93,6 +93,7 @@ type ControlsItemProps = {
   active?: boolean;
 };
 export const ControlsItem = styled.input<ControlsItemProps>`
+  opacity: ${props => props.active ? 1 : 0.1};
   padding: 8px 0;
   background-color: transparent;
   border: none;
