@@ -8,7 +8,7 @@ const eventsService = {
       "GET"
     ),
   getById: (id) => makeRequest(`/api/v2/admin/events/${id}`, "GET"),
-  create: (body, partnerId) => makeRequest(`/api/v2/admin/events/`, "POST", body, [{ key: "X-Execute-As", value: "b33f0376-e2da-4be4-93f4-90f1337eaca4" }]),
+  create: (body, partnerId) => makeRequest(`/api/v2/admin/events/`, "POST", body, [{ key: "X-Execute-As", value: partnerId }]),
 };
 
 export default eventsService;
