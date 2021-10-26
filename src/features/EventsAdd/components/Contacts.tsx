@@ -10,7 +10,7 @@ function EventsContactForm() {
         <Address />
       </GridElement>
       <GridElement>
-        <Input label="Телефон" name="phone" />
+        <Input label="Телефон" name="phoneNumber" />
       </GridElement>
       <GridElement>
         <Input label="E-mail" name="email" />

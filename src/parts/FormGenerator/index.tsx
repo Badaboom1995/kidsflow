@@ -87,7 +87,6 @@ function FormGenerator({
         <Input
           {...props}
           onChange={(value) => {
-            console.log(value);
           }}
           error={errors[props.name]}
           touched={touched[props.name]}

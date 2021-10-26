@@ -88,7 +88,6 @@ export const bootstrap = createAsyncThunk<any, any>(
       };
 
       await Promise.all(tasks).then((values) => {
-        console.log(values);
         result.partners = values[0].entities.map((item) => ({
           name: item.partner.firstName,
           value: item.partner.partnerId,

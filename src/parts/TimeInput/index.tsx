@@ -10,13 +10,14 @@ function TimeInput<ITimeInput>({ name, label }) {
   const { setFieldValue } = useFormikContext();
   return (
     <Field name={name}>
-      {() => (
+      {({ field }) => (
         <StyledTime>
           <Label>{label}</Label>
           <TimePicker
             showSecond={false}
+            value={moment(field.value)}
             onChange={(time) => {
-              setFieldValue(name, moment(time.toString()).format("HH:mm"));
+              setFieldValue(name, time.toString());
             }}
           />
         </StyledTime>

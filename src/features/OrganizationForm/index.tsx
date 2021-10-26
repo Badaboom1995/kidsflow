@@ -7,6 +7,7 @@ import organizationsService from "services/organizations";
 
 import AddOrgView from "./view";
 import { clearData } from "./duck/slice";
+import Loader from "parts/Loader";
 
 function AddOrg() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function AddOrg() {
   return (
     <>
       {loading ? (
-        "...Загрузка"
+        <Loader />
       ) : (
         <AddOrgView
           organizationId={id}

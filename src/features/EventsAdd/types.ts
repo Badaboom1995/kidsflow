@@ -22,7 +22,6 @@ export interface IFormContactsState {
 export interface IFormView {
   prompts: { name: string; value: string }[];
   currentEvent: Record<string, string>;
-  isLoading: boolean;
   setFieldValue: (name: string, value: string) => void;
   handleChange: (name: string) => void;
 }

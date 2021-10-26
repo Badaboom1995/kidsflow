@@ -11,7 +11,6 @@ const uploadsSlice = createSlice({
       state.images = state.images.filter((item) => item.id !== payload);
     },
     clearUploads(state) {
-      console.log('nu eba')
       state.images = []
     },
   },

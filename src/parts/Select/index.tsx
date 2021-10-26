@@ -2,10 +2,12 @@ import React, { useState, useRef } from "react";
 import SelectView from "./view";
 import useOutsideAlerter from "hooks/useOutsideAlerter";
 import { TSelect } from "./types";
+import { useFormikContext } from "formik";
 
 function Select(props: TSelect) {
   const [isOpen, setOpen] = useState(false);
-  const [selectedValue, setValue] = useState(props.value);
+  const { values } = useFormikContext();
+  const [selectedValue, setValue] = useState(props.value || values[props.name]);
   const ref = useRef(null);
   const toggleSelect = () => {
     isOpen ? setOpen(false) : setOpen(true);

@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDirections, getCategories, getPartners } from "ducks/dicts/actions";
 import { Wrapper } from "./styled";
 import EventsAddView from "./view";
 import { useParams, useHistory } from "react-router-dom";
-import { createEvent, getEventById } from "./duck/actions";
+import { sendEvent, bootstrapEvents } from "./duck/actions";
 import {
   selectCurrentEvent,
   selectLoading,
@@ -13,6 +12,7 @@ import {
 import { Formik } from "formik";
 import { imagesSelector } from "parts/UploadSection/duck/selectors";
 import { clearUploads } from "parts/UploadSection/duck/slice";
+import Loader from "parts/Loader";
 
 function EventsAdd() {
   const { id }: { id: string } = useParams();
@@ -24,11 +24,10 @@ function EventsAdd() {
   const orgPrompts = useSelector(selectPrompts);
   const uploads = useSelector(imagesSelector);
 
+  const type = id ? "update" : "create";
+
   useEffect(() => {
-    id && dispatch(getEventById(id));
-    dispatch(getDirections());
-    dispatch(getCategories());
-    dispatch(getPartners());
+    dispatch(bootstrapEvents({ id }));
     return () => {
       dispatch(clearUploads());
     };
@@ -36,30 +35,36 @@ function EventsAdd() {
 
   return (
     <Wrapper>
-      <Formik
-        onSubmit={(values) => {
-          dispatch(
-            createEvent({
-              values: {
-                ...values,
-                uploadIds: uploads.map((item) => item.id),
-              },
-              history,
-            })
-          );
-        }}
-        initialValues={currentEvent || { isActive: "active" }}
-      >
-        {({ setFieldValue, handleChange }) => (
-          <EventsAddView
-            prompts={orgPrompts}
-            currentEvent={currentEvent}
-            isLoading={isLoading}
-            setFieldValue={setFieldValue}
-            handleChange={handleChange}
-          />
-        )}
-      </Formik>
+      {isLoading ? (
+        <Loader></Loader>
+      ) : (
+        <Formik
+          onSubmit={(values) => {
+            console.log(values);
+            dispatch(
+              sendEvent({
+                values: {
+                  ...values,
+                  uploadIds: uploads.map((item) => item.id),
+                },
+                type,
+                eventId: id,
+                history,
+              })
+            );
+          }}
+          initialValues={currentEvent || { isActive: "active" }}
+        >
+          {({ setFieldValue, handleChange }) => (
+            <EventsAddView
+              prompts={orgPrompts}
+              currentEvent={currentEvent}
+              setFieldValue={setFieldValue}
+              handleChange={handleChange}
+            />
+          )}
+        </Formik>
+      )}
     </Wrapper>
   );
 }

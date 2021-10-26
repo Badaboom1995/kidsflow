@@ -6,16 +6,18 @@ import { Label } from "parts/styled";
 import moment from "moment";
 
 function DateInput<IDateInput>({ name, label }) {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const { setFieldValue } = useFormikContext();
+  const getDate = (value) => (value ? new Date(value) : new Date());
+
   return (
     <Field name={name}>
-      {() => (
+      {({ field }) => (
         <div>
           <Label>{label}</Label>
           <StyledDate
             name={name}
-            selected={startDate}
+            selected={startDate || getDate(field.value)}
             onChange={(date) => {
               setFieldValue(
                 name,

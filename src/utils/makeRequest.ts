@@ -1,6 +1,6 @@
 import { serverUrl } from "config/constants";
 
-type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE";
+type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE" | "PATCH";
 
 const makeRequest = async (
   url: string,

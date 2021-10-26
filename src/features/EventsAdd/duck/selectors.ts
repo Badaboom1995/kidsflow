@@ -15,3 +15,11 @@ export const selectPrompts = createSelector(
   eventsSelector,
   (state) => state.orgPrompts
 );
+export const selectOrganizationName = createSelector(
+  eventsSelector,
+  (state) => state.extraData.organizationName
+);
+export const selectExtraData = createSelector(
+  eventsSelector,
+  (state) => state.extraData
+);

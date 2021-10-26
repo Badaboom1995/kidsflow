@@ -9,6 +9,7 @@ const eventsService = {
     ),
   getById: (id) => makeRequest(`/api/v2/admin/events/${id}`, "GET"),
   create: (body, partnerId) => makeRequest(`/api/v2/admin/events/`, "POST", body, [{ key: "X-Execute-As", value: partnerId }]),
+  update: (body, id) => makeRequest(`/api/v2/admin/events/${id}`, "PATCH", body),
 };
 
 export default eventsService;

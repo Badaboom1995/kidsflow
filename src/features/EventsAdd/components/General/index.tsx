@@ -12,6 +12,7 @@ import {
   selectCategories,
   selectPartners,
 } from "ducks/dicts/selectors";
+
 import { getOrganizationsPrompt } from "../../duck/actions";
 import { clearEventData, clearOrgPrompts } from "features/EventsAdd/duck/slice";
 
@@ -23,6 +24,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import DateInput from "parts/DateInput";
 import TimeInput from "parts/TimeInput";
 import { useFormikContext } from "formik";
+import { selectExtraData } from "features/EventsAdd/duck/selectors";
 
 interface IGeneralForm {
   prompts: { name: string; value: string }[];
@@ -35,6 +37,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
   const directions = useSelector(selectDirections);
   const categories = useSelector(selectCategories);
   const partners = useSelector(selectPartners);
+  const extraData = useSelector(selectExtraData);
 
   const getPrompts = (name) => {
     dispatch(getOrganizationsPrompt(name));
@@ -46,7 +49,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
   const [currentDirectionId, setCurrentDirection] = useState<string>(null);
 
   const { values } = useFormikContext<any>();
-  const age = getAge(20);
+  const age = getAge(100);
 
   const getFilteredCategories = () => {
     const categoriesByDirerction = categories.filter(
@@ -68,17 +71,12 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
           <DateInput name="eventDate" label="Дата" />
         </GridElement>
         <GridElement col={2}>
-          <Select
-            label="Места"
-            title="---"
-            name="numberOfSpots"
-            options={getAge(100)}
-            onChange={handleChange}
-          />
+          <Input name="numberOfSpots" label="Места" />
         </GridElement>
         <GridElement>
           <Search
             label="Организация"
+            value={extraData.organizationName}
             name="organizationId"
             prompts={prompts}
             onChange={(value) => {

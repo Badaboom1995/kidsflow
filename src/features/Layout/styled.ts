@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   background: #fff8e9;
 `;
 export const Body = styled.div`
+  position: relative;
   flex-grow: 1;
   max-width: calc(100vw - 150px);
   box-sizing: border-box;

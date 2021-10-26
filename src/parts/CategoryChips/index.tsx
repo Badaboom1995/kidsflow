@@ -1,4 +1,5 @@
 import React from "react";
+import { useFormikContext } from "formik";
 
 import { IconCross } from "../../components/Icons";
 
@@ -21,6 +22,7 @@ function CategoryChips({
   touched,
   error,
 }: ICategoryChips) {
+  const formik = useFormikContext();
   return (
     <Wrapper>
       {title && <CategoryChipsTitle>{title}</CategoryChipsTitle>}
@@ -36,7 +38,10 @@ function CategoryChips({
         {list?.map((item) => (
           <CategoryChipsItem
             key={item.value}
-            className={value && value.includes(item.value) && "active"}
+            className={
+              (value?.includes(item.value) && "active") ||
+              (formik.values[name] === item.value && "active")
+            }
           >
             <HiddenCheckbox
               key={item.value}
@@ -44,7 +49,7 @@ function CategoryChips({
               name={name}
               value={item.value}
             />
-            {value && value.includes(item.value) && (
+            {value?.includes(item.value) && (
               <IconCross width={10} height={10} />
             )}
             {item.name}
