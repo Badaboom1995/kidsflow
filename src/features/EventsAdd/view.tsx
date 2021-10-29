@@ -63,10 +63,10 @@ function EventsAddView({ prompts, setFieldValue, handleChange }: IFormView) {
             <ButtonsArea>
               <section>
                 <Button>Сохранить</Button>
-                <Button type="ghost">Удалить анкету</Button>
+                {/* <Button type="ghost">Удалить анкету</Button> */}
               </section>
               <section>
-                <Button type="ghost">Заблокировать</Button>
+                {/* <Button type="ghost">Заблокировать</Button> */}
               </section>
             </ButtonsArea>
           </Footer>
