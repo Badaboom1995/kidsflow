@@ -13,6 +13,8 @@ import { Formik } from "formik";
 import { imagesSelector } from "parts/UploadSection/duck/selectors";
 import { clearUploads } from "parts/UploadSection/duck/slice";
 import Loader from "parts/Loader";
+import { clearEventData } from "./duck/slice";
+import moment from "moment";
 
 function EventsAdd() {
   const { id }: { id: string } = useParams();
@@ -26,9 +28,14 @@ function EventsAdd() {
 
   const type = id ? "update" : "create";
 
+  const defaultValues = {
+    isActive: "active",
+    time: moment("2021-10-28T09:00:00"),
+  };
   useEffect(() => {
     dispatch(bootstrapEvents({ id }));
     return () => {
+      dispatch(clearEventData());
       dispatch(clearUploads());
     };
   }, []);
@@ -40,7 +47,6 @@ function EventsAdd() {
       ) : (
         <Formik
           onSubmit={(values) => {
-            console.log(values);
             dispatch(
               sendEvent({
                 values: {
@@ -53,7 +59,7 @@ function EventsAdd() {
               })
             );
           }}
-          initialValues={currentEvent || { isActive: "active" }}
+          initialValues={currentEvent || defaultValues}
         >
           {({ setFieldValue, handleChange }) => (
             <EventsAddView

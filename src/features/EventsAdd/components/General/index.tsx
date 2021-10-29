@@ -49,7 +49,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
   const [currentDirectionId, setCurrentDirection] = useState<string>(null);
 
   const { values } = useFormikContext<any>();
-  const age = getAge(100);
+  const age = getAge(24);
 
   const getFilteredCategories = () => {
     const categoriesByDirerction = categories.filter(

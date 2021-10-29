@@ -27,7 +27,8 @@ const organizatonsSlice = createSlice({
         state.totalEntities = payload.totalEntities;
         state.pageSize = payload.pageSize;
         state.pageNumber = payload.pageNumber;
-        eventsAdapter.setAll(state, payload.entities);
+        const entities = payload.entities.map(item => ({ ...item.event, ...item.organization, ...item.partner }))
+        eventsAdapter.setAll(state, entities);
       },
       () => {
         toast.error("Не удалось загрузить организации. Обновите страницу");

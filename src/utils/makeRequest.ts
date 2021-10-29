@@ -15,20 +15,23 @@ const makeRequest = async (
   extraHeaders &&
     extraHeaders.forEach((item) => commonHeaders.set(item.key, item.value));
 
-  // TODO remove
   commonHeaders.append("Authorization", `Bearer ${token}`);
-  // TODO remove
 
   const fetchConfig: any = { method, headers: commonHeaders };
   if (body) fetchConfig.body = JSON.stringify(body);
-  const response = await fetch(`${serverUrl}${url}`, fetchConfig);
-  if (response.status > 300) {
-    const data = await response?.json();
-    return Promise.reject(data.errorMessage);
+  console.log('request')
+  try {
+    const response = await fetch(`${serverUrl}${url}`, fetchConfig);
+    if (response.status > 300) {
+      const data = await response?.json();
+      return Promise.reject(data.errorMessage);
+    }
+    const data = await (response.status !== 204 ? response?.json() : "");
+    commonHeaders.delete("Authorization");
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
   }
-  const data = await (response.status !== 204 ? response?.json() : "");
-  commonHeaders.delete("Authorization");
-  return data;
 };
 
 export default makeRequest;

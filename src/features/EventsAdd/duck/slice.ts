@@ -23,6 +23,7 @@ const eventsSlice = createSlice({
     },
     clearEventData(state) {
       state.eventData = null
+      state.extraData = { organizationName: '' }
     },
   },
   extraReducers: (builder) => {
@@ -85,7 +86,7 @@ const eventsSlice = createSlice({
       (state, payload) => {
       },
       (error) => {
-        toast.error('Не удалось создать');
+        toast.error('Не получилось загрузить');
       }
     );
   },

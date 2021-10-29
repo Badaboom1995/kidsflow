@@ -29,33 +29,33 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       organizationId,
       isActive,
       address,
-      partner
+      partner,
     } = payload.values;
 
-    const data = {
-      name,
-      about,
-      gender: parseInt(gender),
-      numberOfSpots: parseInt(numberOfSpots),
-      ageFrom: parseInt(ageFrom),
-      ageTo: parseInt(ageTo),
-      eventDirectionId: payload.eventId ? eventDirectionId : eventDirectionId[0],
-      categoryId,
-      organizationId,
-      isActive: isActive === "active" ? true : false,
-      uploadIds,
-      lat: parseFloat(address.split(" ")[0]),
-      lon: parseFloat(address.split(" ")[1]),
-      eventDate: `${eventDate}T${moment(time).format("HH:mm")}`
-    };
     try {
-      let res
-      if (payload.type === 'create') { res = await eventsService.create(data, partner); }
-      if (payload.type === 'update') { res = await eventsService.update(data, payload.eventId); }
+      const data = {
+        name,
+        about,
+        gender: parseInt(gender),
+        numberOfSpots: parseInt(numberOfSpots),
+        ageFrom: parseInt(ageFrom),
+        ageTo: parseInt(ageTo),
+        eventDirectionId: payload.eventId ? eventDirectionId[0] : eventDirectionId[0],
+        categoryId,
+        organizationId,
+        isActive: isActive === "active" ? true : false,
+        uploadIds,
+        lat: parseFloat(address?.split(" ")[0]),
+        lon: parseFloat(address?.split(" ")[1]),
+        eventDate: `${eventDate}T${moment(time).format("HH:mm")}`
+      };
+      const secondArg = payload.type === 'create' ? partner : payload.eventId
+      let res = await eventsService[payload.type](data, secondArg)
       payload.history.push('/events')
+
       return res;
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 );
@@ -68,7 +68,6 @@ export const getEventById = createAsyncThunk<any, any>(
       console.log(res)
       return res;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
