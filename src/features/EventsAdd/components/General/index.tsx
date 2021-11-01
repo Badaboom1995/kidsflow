@@ -24,7 +24,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import DateInput from "parts/DateInput";
 import TimeInput from "parts/TimeInput";
 import { useFormikContext } from "formik";
-import { selectExtraData } from "features/EventsAdd/duck/selectors";
+import {
+  selectExtraData,
+  selectPhotosUrls,
+} from "features/EventsAdd/duck/selectors";
 
 interface IGeneralForm {
   prompts: { name: string; value: string }[];
@@ -38,6 +41,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
   const categories = useSelector(selectCategories);
   const partners = useSelector(selectPartners);
   const extraData = useSelector(selectExtraData);
+  const photosUrls = useSelector(selectPhotosUrls);
 
   const getPrompts = (name) => {
     dispatch(getOrganizationsPrompt(name));
@@ -180,6 +184,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
         </GridContainer>
       </GridContainer>
       <UploadSection
+        loadedImages={photosUrls}
         onUpload={uploadsService.uploadImage}
         onDelete={uploadsService.deleteImage}
       />

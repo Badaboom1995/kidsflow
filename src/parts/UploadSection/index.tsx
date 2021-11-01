@@ -26,7 +26,7 @@ function UploadSection(props: IUploadSection) {
       ) : (
         <UploadSectionView
           onUpload={uploadImage}
-          images={images}
+          images={[...images, ...props.loadedImages]}
           id={id}
           onDelete={removeImage}
         />

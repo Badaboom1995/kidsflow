@@ -3,6 +3,6 @@ export interface IUploadSection {
   onExtraUpload?: (file, orgId) => Promise<any>;
   onExtraDelete?: (payload: { uploadId: any; orgId: string }) => Promise<any>;
   onDelete?: (file, orgId) => Promise<any>;
-  images?;
+  loadedImages: string[];
   id?: string;
 }

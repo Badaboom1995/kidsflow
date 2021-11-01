@@ -23,3 +23,7 @@ export const selectExtraData = createSelector(
   eventsSelector,
   (state) => state.extraData
 );
+export const selectPhotosUrls = createSelector(
+  eventsSelector,
+  (state) => state.photosUrls
+);

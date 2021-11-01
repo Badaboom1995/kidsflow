@@ -19,7 +19,6 @@ const makeRequest = async (
 
   const fetchConfig: any = { method, headers: commonHeaders };
   if (body) fetchConfig.body = JSON.stringify(body);
-  console.log('request')
   try {
     const response = await fetch(`${serverUrl}${url}`, fetchConfig);
     if (response.status > 300) {

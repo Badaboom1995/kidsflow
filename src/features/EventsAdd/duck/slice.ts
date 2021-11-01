@@ -10,7 +10,8 @@ const eventsSlice = createSlice({
     loading: false,
     orgPrompts: [],
     eventData: null,
-    extraData: { organizationName: '' }
+    extraData: { organizationName: '' },
+    photosUrls: []
   },
   reducers: {
     clearEventAll(state) {
@@ -24,6 +25,7 @@ const eventsSlice = createSlice({
     clearEventData(state) {
       state.eventData = null
       state.extraData = { organizationName: '' }
+      state.photosUrls = []
     },
   },
   extraReducers: (builder) => {
@@ -32,7 +34,7 @@ const eventsSlice = createSlice({
       getEventById,
       (state, { event, organization, partner }) => {
 
-        const { eventDate, numberOfSpots, ageTo, ageFrom, about, direction } = event
+        const { eventDate, numberOfSpots, ageTo, ageFrom, about, direction, photos } = event
         const { organizationId, name, phoneNumber, site, email } = organization
         const normalizedData = {
           name: event.name,
@@ -47,11 +49,13 @@ const eventsSlice = createSlice({
           organizationId: organizationId,
           phoneNumber,
           site,
-          email
+          email,
+          uploadIds: photos.map(item => item.id)
         };
 
         state.eventData = normalizedData;
         state.extraData.organizationName = name
+        state.photosUrls = photos.map(item => ({ id: item.id, url: item.cloudUrl }))
       },
       () => {
         toast.error("Не удалось загрузить организации. Обновите страницу");
