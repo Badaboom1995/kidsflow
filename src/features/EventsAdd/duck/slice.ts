@@ -43,7 +43,7 @@ const eventsSlice = createSlice({
           ageFrom: `${ageFrom}`,
           about,
           eventDirectionId: direction.eventDirectionId,
-          categoryId: direction.parent.eventDirectionId,
+          categoryId: direction.parent?.eventDirectionId,
           organizationId: organizationId,
           phoneNumber,
           site,
