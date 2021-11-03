@@ -6,7 +6,6 @@ const uploadsService = {
     const token = localStorage.getItem("vzletaemAdminToken");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
-    myHeaders.append("X-Server-Select", "migration");
 
     var formdata = new FormData();
     formdata.append("Media", image, image.name);

@@ -19,14 +19,7 @@ const UploadSectionView = ({
         <>
           <MultyUploader
             onAdd={(file) => onExtraUpload(file, id)}
-            onRemove={(uploadId) => {
-              dispatch(
-                onExtraDelete({
-                  orgId: id,
-                  uploadId,
-                })
-              );
-            }}
+            onRemove={onExtraDelete}
             addLabel="Добавить фото"
             items={images}
           />

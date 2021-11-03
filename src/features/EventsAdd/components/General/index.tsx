@@ -6,7 +6,6 @@ import Search from "parts/Search";
 import { GridContainer, GridElement, Subtitle } from "parts/styled";
 import { gender, getAge } from "config/constants";
 import { useSelector, useDispatch } from "react-redux";
-
 import {
   selectDirections,
   selectCategories,
@@ -28,6 +27,7 @@ import {
   selectExtraData,
   selectPhotosUrls,
 } from "features/EventsAdd/duck/selectors";
+import eventsService from "services/events";
 
 interface IGeneralForm {
   prompts: { name: string; value: string }[];
@@ -186,7 +186,9 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
       <UploadSection
         loadedImages={photosUrls}
         onUpload={uploadsService.uploadImage}
+        onExtraUpload={eventsService.extraUpload}
         onDelete={uploadsService.deleteImage}
+        onExtraDelete={eventsService.deleteUpload}
       />
     </div>
   );

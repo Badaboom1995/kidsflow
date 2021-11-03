@@ -1,9 +1,9 @@
 export type addImageProps = {
-  method: (file) => Promise<any>;
+  method: (file, id?) => Promise<any>;
   file: File;
 };
 export type deleteImageProps = {
-  method: (orgId: string, uploadId: string) => Promise<any>;
-  orgId: string;
+  method: (payload: { id: string, uploadId: string }) => Promise<any>;
+  id: string;
   uploadId: string;
 };

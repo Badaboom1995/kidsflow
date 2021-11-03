@@ -3,7 +3,7 @@ import { Wrapper } from "./styled";
 import Search from "parts/Search";
 import geoService from "services/geo";
 
-function Address() {
+function Address({ name }: { name?: string }) {
   const [prompts, setPrompts] = useState([]);
   const [value, setValue] = useState("");
   useEffect(() => {
@@ -12,7 +12,7 @@ function Address() {
       setPrompts(
         values.data.map((item) => ({
           name: item.value,
-          value: `${item.data.geo_lat} ${item.data.geo_lon}`,
+          value: `${item.data.geo_lat}&${item.data.geo_lon}&${item.value}`,
         }))
       );
     });
@@ -21,7 +21,7 @@ function Address() {
   return (
     <Wrapper>
       <Search
-        name="address"
+        name={name || "address"}
         label="Адрес"
         prompts={prompts}
         onChange={(value) => {

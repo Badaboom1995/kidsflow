@@ -25,7 +25,9 @@ function UpoadFileView({
       </Preview>
       {imageUrl && (
         <CloseButton
+          type="button"
           onClick={() => {
+            console.log("suka");
             onRemove();
           }}
         />

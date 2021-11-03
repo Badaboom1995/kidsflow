@@ -3,7 +3,7 @@ import UploadSectionView from "./view";
 import { IUploadSection } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { imagesSelector, isLoading } from "./duck/selectors";
-import { addImage } from "./duck/actions";
+import { addImage, deleteExtraImage } from "./duck/actions";
 import { useParams } from "react-router-dom";
 import { deleteImage } from "./duck/slice";
 
@@ -16,8 +16,22 @@ function UploadSection(props: IUploadSection) {
   const uploadImage = (file) => {
     dispatch(addImage({ file, method: props.onUpload }));
   };
+  const uploadExtraImage = (file) => {
+    dispatch(
+      addImage({ file, method: (file) => props.onExtraUpload(file, id) })
+    );
+  };
   const removeImage = (uploadId) => {
     dispatch(deleteImage(uploadId));
+  };
+  const removeExtraImage = (uploadId) => {
+    dispatch(
+      deleteExtraImage({
+        method: props.onExtraDelete,
+        id,
+        uploadId,
+      })
+    );
   };
   return (
     <div>
@@ -26,9 +40,11 @@ function UploadSection(props: IUploadSection) {
       ) : (
         <UploadSectionView
           onUpload={uploadImage}
+          onExtraUpload={uploadExtraImage}
+          onDelete={removeImage}
+          onExtraDelete={removeExtraImage}
           images={[...images, ...props.loadedImages]}
           id={id}
-          onDelete={removeImage}
         />
       )}
     </div>

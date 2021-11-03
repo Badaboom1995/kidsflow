@@ -5,7 +5,7 @@ type MethodType = "GET" | "POST" | "PUT" | "UPDATE" | "DELETE" | "PATCH";
 const makeRequest = async (
   url: string,
   method: MethodType,
-  body?: Record<string, string>,
+  body?: Record<string, any>,
   extraHeaders?: { key: string; value: string }[],
 ) => {
   const token = localStorage.getItem("vzletaemAdminToken");

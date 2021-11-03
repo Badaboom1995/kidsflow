@@ -28,7 +28,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       ageTo,
       organizationId,
       isActive,
-      address,
+      place,
       partner,
     } = payload.values;
 
@@ -40,13 +40,14 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
         numberOfSpots: parseInt(numberOfSpots),
         ageFrom: parseInt(ageFrom),
         ageTo: parseInt(ageTo),
-        eventDirectionId: payload.eventId ? eventDirectionId[0] : eventDirectionId[0],
+        eventDirectionId: categoryId === "Entertainment" ? "Entertainment" : eventDirectionId[0],
         categoryId,
         organizationId,
         isActive: isActive === "active" ? true : false,
         uploadIds,
-        lat: parseFloat(address?.split(" ")[0]),
-        lon: parseFloat(address?.split(" ")[1]),
+        place: place?.split("&")[2],
+        lat: parseFloat(place?.split("&")[0]),
+        lon: parseFloat(place?.split("&")[1]),
         eventDate: `${eventDate}T${moment(time).format("HH:mm")}`
       };
       const secondArg = payload.type === 'create' ? partner : payload.eventId

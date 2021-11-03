@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addImage } from "./actions";
+import { addImage, deleteExtraImage } from "./actions";
 import makeReducer from "utils/makeReducer";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,16 @@ const uploadsSlice = createSlice({
       addImage,
       (state, payload) => {
         state.images.push(payload);
+      },
+      () => {
+        toast.error("Неудача");
+      }
+    );
+    makeReducer(
+      builder,
+      deleteExtraImage,
+      (state, payload) => {
+        state.images = state.images.filter((item) => item.id !== payload);
       },
       () => {
         toast.error("Неудача");

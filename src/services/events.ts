@@ -1,4 +1,5 @@
 import makeRequest from "utils/makeRequest";
+import makeUploadRequest from "utils/makeUploadRequest";
 
 const eventsService = {
   getList: ({ page, name }) =>
@@ -10,6 +11,8 @@ const eventsService = {
   getById: (id) => makeRequest(`/api/v2/admin/events/${id}`, "GET"),
   create: (body, partnerId) => makeRequest(`/api/v2/admin/events/`, "POST", body, [{ key: "X-Execute-As", value: partnerId }]),
   update: (body, id) => makeRequest(`/api/v2/admin/events/${id}`, "PATCH", body),
+  extraUpload: (image, eventId) => makeUploadRequest({ url: `api/v2/admin/events/${eventId}/uploads`, image }),
+  deleteUpload: ({ uploadId, id }: { uploadId: string, id: string }) => makeRequest(`/api/v2/admin/events/${id}/uploads`, "DELETE", { uploads: [uploadId] }),
 };
 
 export default eventsService;

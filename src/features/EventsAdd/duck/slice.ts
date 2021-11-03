@@ -3,7 +3,11 @@ import { getEventById, getOrganizationsPrompt, sendEvent, bootstrapEvents } from
 import makeReducer from "utils/makeReducer";
 import { toast } from "react-toastify";
 
-
+const chooseGender = (name) => {
+  if (name === 'Male') return '0'
+  if (name === 'Female') return '1'
+  return '2'
+}
 const eventsSlice = createSlice({
   name: "eventsForm",
   initialState: {
@@ -34,8 +38,9 @@ const eventsSlice = createSlice({
       getEventById,
       (state, { event, organization, partner }) => {
 
-        const { eventDate, numberOfSpots, ageTo, ageFrom, about, direction, photos } = event
+        const { eventDate, numberOfSpots, ageTo, ageFrom, about, direction, photos, gender, place } = event
         const { organizationId, name, phoneNumber, site, email } = organization
+        const { partnerId } = partner
         const normalizedData = {
           name: event.name,
           eventDate: eventDate.split('T')[0],
@@ -50,6 +55,9 @@ const eventsSlice = createSlice({
           phoneNumber,
           site,
           email,
+          place,
+          partner: partnerId,
+          gender: chooseGender(gender),
           uploadIds: photos.map(item => item.id)
         };
 

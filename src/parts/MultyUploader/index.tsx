@@ -18,7 +18,10 @@ function MultyUploader({ addLabel, onAdd, onRemove, items }: IMultyUploader) {
           <UploadFile
             key={item.url}
             imageUrl={item.url}
-            onRemove={() => onRemove(item.id)}
+            onRemove={() => {
+              console.log("pidor");
+              return onRemove(item.id);
+            }}
           />
         ))}
         <UploadFile label={addLabel} onAdd={onAdd} />

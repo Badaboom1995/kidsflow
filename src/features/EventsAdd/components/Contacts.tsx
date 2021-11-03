@@ -7,17 +7,17 @@ function EventsContactForm() {
   return (
     <GridContainer>
       <GridElement>
-        <Address />
+        <Address name="place" />
       </GridElement>
-      <GridElement>
+      {/* <GridElement>
         <Input label="Телефон" name="phoneNumber" />
-      </GridElement>
-      <GridElement>
+      </GridElement> */}
+      {/* <GridElement>
         <Input label="E-mail" name="email" />
-      </GridElement>
-      <GridElement>
+      </GridElement> */}
+      {/* <GridElement>
         <Input label="Сайт" name="site" />
-      </GridElement>
+      </GridElement> */}
     </GridContainer>
   );
 }
