@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { colors } from "config/constants";
 import arrowLeft from "./assets/left.svg";
 import arrowDown from "./assets/right.svg";
+import check from "./assets/check.svg";
+import { absoluteCenter } from "parts/mixins";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -60,14 +62,83 @@ export const THead = styled.thead`
   }
 `;
 export const Row = styled.tr<RowProps>`
+  position: relative;
   cursor: pointer;
   border-bottom: 1px solid
-    ${(props) => (props.head ? "transsparent" : "#dfe0eb")};
+    ${(props) => (props.head ? "transparent" : "#dfe0eb")};
   ${Cell} {
     padding: ${(props) => props.head && "7px 0"};
+    position: relative;
+    &:first-child {
+      padding-left: 50px;
+    }
   }
   &:hover {
     background-color: ${(props) => !props.head && "#fe5b5432"};
+  }
+`;
+type CheckBoxProps = {
+  selected: boolean;
+};
+export const CheckBox = styled.div<CheckBoxProps>`
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid
+    ${(props) => (props.selected ? colors.secondary : "#D0D0D0")};
+  background-color: ${(props) =>
+    props.selected ? colors.secondary : "#F5F5F5"};
+  &:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(${(props) => props.selected && check});
+    background-size: contain;
+    width: 12px;
+    height: 9px;
+  }
+`;
+
+export const RowCheckbox = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  width: 50px;
+  transition: 0.2s all ease;
+  &:hover span {
+    border-color: ${colors.secondary};
+  }
+  ${CheckBox} {
+    ${absoluteCenter};
+  }
+`;
+
+export const RowFunctions = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 70px;
+  border-radius: 50%;
+  transition: 0.2s all ease;
+  &:hover span {
+    background-color: #ccc;
+  }
+  span {
+    ${absoluteCenter}
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #ececec;
+    transition: 0.1s all ease;
   }
 `;
 export const Controls = styled.div`
@@ -93,7 +164,7 @@ type ControlsItemProps = {
   active?: boolean;
 };
 export const ControlsItem = styled.input<ControlsItemProps>`
-  opacity: ${props => props.active ? 1 : 0.1};
+  opacity: ${(props) => (props.active ? 1 : 0.1)};
   padding: 8px 0;
   background-color: transparent;
   border: none;

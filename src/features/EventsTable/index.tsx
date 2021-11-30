@@ -27,6 +27,7 @@ function EventsTable() {
 
   const fields = [
     {
+      primaryKey: true,
       label: "ID",
       key: "entityId",
       props: { textalign: "center", width: "7%" },
@@ -37,11 +38,13 @@ function EventsTable() {
       sortable: true,
       props: { width: "10%" },
       getComponent: (text) => <OrgName>{text}</OrgName>,
+      filterFunc: (value) => value,
     },
     {
       label: "Партнер",
       key: "partnerName",
       props: { width: "10%" },
+      filterFunc: (value) => value,
     },
     {
       label: "Организация",
@@ -84,15 +87,7 @@ function EventsTable() {
             dispatch(getEvents({ page: nextPage }));
           },
         }}
-        searchByName={sortByName}
-        sort={{
-          name: "address",
-          status: "0",
-          method: (name, status) => {
-            dispatch(getEvents({ page: 0, name }));
-          },
-        }}
-        onRowClick={{ method: onRowClick, itemIdKey: "entityId" }}
+        onRowClick={onRowClick}
         fields={fields}
         items={events}
       />

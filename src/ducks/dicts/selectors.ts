@@ -10,6 +10,13 @@ export const selectCategories = createSelector(
   userSelector,
   (dicts) => dicts.categories
 );
+export const selectCategoriesHigh = createSelector(
+  userSelector,
+  (dicts) => {
+    console.log(dicts.categoriesHigh)
+    return dicts.categoriesHigh
+  }
+);
 export const selectPartners = createSelector(
   userSelector,
   (dicts) => dicts.partners

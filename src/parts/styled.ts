@@ -48,16 +48,16 @@ export const Status = styled.div<StatusProps>`
     height: 7px;
     margin-right: 7px;
     background-color: ${(props) => {
-      switch (props.status) {
-        case "active":
-          return "#27AE60";
-        case "disabled":
-          return colors.primary;
-        case "waiting":
-          return "#FFC400";
-      }
-      return props.status ? "#27AE60" : colors.primary;
-    }};
+    switch (props.status) {
+      case "active":
+        return "#27AE60";
+      case "disabled":
+        return colors.primary;
+      case "waiting":
+        return "#FFC400";
+    }
+    return props.status ? "#27AE60" : colors.primary;
+  }};
     border-radius: 50%;
   }
 `;
@@ -156,7 +156,7 @@ export const GridContainer = styled.div<GridContainerProps>`
 type TGridElement = {
   col?: number;
 };
-export const GridElement = styled(GlassCard)<TGridElement>`
+export const GridElement = styled(GlassCard) <TGridElement>`
   grid-column: span ${(props) => props.col || 6};
 `;
 
@@ -180,6 +180,28 @@ export const BackButton = styled.button`
     background-repeat: no-repeat;
   }
 `;
+type TInlineButtonBase = {
+  marginVertical: 'left' | 'right'
+}
+const InlineButtonBase = styled.span<TInlineButtonBase>`
+  padding: 7px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+  ${props => props.marginVertical === 'left' ? 'margin-left: 10px' : 'margin-right: 10px'}
+`;
+
+export const InlineButton: { default: any, danger: any } = {
+  default: styled(InlineButtonBase)`
+      background: #FFE3A9;
+      color: ${colors.gray};
+    `,
+  danger: styled(InlineButtonBase)`
+      background: #FF7979;
+      color: #fff;
+    `
+};
 
 export const Subtitle = styled.span`
   display: block;

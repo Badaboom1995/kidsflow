@@ -10,63 +10,42 @@ import {
   Controls,
   SubmitButton,
   ControlsItem,
+  CheckBox,
 } from "./styled";
 
 import { ITableView } from "./types";
 
 import SortControl from "./components/SortControl/SortControl";
 import Pagination from "./components/Pagination";
-import FilterSelect from "features/EventsTable/components/FilterSelect";
+import GlobalFunctions from "./components/GlobalFunctions";
+// import FilterSelect from "features/EventsTable/components/FilterSelect";
 
-function TableView({
-  data,
-  fields,
-  pagination,
-  sort,
-  searchByName,
-}: ITableView) {
+function TableView({ data, fields, pagination, filters }: ITableView) {
   return (
     <Wrapper>
       <Controls>
         {fields.map((item, index) => (
           <ControlsItem
-            key={index}
-            active={item.key === "name"}
             {...item.props}
+            key={index}
+            active={!!item.filterFunc}
+            disabled={!item.filterFunc}
             placeholder={item.label}
             onChange={(e) => {
-              searchByName(e.target.value);
+              item.filterFunc(e.target.value);
             }}
           />
         ))}
         {/* <SubmitButton>Применить</SubmitButton> */}
       </Controls>
-      {/* <Controls>
-        {fields.map((item, index) =>
-          item.filterType === "select" ? (
-            <FilterSelect {...item.props} title={"Категории"} />
-          ) : (
-            <ControlsItem
-              key={index}
-              {...item.props}
-              placeholder={item.label}
-              onChange={(e) => {
-                searchByName(e.target.value);
-                // changeSieveValue(SieveType.Filter, item.key, e.target.value);
-              }}
-            />
-          )
-        )}
-        <SubmitButton>Применить</SubmitButton>
-      </Controls> */}
       <ShadowContainer>
         <TableContainer>
           <THead>
             <Row head>
               {fields.map((item, index) => (
                 <Cell key={index} textalign={item.props?.textalign}>
-                  {item.sortable ? (
-                    <SortControl name={item.key} callback={sort.method}>
+                  {item.sortOn ? (
+                    <SortControl name={item.key} callback={() => {}}>
                       {item.label}
                     </SortControl>
                   ) : (

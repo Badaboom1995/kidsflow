@@ -14,19 +14,18 @@ interface IRouter {
   children?: React.ReactNode;
 }
 export default function Router(props: IRouter) {
-  const prefix = "";
-
   return (
     <Switch>
-      <Route path={`${prefix}/users`} exact={true} component={Users} />
-      <Route path={`${prefix}/users/add-user`} component={AddUser} />
-      <Route path={`${prefix}/orgs`} exact={true} component={Orgs} />
-      <Route path={`${prefix}/orgs/add-org/:id?`} component={AddOrg} />
-      <Route path={`${prefix}/support`} component={SupportPage} />
-      <Route path={`${prefix}/catalog`} exact={true} component={Catalog} />
-      <Route path={`${prefix}/catalog/add`} component={CatalogAdd} />
-      <Route path={`${prefix}/events`} exact={true} component={Events} />
-      <Route path={`${prefix}/events/add/:id?`} component={EventsAdd} />
+      <Route path={`/users`} exact={true} component={Users} />
+      <Route path={`/users/add-user`} component={AddUser} />
+      <Route path={`/orgs`} exact={true} component={Orgs} />
+      <Route path={`/orgs/add-org/:id?`} component={AddOrg} />
+      <Route path={`/support`} component={SupportPage} />
+      <Route path={`/catalog`} exact={true} component={Catalog} />
+      <Route path={`/catalog/add`} component={CatalogAdd} />
+      <Route path={`/events`} exact={true} component={Events} />
+      <Route path={`/events/add/:id?`} component={EventsAdd} />
+      <Route path={`/org-compilations`} component={EventsAdd} />
     </Switch>
   );
 }

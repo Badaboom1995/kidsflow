@@ -37,6 +37,7 @@ function OrganizationsTable() {
 
   const fields = [
     {
+      primaryKey: true,
       label: "ID",
       key: "entityId",
       props: { textalign: "center", width: "7%" },
@@ -105,14 +106,14 @@ function OrganizationsTable() {
             dispatch(getOrganizations({ page: nextPage }));
           },
         }}
-        sort={{
-          name: "address",
-          status: "2",
-          method: (name, status) => {
-            dispatch(getOrganizations({ page: 0, name, status }));
-          },
-        }}
-        onRowClick={{ method: onRowClick, itemIdKey: "entityId" }}
+        // sort={{
+        //   name: "address",
+        //   status: "2",
+        //   method: (name, status) => {
+        //     dispatch(getOrganizations({ page: 0, name, status }));
+        //   },
+        // }}
+        onRowClick={onRowClick}
         fields={fields}
         items={normalizedOrganizations}
       />

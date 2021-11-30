@@ -1,11 +1,10 @@
 import makeRequest from "utils/makeRequest";
 
 const directionsService = {
-  getList: (level: 1 | 2) =>
+  getList: (level: 1 | 2 | 3) =>
     makeRequest(
-      `/api/v2/admin/event-directions/find?levelFrom=${level}&levelTo=${level}`,
+      `/api/v2/admin/directions?levelFrom=${level}&levelTo=${level}&type=EventDirection`,
       "GET",
-      null,
     ),
 };
 

@@ -5,6 +5,7 @@ import organizationsService from "services/organizations";
 export const getDirections = createAsyncThunk<Record<string, string>, void>(
   "dicts/getDirections",
   async (_, { rejectWithValue }) => {
+    console.log('res')
     const res = await directionsService.getList(1);
     if (!res.data) return rejectWithValue("error");
     return res;
@@ -14,6 +15,14 @@ export const getCategories = createAsyncThunk<Record<string, string>, void>(
   "dicts/getCategories",
   async (_, { rejectWithValue }) => {
     const res = await directionsService.getList(2);
+    if (!res.data) return rejectWithValue("error");
+    return res;
+  }
+);
+export const getCategoriesHigh = createAsyncThunk<Record<string, string>, void>(
+  "dicts/getCategoriesHigh",
+  async (_, { rejectWithValue }) => {
+    const res = await directionsService.getList(3);
     if (!res.data) return rejectWithValue("error");
     return res;
   }

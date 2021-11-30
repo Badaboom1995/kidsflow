@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectDirections,
   selectCategories,
+  selectCategoriesHigh,
   selectPartners,
 } from "ducks/dicts/selectors";
 
@@ -39,6 +40,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
 
   const directions = useSelector(selectDirections);
   const categories = useSelector(selectCategories);
+  const categoriesHigh = useSelector(selectCategoriesHigh);
   const partners = useSelector(selectPartners);
   const extraData = useSelector(selectExtraData);
   const photosUrls = useSelector(selectPhotosUrls);
@@ -60,6 +62,16 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
       (item) => item.parentId === currentDirectionId
     );
     return categoriesByDirerction.length ? categoriesByDirerction : categories;
+  };
+
+  const getFilteredCategoriesHigh = (property: string) => {
+    const categoriesByDirerction = categoriesHigh.filter((item) => {
+      const category = values[property] ? values[property][0] : [];
+      return item.parentId === category;
+    });
+    return categoriesByDirerction.length
+      ? categoriesByDirerction
+      : categoriesHigh;
   };
 
   return (
@@ -179,6 +191,18 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
               name="eventDirectionId"
               list={getFilteredCategories()}
               value={values?.eventDirectionId}
+            />
+          </GridElement>
+          <GridElement col={12}>
+            <CategoryChips
+              title={
+                <span>
+                  Категория2<Subtitle>можно выбрать несколько</Subtitle>
+                </span>
+              }
+              name="eventDirectionHighId"
+              list={getFilteredCategoriesHigh("eventDirectionId")}
+              value={values?.eventDirectionHighId}
             />
           </GridElement>
         </GridContainer>

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDirections, getCategories, getPartners } from "./actions";
+import { getDirections, getCategories, getPartners, getCategoriesHigh } from "./actions";
 import makeReducer from "utils/makeReducer";
 
 type TDict = { name: string; value: string; parentId?: string };
 type InititalState = {
   directions: TDict[];
   categories: TDict[];
+  categoriesHigh: TDict[];
   partners: TDict[];
   loading: boolean;
 };
@@ -13,6 +14,7 @@ type InititalState = {
 const intititalState: InititalState = {
   directions: [],
   categories: [],
+  categoriesHigh: [],
   partners: [],
   loading: false,
 };
@@ -38,6 +40,18 @@ const organizatonsSlice = createSlice({
       getCategories,
       (state, payload) => {
         state.categories = payload.data.map((item) => ({
+          name: item.name,
+          value: item.eventDirectionId,
+          parentId: item.parentId,
+        }));
+      },
+      () => { }
+    );
+    makeReducer(
+      builder,
+      getCategoriesHigh,
+      (state, payload) => {
+        state.categoriesHigh = payload.data.map((item) => ({
           name: item.name,
           value: item.eventDirectionId,
           parentId: item.parentId,

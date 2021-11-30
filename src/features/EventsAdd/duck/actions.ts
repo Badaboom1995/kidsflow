@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import eventsService from "services/events";
 import organizationsService from "services/organizations";
-import { getDirections, getCategories, getPartners } from "ducks/dicts/actions";
+import { getDirections, getCategories, getCategoriesHigh, getPartners } from "ducks/dicts/actions";
 import moment from 'moment'
 
 type eventPayload = {
@@ -20,6 +20,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       gender,
       numberOfSpots,
       eventDirectionId,
+      eventDirectionHighId,
       eventDate,
       time,
       categoryId,
@@ -40,7 +41,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
         numberOfSpots: parseInt(numberOfSpots),
         ageFrom: parseInt(ageFrom),
         ageTo: parseInt(ageTo),
-        eventDirectionId: categoryId === "Entertainment" ? "Entertainment" : eventDirectionId[0],
+        eventDirectionId: eventDirectionHighId[0] || eventDirectionId[0] || categoryId,
         categoryId,
         organizationId,
         isActive: isActive === "active" ? true : false,
@@ -108,6 +109,7 @@ export const bootstrapEvents = createAsyncThunk<any, bootstrapEventsProps>(
       id && await dispatch(getEventById(id));
       await dispatch(getDirections());
       await dispatch(getCategories());
+      await dispatch(getCategoriesHigh());
       await dispatch(getPartners());
       return
     } catch (error) {

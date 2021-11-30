@@ -19,19 +19,18 @@ function App() {
       <Router />
     </Layout>
   );
-  // const prefix = process.env.NODE_ENV === "production" ? "/admin" : "";
-  const prefix = "";
 
   useEffect(() => {
-    !isLoggedIn && history.push(`${prefix}/auth`);
+    !isLoggedIn && history.push(`/auth`);
   }, [user]);
+
   return (
     <>
       {isLoggedIn ? (
         Private
       ) : (
         <Switch>
-          <Route path={`${prefix}/auth`} exact={true} component={Auth} />
+          <Route path={`/auth`} exact={true} component={Auth} />
         </Switch>
       )}
       <ToastContainer />
