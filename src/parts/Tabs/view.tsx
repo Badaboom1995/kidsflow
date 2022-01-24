@@ -1,6 +1,6 @@
-import React from "react";
-import { Wrapper, Tabs, TabContainer, Tab } from "./styled";
-import { TabType } from "./index";
+import React from 'react';
+import { Wrapper, Tabs, TabContainer, Tab } from './styled';
+import { TabType } from './index';
 
 interface ITabsView {
   tabs: TabType[];
@@ -11,22 +11,21 @@ function TabsView({ tabs, activeTab, setActiveTab }: ITabsView) {
   return (
     <Wrapper>
       <Tabs>
-        {tabs.map((item) => (
+        {tabs.map((item, index) => (
           <TabContainer
-            key={item.id}
+            key={index}
             onClick={() => {
-              setActiveTab(item.id);
+              setActiveTab(index);
             }}
           >
-            <Tab active={activeTab === item.id}>{item.name}</Tab>
+            <Tab active={activeTab === index}>{item.name}</Tab>
           </TabContainer>
         ))}
       </Tabs>
-      {/* {tabs.find((item) => item.id === activeTab)?.content} */}
-      {tabs.map((item) => (
+      {tabs.map((item, index) => (
         <div
-          style={{ display: activeTab === item.id ? "block" : "none" }}
-          key={item.id}
+          style={{ display: activeTab === index ? 'block' : 'none' }}
+          key={index}
         >
           {item.content}
         </div>

@@ -1,5 +1,5 @@
-import { Footer, Arrow, PaginationButton } from "parts/Table/styled";
-import React from "react";
+import { Footer, Arrow, PaginationButton } from 'parts/Table/styled';
+import React from 'react';
 
 type TPagination = {
   pageNumber: number;
@@ -22,6 +22,7 @@ function Pagination({ pagination }: { pagination: TPagination }) {
   const getPagesButtons = (pages) => {
     return pages.map((pageNumber) => (
       <PaginationButton
+        type="button"
         key={pageNumber}
         active={pageNumber === currentCenter}
         onClick={() => pagination?.method(pageNumber)}

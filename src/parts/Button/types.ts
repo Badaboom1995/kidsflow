@@ -7,4 +7,5 @@ export type ButtonProps = {
   size?: "small" | "full";
   inline?: boolean;
   icon?: string;
+  noSubmit?: boolean;
 };

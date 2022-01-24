@@ -147,6 +147,7 @@ type GridContainerProps = {
 export const GridContainer = styled.div<GridContainerProps>`
   background-color: #fff;
   width: 100%;
+  height: 100%;
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);

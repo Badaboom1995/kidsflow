@@ -1,48 +1,47 @@
-export type TStatus = 0 | 1 | 2;
-export type TSort = {
-  name: string;
-  status: string;
-  method: (name: string, status: TStatus) => void;
-};
+export enum TSortDirection {
+  Up = 0,
+  Down = 1,
+}
+export type TGlobalControl = {
+  buttonName: string;
+  method: (items: Record<string, any>[]) => void
+  buttonType?: 'default' | 'delete' | 'transparent';
+}
+export type TFilterFunction = ({ fieldName, fieldValue }: { fieldName: string, fieldValue: string }) => void
+export type TSortFunction = ({ fieldName, sortDirection }: { fieldName: string, sortDirection: TSortDirection }) => void
+
 
 export type Field = {
   primaryKey?: boolean;
   label: string;
   key: string;
-  filterType?: string;
-  sortOn?: boolean;
-  filterOn?: boolean;
+  isFilterable?: boolean;
+  isSortable?: boolean;
   props?: { textalign?: string; width?: string };
-  filterFunc?: (value: any) => void;
   getComponent?: (value: any) => React.ReactNode;
 };
 
+
 export interface ITable {
-  items: any[];
+  items: Record<string, any>[];
   fields: Field[];
   filters?: Record<string, any>
-  // sort?: TSort;
-  searchByName?: (name: string) => void
-  onRowClick?: (ItemId: string) => void;
-  filter?: ({ key, value }: { key: string, value: string }) => void;
+  onRowClick?: (ItemId: Record<string, any>) => void;
+  filterFunction?: TFilterFunction;
+  sortFunction?: TSortFunction;
   pagination?: {
     pageNumber: number;
     pageSize: number;
     totalEntities: number;
     method: (nextPage: number) => void;
   };
+  hideControls?: boolean;
+  globalControls?: TGlobalControl[];
+}
+export interface ITableView extends ITable {
+  data: React.ReactNode[];
+  primaryKey: string
+  toggleAllItems?: (checked: boolean) => void
+  choosedItems: Record<string, any>[]
 }
 
-export interface ITableView {
-  data: React.ReactNode[];
-  fields: Field[];
-  filters: Record<string, any>
-  searchByName?: (name: string) => void
-  // sort?: TSort;
-  pagination?: {
-    pageNumber: number;
-    pageSize: number;
-    totalEntities: number;
-    method: (nextPage: number) => void;
-  };
-}

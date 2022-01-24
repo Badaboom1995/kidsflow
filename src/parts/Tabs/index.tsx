@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import TabsView from "./view";
+import React, { useState } from 'react';
+import TabsView from './view';
 
 export type TabType = {
-  id: number;
   name: string;
   content: any;
 };

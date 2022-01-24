@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Wrapper,
   TableContainer,
@@ -8,44 +8,60 @@ import {
   TBody,
   ShadowContainer,
   Controls,
-  SubmitButton,
   ControlsItem,
-  CheckBox,
-} from "./styled";
+} from './styled';
 
-import { ITableView } from "./types";
+import { ITableView } from './types';
 
-import SortControl from "./components/SortControl/SortControl";
-import Pagination from "./components/Pagination";
-import GlobalFunctions from "./components/GlobalFunctions";
-// import FilterSelect from "features/EventsTable/components/FilterSelect";
+import SortControl from './components/SortControl/SortControl';
+import Pagination from './components/Pagination';
+import GlobalFunctions from './components/GlobalFunctions';
 
-function TableView({ data, fields, pagination, filters }: ITableView) {
+function TableView({
+  data,
+  fields,
+  pagination,
+  filterFunction,
+  sortFunction,
+  hideControls,
+  toggleAllItems,
+  globalControls,
+  choosedItems,
+}: ITableView) {
   return (
     <Wrapper>
-      <Controls>
-        {fields.map((item, index) => (
-          <ControlsItem
-            {...item.props}
-            key={index}
-            active={!!item.filterFunc}
-            disabled={!item.filterFunc}
-            placeholder={item.label}
-            onChange={(e) => {
-              item.filterFunc(e.target.value);
-            }}
-          />
-        ))}
-        {/* <SubmitButton>Применить</SubmitButton> */}
-      </Controls>
+      <GlobalFunctions
+        toggleAllItems={toggleAllItems}
+        controls={globalControls}
+        choosedItems={choosedItems}
+      />
+      {!hideControls && (
+        <Controls>
+          {fields.map((item, index) => (
+            <ControlsItem
+              {...item.props}
+              key={index}
+              active={item.isFilterable}
+              disabled={!item.isFilterable}
+              placeholder={item.label}
+              onChange={(e) => {
+                filterFunction({
+                  fieldName: item.key,
+                  fieldValue: e.target.value,
+                });
+              }}
+            />
+          ))}
+        </Controls>
+      )}
       <ShadowContainer>
         <TableContainer>
           <THead>
             <Row head>
               {fields.map((item, index) => (
                 <Cell key={index} textalign={item.props?.textalign}>
-                  {item.sortOn ? (
-                    <SortControl name={item.key} callback={() => {}}>
+                  {item.isSortable ? (
+                    <SortControl name={item.key} callback={sortFunction}>
                       {item.label}
                     </SortControl>
                   ) : (

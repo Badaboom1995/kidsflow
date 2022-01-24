@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import TableView from "./view";
-import { Cell, Row, RowCheckbox, RowFunctions, CheckBox } from "./styled";
-import { ITable } from "./types";
-import RowFuncsMenu from "./components/RowFunctions";
-import GlobalFunctions from "./components/GlobalFunctions";
+import React, { useState } from 'react';
+import TableView from './view';
+import { Cell, Row, RowCheckbox, CheckBox } from './styled';
+import { ITable } from './types';
+import RowFuncsMenu from './components/RowFunctions';
 
 /**
  * Table takes field's setting and items to show
@@ -14,24 +13,25 @@ import GlobalFunctions from "./components/GlobalFunctions";
  * @param getComponent optional func. Return wrapper component for value
  */
 
-function Table({ fields, filters, items, onRowClick, pagination }: ITable) {
+function Table(props: ITable) {
+  const { fields, items, onRowClick, globalControls } = props;
+  const [choosedItems, setChoosedItems] = useState([]);
   const primaryKey = fields.find((item) => item.primaryKey).key;
-  const [choosedIds, setChoosedIds] = useState([]);
+
+  const toggleItem = (targetId: string) => {
+    const isTargetItem = (item) => item[primaryKey] === targetId;
+    choosedItems.find(isTargetItem)
+      ? setChoosedItems(choosedItems.filter((item) => !isTargetItem(item)))
+      : setChoosedItems([...choosedItems, items.find(isTargetItem)]);
+  };
+
+  const toggleAllItems = (checked: boolean) => {
+    checked ? setChoosedItems([]) : setChoosedItems(items);
+  };
 
   const normalizedItems = items.length
     ? items.map((item) => fields.map(({ key }) => ({ key, value: item[key] })))
     : null;
-
-  const allIds = items?.map((item) => item[primaryKey]);
-
-  const toggleId = (id: string) => {
-    choosedIds.includes(id)
-      ? setChoosedIds(choosedIds.filter((item) => item !== id))
-      : setChoosedIds([...choosedIds, id]);
-  };
-  const toggleAllIds = (checked: boolean) => {
-    checked ? setChoosedIds([]) : setChoosedIds(allIds);
-  };
 
   const getComponent = (key, value) =>
     fields.find((item) => item.key === key)?.getComponent?.(value) || value;
@@ -41,12 +41,13 @@ function Table({ fields, filters, items, onRowClick, pagination }: ITable) {
   const getTableData = () =>
     normalizedItems?.map((rowData, index) => {
       const itemId = rowData.find((item) => item.key === primaryKey).value;
+
       return (
         <Row
           key={index}
-          onClick={(e: any) => {
+          onClick={() => {
             const entity = items.find((item) => item[primaryKey] === itemId);
-            onRowClick(entity);
+            onRowClick && onRowClick(entity);
           }}
         >
           {rowData.map(({ key, value }, index) => (
@@ -55,19 +56,23 @@ function Table({ fields, filters, items, onRowClick, pagination }: ITable) {
                 <RowCheckbox
                   onClick={(e) => {
                     e.stopPropagation();
-                    toggleId(itemId);
+                    toggleItem(itemId);
                   }}
                 >
-                  <CheckBox selected={choosedIds.includes(itemId)} />
+                  <CheckBox
+                    selected={choosedItems.find(
+                      (item) => item[primaryKey] === itemId
+                    )}
+                  />
                 </RowCheckbox>
               )}
               {getComponent(key, value)}
               {index === rowData.length - 1 && (
                 <RowFuncsMenu
                   functions={[
-                    { name: "one", method: (id) => id },
-                    { name: "two", method: (id) => id },
-                    { name: "three", method: (id) => id },
+                    { name: 'one', method: (id) => id },
+                    { name: 'two', method: (id) => id },
+                    { name: 'three', method: (id) => id },
                   ]}
                 />
               )}
@@ -78,15 +83,14 @@ function Table({ fields, filters, items, onRowClick, pagination }: ITable) {
     });
 
   return (
-    <div>
-      <GlobalFunctions setCheckedAll={toggleAllIds} />
-      <TableView
-        data={getTableData()}
-        fields={fields}
-        filters={filters}
-        pagination={pagination}
-      />
-    </div>
+    <TableView
+      data={getTableData()}
+      toggleAllItems={toggleAllItems}
+      globalControls={globalControls}
+      choosedItems={choosedItems}
+      primaryKey={primaryKey}
+      {...props}
+    />
   );
 }
 export default Table;

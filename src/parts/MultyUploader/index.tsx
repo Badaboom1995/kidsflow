@@ -1,7 +1,7 @@
-import React from "react";
-import { Wrapper } from "./styled";
-import UploadFile from "parts/UploadFile";
-import { Row } from "./styled";
+import React from 'react';
+import { Wrapper } from './styled';
+import UploadFile from 'parts/UploadFile';
+import { Row } from './styled';
 
 interface IMultyUploader {
   addLabel: string;
@@ -19,7 +19,6 @@ function MultyUploader({ addLabel, onAdd, onRemove, items }: IMultyUploader) {
             key={item.url}
             imageUrl={item.url}
             onRemove={() => {
-              console.log("pidor");
               return onRemove(item.id);
             }}
           />

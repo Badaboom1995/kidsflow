@@ -1,7 +1,7 @@
-import React from "react";
-import { StyledButton, Text, Icon } from "./styled";
-import spinner from "./assets/spinner.gif";
-import { ButtonProps } from "./types";
+import React from 'react';
+import { StyledButton, Text, Icon } from './styled';
+import spinner from './assets/spinner.gif';
+import { ButtonProps } from './types';
 
 function Button({
   children,
@@ -12,12 +12,13 @@ function Button({
   size,
   inline,
   icon,
+  noSubmit,
 }: ButtonProps) {
   return (
     <StyledButton
       disabled={disabled || loading}
       onClick={onClick}
-      type="submit"
+      type={noSubmit ? 'button' : 'submit'}
       customType={type}
       size={size}
       inline={inline}

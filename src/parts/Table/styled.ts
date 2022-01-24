@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 export const ShadowContainer = styled.div`
+  position: relative;
   box-shadow: 0px 3px 15px 0px #00000032;
   background-color: #fff;
   border-radius: 10px;
@@ -30,8 +31,8 @@ export const TableContainer = styled.table`
 `;
 export const TBody = styled.tbody``;
 export const Footer = styled.footer`
-  position: fixed;
-  width: calc(100% - 250px);
+  position: absolute;
+  width: calc(100%);
   bottom: 0px;
   display: flex;
   align-items: center;

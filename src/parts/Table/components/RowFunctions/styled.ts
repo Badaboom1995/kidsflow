@@ -12,9 +12,16 @@ export const RowFunctions = styled.div<TRowFunctions>`
   width: 70px;
   border-radius: 50%;
   transition: 0.2s all ease;
- &:hover span {
-   background-color: #FED98E;
- }
+  span { 
+    width: 3px;
+    height: 3px;
+    background-color: #000;
+    border-radius: 50%;
+    
+  }
+  &:hover span {
+    background-color: #FED98E;
+  }
   span{
     ${absoluteCenter}
     display: block;

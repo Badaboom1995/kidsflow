@@ -1,6 +1,6 @@
-import React from "react";
-import { Wrapper, Preview, Label, CloseButton } from "./styled";
-import { IUploadFile } from "./index";
+import React from 'react';
+import { Wrapper, Preview, Label, CloseButton } from './styled';
+import { IUploadFile } from './index';
 
 function UpoadFileView({
   label,
@@ -27,7 +27,6 @@ function UpoadFileView({
         <CloseButton
           type="button"
           onClick={() => {
-            console.log("suka");
             onRemove();
           }}
         />
