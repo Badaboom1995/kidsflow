@@ -1,14 +1,15 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Users from "pages/Users";
-import AddUser from "pages/AddUser";
-import Orgs from "pages/Orgs";
-import AddOrg from "pages/AddOrgPage";
-import SupportPage from "pages/SupportPage";
-import Catalog from "pages/Catalog";
-import CatalogAdd from "pages/CatalogAdd";
-import Events from "pages/Events";
-import EventsAdd from "pages/EventsAdd";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Users from 'pages/Users';
+import AddUser from 'pages/AddUser';
+import Orgs from 'pages/Orgs';
+import AddOrg from 'pages/AddOrgPage';
+import SupportPage from 'pages/SupportPage';
+import Catalog from 'pages/Catalog';
+import CatalogAdd from 'pages/CatalogAdd';
+import Events from 'pages/Events';
+import EventsAdd from 'pages/EventsAdd';
+import CompilationsAddPage from 'pages/CompilationsAddPage';
 
 interface IRouter {
   children?: React.ReactNode;
@@ -25,7 +26,7 @@ export default function Router(props: IRouter) {
       <Route path={`/catalog/add`} component={CatalogAdd} />
       <Route path={`/events`} exact={true} component={Events} />
       <Route path={`/events/add/:id?`} component={EventsAdd} />
-      <Route path={`/org-compilations`} component={EventsAdd} />
+      <Route path={`/compilations`} component={CompilationsAddPage} />
     </Switch>
   );
 }

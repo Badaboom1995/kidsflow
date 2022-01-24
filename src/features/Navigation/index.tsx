@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Wrapper,
   Head,
@@ -8,53 +8,47 @@ import {
   Avatar,
   Name,
   Exit,
-} from "./styled";
-import Logo from "parts/Logo";
-import NavItem from "./components/NavItem";
-import avo from "./assets/avo.png";
+} from './styled';
+import Logo from 'parts/Logo';
+import NavItem from './components/NavItem';
+import avo from './assets/avo.png';
 
 function Navigation() {
   const initialState = [
     {
-      label: "Управление каталогом",
+      label: 'Управление каталогом',
       to: `/catalog`,
-      iconId: "cast",
-      color: "#FEC586",
+      iconId: 'cast',
       active: true,
     },
     {
-      label: "Пользователи",
+      label: 'Пользователи',
       to: `/users`,
-      iconId: "users",
-      color: "#FCBF83",
+      iconId: 'users',
       active: false,
     },
     {
-      label: "Организации",
+      label: 'Организации',
       to: `/orgs`,
-      iconId: "orgs",
-      color: "#FDB880",
+      iconId: 'orgs',
       active: false,
     },
     {
-      label: "События",
+      label: 'События',
       to: `/events`,
-      iconId: "events",
-      color: "#FDB381",
+      iconId: 'events',
       active: false,
     },
     {
-      label: "Поддержка",
+      label: 'Поддержка',
       to: `/support`,
-      iconId: "support",
-      color: "#FDA987",
+      iconId: 'support',
       active: false,
     },
     {
-      label: "Подборки",
-      to: `/org-compilations`,
-      iconId: "support",
-      color: "#FDA987",
+      label: 'Подборки',
+      to: `/compilations`,
+      iconId: 'support',
       active: false,
     },
   ];
@@ -80,7 +74,7 @@ function Navigation() {
             key={label}
             to={to}
             iconId={iconId}
-            color={"#FFF8E9"}
+            color={'#FFF8E9'}
             active={active}
             onClick={() => {
               if (!active) setActive(label);

@@ -13,7 +13,6 @@ export const selectCategories = createSelector(
 export const selectCategoriesHigh = createSelector(
   userSelector,
   (dicts) => {
-    console.log(dicts.categoriesHigh)
     return dicts.categoriesHigh
   }
 );

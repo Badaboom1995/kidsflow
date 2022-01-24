@@ -18,7 +18,6 @@ const makeRequest = async (
   commonHeaders.append("Authorization", `Bearer ${token}`);
 
   const fetchConfig: any = { method, headers: commonHeaders };
-  console.log(url)
   if (body) fetchConfig.body = JSON.stringify(body);
   try {
     const response = await fetch(`${serverUrl}${url}`, fetchConfig);

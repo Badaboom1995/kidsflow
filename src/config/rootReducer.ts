@@ -6,6 +6,7 @@ import organizations from "features/OrganizationsTable/duck";
 import events from "features/EventsTable/duck";
 import eventsForm from "features/EventsAdd/duck";
 import uploads from "parts/UploadSection/duck";
+import organizatonsPicker from "features/ChooseOrganizations/duck"
 
 import sieve from "ducks/sieve";
 import user from "ducks/user";
@@ -23,5 +24,6 @@ export function createReducer() {
     ...eventsForm,
     ...addOrg,
     ...uploads,
+    ...organizatonsPicker,
   });
 }

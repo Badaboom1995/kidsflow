@@ -16,6 +16,7 @@
     "@types/react-slick": "^0.23.4",
     "@types/styled-components": "^5.1.7",
     "concurrently": "^6.2.0",
+    "emoji-picker-react": "^3.5.0",
     "formik": "^2.2.6",
     "polished": "^4.1.1",
     "rc-time-picker": "^3.7.3",

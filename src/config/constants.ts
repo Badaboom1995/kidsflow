@@ -6,9 +6,12 @@ export const serverUrl =
 export const colors = {
   primary: "#FF5A57",
   secondary: "#FFC400",
+  back: "#FFF0D3",
+  border: "rgba(0, 0, 0, 0.1)",
   black: "#2f2f2f",
   gray: "#4F4F4F",
 };
+
 export const gender = [
   { name: "Мужской", value: '0' },
   { name: "Женский", value: '1' },
@@ -46,3 +49,5 @@ export const getAge = (max: number) => {
   }
   return ageArray;
 };
+
+export const imagePlaceholder = 'https://i.stack.imgur.com/mwFzF.png'

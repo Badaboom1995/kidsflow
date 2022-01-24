@@ -5,7 +5,6 @@ import organizationsService from "services/organizations";
 export const getDirections = createAsyncThunk<Record<string, string>, void>(
   "dicts/getDirections",
   async (_, { rejectWithValue }) => {
-    console.log('res')
     const res = await directionsService.getList(1);
     if (!res.data) return rejectWithValue("error");
     return res;

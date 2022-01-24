@@ -17,7 +17,7 @@ const makeUploadRequest = async ({ image, url, }) => {
   try {
     const response = await fetch(`${serverUrl}/${url}`, requestOptions);
     const data = await response.json()
-    console.log(data)
+
     return data
   } catch (error) {
     return new Error(error)

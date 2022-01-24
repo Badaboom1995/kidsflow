@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Wrapper, MainArea, Left, Right, Header } from "./styled";
-import BackSection from "parts/BackSection";
-import { ButtonsArea, FormSectionTitle } from "parts/styled";
-import Button from "parts/Button";
-import Tabs from "parts/Tabs";
-import { toast } from "react-toastify";
-import GeneralForm from "./components/GeneralForm";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { removeUploadIds } from "features/OrganizationForm/duck/slice";
-import ContactsForm from "./components/ContactsForm";
-import LegalForm from "./components/LegalForm";
+import React, { useEffect, useState } from 'react';
+import { Wrapper, MainArea, Left, Right, Header } from './styled';
+import BackSection from 'parts/BackSection';
+import { ButtonsArea, FormSectionTitle } from 'parts/styled';
+import Button from 'parts/Button';
+import Tabs from 'parts/Tabs';
+import { toast } from 'react-toastify';
+import GeneralForm from './components/GeneralForm';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUploadIds } from 'features/OrganizationForm/duck/slice';
+import ContactsForm from './components/ContactsForm';
+import LegalForm from './components/LegalForm';
 import {
   isOnlineSchool,
   dataSelector,
   imagesSelector,
   scheduleSelector,
   addressSelector,
-} from "./duck/selectors";
-import PreviewCard from "./components/PreviewCard";
-import Choose from "parts/Choose";
-import { Status } from "parts/styled";
+} from './duck/selectors';
+import PreviewCard from './components/PreviewCard';
+import Choose from 'parts/Choose';
+import { Status } from 'parts/styled';
 
-import { IAddOrgView } from "./types";
+import { IAddOrgView } from './types';
 
 function AddOrgView({
   organizationId,
@@ -40,12 +40,12 @@ function AddOrgView({
   const businessHours = useSelector(scheduleSelector);
   const defaultStatus = data.general
     ? data.general?.isActive
-      ? "Активен"
-      : "Заблокирован"
+      ? 'Активен'
+      : 'Заблокирован'
     : null;
   const [dataReady, setReady] = useState(false);
   const [status, setStatus] = useState(
-    defaultStatus ? defaultStatus : "Активен"
+    defaultStatus ? defaultStatus : 'Активен'
   );
 
   const submitAll = () => {
@@ -58,9 +58,9 @@ function AddOrgView({
   };
 
   useEffect(() => {
-    const onlineSchool = isOnline ? "OnlineSchool" : null;
+    const onlineSchool = isOnline ? 'OnlineSchool' : null;
     if (dataReady) {
-      const coords = data.contacts.coords.split(",");
+      const coords = data.contacts.coords.split(',');
       submitMethod(
         {
           ...data.general,
@@ -88,12 +88,12 @@ function AddOrgView({
           lon: coords[1],
           businessHours,
           uploadIds: images.map((item) => item.id),
-          isActive: status === "Активен" ? true : false,
+          isActive: status === 'Активен' ? true : false,
         },
         organizationId || data.general.partnerId
       )
         .then(() => {
-          toast.success("Готово!");
+          toast.success('Готово!');
           dispatch(removeUploadIds());
           history.push(`/orgs`);
         })
@@ -117,8 +117,8 @@ function AddOrgView({
             setStatus(value);
           }}
           options={[
-            { name: "Заблокирован", status: "Заблокирован" },
-            { name: "Активен", status: "Активен" },
+            { name: 'Заблокирован', status: 'Заблокирован' },
+            { name: 'Активен', status: 'Активен' },
           ]}
           current={status}
         />
@@ -127,23 +127,20 @@ function AddOrgView({
       <MainArea>
         <Left>
           <Tabs
-            activeId={1}
+            activeId={0}
             tabs={[
               {
-                id: 1,
-                name: "Общее",
+                name: 'Общее',
                 content: (
                   <GeneralForm setRef={(ref) => setFormRef.general(ref)} />
                 ),
               },
               {
-                id: 2,
-                name: "Контакты",
+                name: 'Контакты',
                 content: <ContactsForm setFormRef={setFormRef.contacts} />,
               },
               {
-                id: 3,
-                name: "Юридические данные",
+                name: 'Юридические данные',
                 content: <LegalForm setFormRef={setFormRef.legal} />,
               },
             ]}

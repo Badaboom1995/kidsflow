@@ -2,56 +2,36 @@ import React from 'react';
 
 import * as Styled from './styled';
 import BackSection from 'parts/BackSection';
-import { ButtonsArea, FormSectionTitle, Status } from 'parts/styled';
+import { ButtonsArea, FormSectionTitle } from 'parts/styled';
 import Button from 'parts/Button';
 import { Form } from 'formik';
-import Tabs from 'parts/Tabs';
-import Choose from 'parts/Choose';
 import { IFormView } from './types';
 import GeneralForm from './components/General';
-import EventsContactForm from './components/Contacts';
+import Tabs from 'parts/Tabs';
+import ChooseOrganizations from 'features/ChooseOrganizations';
 
 const { Wrapper, Head, Content, Left, Right, Footer } = Styled;
 
-function EventsAddView({ prompts, setFieldValue, handleChange }: IFormView) {
+function EventsAddView({ setFieldValue }: IFormView) {
   return (
     <Wrapper>
       <Head>
         <BackSection />
-        <FormSectionTitle>Карточка события</FormSectionTitle>
+        <FormSectionTitle>Создание подборки</FormSectionTitle>
       </Head>
-
       <Form>
         <Content>
           <Left>
-            <Choose
-              getViewComponent={(status, name) => (
-                <Status status={status}>{name}</Status>
-              )}
-              onChange={(status) => {
-                setFieldValue('isActive', status);
-              }}
-              options={[
-                { name: 'Заблокирован', status: 'disabled' },
-                { name: 'Активен', status: 'active' },
-              ]}
-              current="Активен"
-            />
             <Tabs
-              activeId={0}
+              activeId={1}
               tabs={[
                 {
                   name: 'Общее',
-                  content: (
-                    <GeneralForm
-                      prompts={prompts}
-                      handleChange={handleChange}
-                    />
-                  ),
+                  content: <GeneralForm />,
                 },
                 {
-                  name: 'Контакты',
-                  content: <EventsContactForm />,
+                  name: 'Организации',
+                  content: <ChooseOrganizations />,
                 },
               ]}
             />
