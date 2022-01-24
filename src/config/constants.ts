@@ -1,5 +1,6 @@
+const isDev = window.location.href.includes('kidsflow-admin-dev')
 export const serverUrl =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "production" && !isDev
     ? "https://api.vzletaem.ru"
     : "https://api-dev.vzletaem.ru";
 
