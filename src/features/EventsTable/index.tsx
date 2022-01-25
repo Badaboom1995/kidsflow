@@ -17,7 +17,7 @@ function EventsTable() {
   const onRowClick = (entity: Record<string, any>) => {
     history.push(`/events/add/${entity.eventId}`);
   };
-  const sortByName = (name: string) => {
+  const searchByName = (name: string) => {
     dispatch(getEvents({ page: 0, name }));
   };
 
@@ -92,7 +92,7 @@ function EventsTable() {
         fields={fields}
         items={events}
         filterFunction={({ fieldName, fieldValue }) => {
-          console.log(fieldName, fieldValue);
+          searchByName(fieldValue);
         }}
         sortFunction={({ fieldName, sortDirection }) => {
           console.log(fieldName, sortDirection);
