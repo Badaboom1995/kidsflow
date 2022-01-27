@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Input from 'parts/Input';
 import Select from 'parts/Select';
@@ -13,8 +13,9 @@ function GeneralForm() {
           <Input name="name" label="Название подборки" />
         </GridElement>
         <GridElement col={3}>
+          {/* TODO Переписать селект. Добавить поддержку типов кроме строки */}
           <Select
-            name="status"
+            name="isActive"
             options={[
               { name: 'Активна', value: 'active' },
               { name: 'Заблокирована', value: 'blocked' },
@@ -25,7 +26,7 @@ function GeneralForm() {
           />
         </GridElement>
         <GridElement col={3}>
-          <EmojiPicker />
+          <EmojiPicker name="emoji" />
         </GridElement>
       </GridContainer>
     </div>

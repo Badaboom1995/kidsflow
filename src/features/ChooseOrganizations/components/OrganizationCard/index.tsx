@@ -7,7 +7,7 @@ function OrganizationCard({
 }: {
   organization: OrganizationType;
 }) {
-  const { name, eventCategories, ageFrom, ageTo } = organization;
+  const { name, ageFrom, ageTo } = organization;
   return (
     <Wrapper>
       <Cell>

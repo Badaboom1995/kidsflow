@@ -12,7 +12,7 @@ import ChooseOrganizations from 'features/ChooseOrganizations';
 
 const { Wrapper, Head, Content, Left, Right, Footer } = Styled;
 
-function EventsAddView({ setFieldValue }: IFormView) {
+function CompilationsAddView() {
   return (
     <Wrapper>
       <Head>
@@ -31,7 +31,14 @@ function EventsAddView({ setFieldValue }: IFormView) {
                 },
                 {
                   name: 'Организации',
-                  content: <ChooseOrganizations />,
+                  content: (
+                    <ChooseOrganizations
+                      callback={(ids) => {
+                        console.log(ids);
+                      }}
+                      name="organizationIds"
+                    />
+                  ),
                 },
               ]}
             />
@@ -41,11 +48,8 @@ function EventsAddView({ setFieldValue }: IFormView) {
             <ButtonsArea>
               <section>
                 <Button>Сохранить</Button>
-                {/* <Button type="ghost">Удалить анкету</Button> */}
               </section>
-              <section>
-                {/* <Button type="ghost">Заблокировать</Button> */}
-              </section>
+              <section></section>
             </ButtonsArea>
           </Footer>
         </Content>
@@ -53,4 +57,4 @@ function EventsAddView({ setFieldValue }: IFormView) {
     </Wrapper>
   );
 }
-export default EventsAddView;
+export default CompilationsAddView;

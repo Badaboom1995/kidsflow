@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { PickerWrapper, Wrapper, Emoji, ChooseButton } from './styled';
+import { PickerWrapper, Wrapper, ChooseButton } from './styled';
 import Picker from 'emoji-picker-react';
-import Button from 'parts/Button';
 import { Label } from 'parts/styled';
+import { Field } from 'formik';
 
-function EmojiPicker() {
+function EmojiPicker({ name }) {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [isOpen, setOpen] = useState(false);
-  const onEmojiClick = (event, emojiObject) => {
+  const onEmojiClick = (event, emojiObject, callback) => {
     setChosenEmoji(emojiObject);
     setOpen(false);
+    callback(name, emojiObject.emoji);
   };
   useEffect(() => {
     console.log(chosenEmoji);
@@ -22,7 +23,15 @@ function EmojiPicker() {
       </ChooseButton>
       {isOpen && (
         <PickerWrapper>
-          <Picker onEmojiClick={onEmojiClick} />
+          <Field name={name}>
+            {({ form }) => (
+              <Picker
+                onEmojiClick={(event, emojiObject) =>
+                  onEmojiClick(event, emojiObject, form.setFieldValue)
+                }
+              />
+            )}
+          </Field>
         </PickerWrapper>
       )}
     </Wrapper>

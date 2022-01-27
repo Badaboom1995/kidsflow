@@ -1,33 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { Wrapper } from './styled';
-import EventsAddView from './view';
-import { useParams, useHistory } from 'react-router-dom';
-import { sendEvent } from './duck/actions';
-import {
-  selectCurrentEvent,
-  selectLoading,
-  selectPrompts,
-} from './duck/selectors';
+import CompilationsAddView from './view';
 import { Formik } from 'formik';
-import { imagesSelector } from 'parts/UploadSection/duck/selectors';
 import Loader from 'parts/Loader';
+import digestService from 'services/digests';
 
 function CompilationsAdd() {
-  const { id }: { id: string } = useParams();
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const currentEvent = useSelector(selectCurrentEvent);
-  const isLoading = useSelector(selectLoading);
-  const orgPrompts = useSelector(selectPrompts);
-  const uploads = useSelector(imagesSelector);
-
-  const type = id ? 'update' : 'create';
-
-  const defaultValues = {
-    isActive: 'active',
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <Wrapper>
@@ -35,29 +14,19 @@ function CompilationsAdd() {
         <Loader></Loader>
       ) : (
         <Formik
-          onSubmit={(values) => {
-            dispatch(
-              sendEvent({
-                values: {
-                  ...values,
-                  uploadIds: uploads.map((item) => item.id),
-                },
-                type,
-                eventId: id,
-                history,
-              })
-            );
+          onSubmit={(values: any, actions) => {
+            const payload = {
+              ...values,
+              activeFrom: '2022-01-26T08:30:53.459Z',
+              activeTo: '2022-01-26T08:30:53.459Z',
+              isActive: values.isActive === 'active' ? true : false,
+            };
+            digestService.create({ payload }).then(() => actions.resetForm());
+            actions.resetForm();
           }}
-          initialValues={currentEvent || defaultValues}
+          initialValues={{}}
         >
-          {({ setFieldValue, handleChange }) => (
-            <EventsAddView
-              prompts={orgPrompts}
-              currentEvent={currentEvent}
-              setFieldValue={setFieldValue}
-              handleChange={handleChange}
-            />
-          )}
+          <CompilationsAddView />
         </Formik>
       )}
     </Wrapper>

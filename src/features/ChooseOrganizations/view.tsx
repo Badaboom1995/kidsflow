@@ -5,12 +5,16 @@ import OrganizationCard from './components/OrganizationCard';
 import { useSelector } from 'react-redux';
 import { RootState } from 'index';
 
-function ChooseOrganizationsView() {
+function ChooseOrganizationsView({ callback, setFieldValue, name }) {
   const organizations = useSelector(
     (state: RootState) => state.organizationsPicker.entities
   );
   useEffect(() => {
-    console.log(organizations);
+    const organizationsIds = organizations.map(
+      (organization) => organization.organizationId
+    );
+    callback(organizationsIds);
+    setFieldValue(name, organizationsIds.concat());
   }, [organizations]);
   return (
     <Wrapper>

@@ -1,7 +1,7 @@
-import React from "react";
-import ErrorContainier from "../ErrorContainier";
-import { Label } from "../styled";
-import { Field } from "formik";
+import React from 'react';
+import ErrorContainier from '../ErrorContainier';
+import { Label } from '../styled';
+import { Field } from 'formik';
 
 import {
   Wrapper,
@@ -10,7 +10,7 @@ import {
   Radio,
   Option,
   OptionsContainer,
-} from "./styled";
+} from './styled';
 
 function SelectView({
   isOpen,
@@ -33,13 +33,13 @@ function SelectView({
   return (
     <Wrapper open={isOpen}>
       <Label>{label}</Label>
-      <ErrorContainier error={touched ? error : ""}>
+      <ErrorContainier error={touched ? error : ''}>
         <SelectBox selected={!!selectedValue} onClick={toggleSelect}>
           {selectedValue ? showSelected(selectedValue) : title}
         </SelectBox>
       </ErrorContainier>
       <Field name={name}>
-        {({ field }) => (
+        {({ form }) => (
           <OptionsContainer>
             {!!options.length &&
               options.map((option, index) => (
@@ -52,6 +52,7 @@ function SelectView({
                     onChange={(value) => {
                       side && side(value);
                       setSelected(value);
+                      form.setFieldValue(name, option.value);
                     }}
                   />
                 </Option>
