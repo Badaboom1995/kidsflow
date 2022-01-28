@@ -37,7 +37,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       const data = {
         name,
         about,
-        gender: parseInt(gender),
+        gender,
         numberOfSpots: parseInt(numberOfSpots),
         ageFrom: parseInt(ageFrom),
         ageTo: parseInt(ageTo),

@@ -14,9 +14,9 @@ export const colors = {
 };
 
 export const gender = [
-  { name: "Неважно", value: '0' },
-  { name: "Мужской", value: '1' },
-  { name: "Женский", value: '2' },
+  { name: "Неважно", value: 'All' },
+  { name: "Мужской", value: 'Male' },
+  { name: "Женский", value: 'Female' },
 ];
 
 export const getSchedule = () => {

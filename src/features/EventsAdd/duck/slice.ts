@@ -57,7 +57,7 @@ const eventsSlice = createSlice({
           email,
           place,
           partner: partnerId,
-          gender: chooseGender(gender),
+          gender,
           uploadIds: photos.map(item => item.id)
         };
 
