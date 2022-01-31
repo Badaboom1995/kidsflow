@@ -3,11 +3,6 @@ import { getEventById, getOrganizationsPrompt, sendEvent, bootstrapEvents } from
 import makeReducer from "utils/makeReducer";
 import { toast } from "react-toastify";
 
-const chooseGender = (name) => {
-  if (name === 'Male') return '0'
-  if (name === 'Female') return '1'
-  return '2'
-}
 const eventsSlice = createSlice({
   name: "eventsForm",
   initialState: {
@@ -49,8 +44,9 @@ const eventsSlice = createSlice({
           ageTo: `${ageTo}`,
           ageFrom: `${ageFrom}`,
           about,
-          eventDirectionId: direction.eventDirectionId,
-          categoryId: direction.parent?.eventDirectionId,
+          categoryId: direction.parent?.parentId,
+          eventDirectionId: direction.parent?.eventDirectionId,
+          eventDirectionHighId: direction.eventDirectionId,
           organizationId: organizationId,
           phoneNumber,
           site,

@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Input from "parts/Input";
-import Select from "parts/Select";
-import Search from "parts/Search";
-import { GridContainer, GridElement, Subtitle } from "parts/styled";
-import { gender, getAge } from "config/constants";
-import { useSelector, useDispatch } from "react-redux";
+import Input from 'parts/Input';
+import Select from 'parts/Select';
+import Search from 'parts/Search';
+import { GridContainer, GridElement, Subtitle } from 'parts/styled';
+import { gender, getAge } from 'config/constants';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectDirections,
   selectCategories,
   selectCategoriesHigh,
   selectPartners,
-} from "ducks/dicts/selectors";
+} from 'ducks/dicts/selectors';
 
-import { getOrganizationsPrompt } from "../../duck/actions";
-import { clearEventData, clearOrgPrompts } from "features/EventsAdd/duck/slice";
+import { getOrganizationsPrompt } from '../../duck/actions';
+import { clearEventData, clearOrgPrompts } from 'features/EventsAdd/duck/slice';
 
-import UploadSection from "parts/UploadSection";
-import uploadsService from "services/uploads";
-import CategoryChips from "parts/CategoryChips";
+import UploadSection from 'parts/UploadSection';
+import uploadsService from 'services/uploads';
+import CategoryChips from 'parts/CategoryChips';
 
-import "react-datepicker/dist/react-datepicker.css";
-import DateInput from "parts/DateInput";
-import TimeInput from "parts/TimeInput";
-import { useFormikContext } from "formik";
+import 'react-datepicker/dist/react-datepicker.css';
+import DateInput from 'parts/DateInput';
+import TimeInput from 'parts/TimeInput';
+import { useFormikContext } from 'formik';
 import {
   selectExtraData,
   selectPhotosUrls,
-} from "features/EventsAdd/duck/selectors";
-import eventsService from "services/events";
+} from 'features/EventsAdd/duck/selectors';
+import eventsService from 'services/events';
 
 interface IGeneralForm {
   prompts: { name: string; value: string }[];
@@ -172,7 +172,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
                   Направление<Subtitle>Выберите одно</Subtitle>
                 </span>
               }
-              title={directions ? "---" : "Загружаем направления..."}
+              title={directions ? '---' : 'Загружаем направления...'}
               name="categoryId"
               options={directions}
               onChange={(e) => {
@@ -201,7 +201,7 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
                 </span>
               }
               name="eventDirectionHighId"
-              list={getFilteredCategoriesHigh("eventDirectionId")}
+              list={getFilteredCategoriesHigh('eventDirectionId')}
               value={values?.eventDirectionHighId}
             />
           </GridElement>

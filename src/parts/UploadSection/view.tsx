@@ -1,8 +1,6 @@
-import React from "react";
-import { Wrapper } from "./styled";
-import MultyUploader from "parts/MultyUploader";
-import { useDispatch } from "react-redux";
-import { IUploadSection } from "./types";
+import React from 'react';
+import { Wrapper } from './styled';
+import MultyUploader from 'parts/MultyUploader';
 
 const UploadSectionView = ({
   id,
@@ -12,7 +10,6 @@ const UploadSectionView = ({
   onExtraDelete,
   images,
 }: any) => {
-  const dispatch = useDispatch();
   return (
     <Wrapper>
       {id ? (

@@ -103,13 +103,14 @@ export const uploadPhoto = createAsyncThunk<any, string>(
 type bootstrapEventsProps = { id?: string }
 export const bootstrapEvents = createAsyncThunk<any, bootstrapEventsProps>(
   "events/bootstrap",
-  async ({ id }, { dispatch }) => {
+  async ({ id }, { dispatch, getState }) => {
     try {
       id && await dispatch(getEventById(id));
-      await dispatch(getDirections());
-      await dispatch(getCategories());
-      await dispatch(getCategoriesHigh());
-      await dispatch(getPartners());
+      const state = getState()
+      await dispatch(getDirections('EventDirection'));
+      await dispatch(getCategories('EventDirection'));
+      await dispatch(getCategoriesHigh('EventDirection'));
+      await dispatch(getPartners('EventDirection'));
       return
     } catch (error) {
       console.log(error);

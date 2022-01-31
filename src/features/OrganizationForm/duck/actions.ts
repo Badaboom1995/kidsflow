@@ -26,7 +26,7 @@ export const getCategories = createAsyncThunk<any, any>(
   "addOrganization/getCategories",
   async (parentId) => {
     try {
-      const categories = await directionsService.getList(2);
+      const categories = await directionsService.getList(2, 'OrganizationDirection');
       return { categories, parentId };
     } catch (error) {
       throw error;
@@ -73,8 +73,8 @@ export const bootstrap = createAsyncThunk<any, any>(
   async (id?: string) => {
     const tasks = [
       organizationsService.partnersList(),
-      directionsService.getList(1),
-      directionsService.getList(2),
+      directionsService.getList(1, 'OrganizationDirection'),
+      directionsService.getList(2, 'OrganizationDirection'),
       geoService.getStations(),
     ];
     id && tasks.push(organizationsService.getById(id));

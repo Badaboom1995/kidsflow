@@ -28,10 +28,12 @@ const organizatonsSlice = createSlice({
       builder,
       getDirections,
       (state, payload) => {
-        state.directions = payload.data.map((item) => ({
-          name: item.name,
-          value: item.eventDirectionId,
-        }));
+        state.directions = payload.data
+          .filter(item => item.level === 1)
+          .map((item) => ({
+            name: item.name,
+            value: item.eventDirectionId,
+          }));
       },
       () => { }
     );
@@ -39,11 +41,13 @@ const organizatonsSlice = createSlice({
       builder,
       getCategories,
       (state, payload) => {
-        state.categories = payload.data.map((item) => ({
-          name: item.name,
-          value: item.eventDirectionId,
-          parentId: item.parentId,
-        }));
+        state.categories = payload.data
+          .filter(item => item.level === 2)
+          .map((item) => ({
+            name: item.name,
+            value: item.eventDirectionId,
+            parentId: item.parentId,
+          }));
       },
       () => { }
     );
@@ -51,11 +55,13 @@ const organizatonsSlice = createSlice({
       builder,
       getCategoriesHigh,
       (state, payload) => {
-        state.categoriesHigh = payload.data.map((item) => ({
-          name: item.name,
-          value: item.eventDirectionId,
-          parentId: item.parentId,
-        }));
+        state.categoriesHigh = payload.data
+          .filter(item => item.level === 3)
+          .map((item) => ({
+            name: item.name,
+            value: item.eventDirectionId,
+            parentId: item.parentId,
+          }));
       },
       () => { }
     );
