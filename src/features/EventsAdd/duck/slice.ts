@@ -31,22 +31,28 @@ const eventsSlice = createSlice({
     makeReducer(
       builder,
       getEventById,
-      (state, { event, organization, partner }) => {
-
+      (state, { event, organization, partner, dicts }) => {
+        console.log(event)
         const { eventDate, numberOfSpots, ageTo, ageFrom, about, direction, photos, gender, place } = event
         const { organizationId, name, phoneNumber, site, email } = organization
         const { partnerId } = partner
+
+        const levelsArray = direction.eventDirectionId.split('-')
+        const level0 = dicts.directions.find(item => item.value === `${levelsArray[0]}-${levelsArray[1]}`).value
+        const level1 = dicts.categories.find(item => item.value?.includes(levelsArray[2])).value
+        const level2 = dicts.categoriesHigh.find(item => item.value?.includes(levelsArray[3]))?.value
+
         const normalizedData = {
           name: event.name,
           eventDate: eventDate.split('T')[0],
           time: eventDate,
           numberOfSpots: `${numberOfSpots}`,
-          ageTo: `${ageTo}`,
-          ageFrom: `${ageFrom}`,
+          ageFrom: `${ageFrom ? ageFrom : 0}`,
+          ageTo: `${ageTo ? ageTo : 24}`,
           about,
-          categoryId: direction.parent?.parentId,
-          eventDirectionId: direction.parent?.eventDirectionId,
-          eventDirectionHighId: direction.eventDirectionId,
+          categoryId: level0,
+          eventDirectionId: level1,
+          eventDirectionHighId: level2,
           organizationId: organizationId,
           phoneNumber,
           site,
@@ -83,8 +89,9 @@ const eventsSlice = createSlice({
       (state, payload) => {
         toast.success("Событие создано");
       },
-      (error) => {
-        toast.error('Не удалось создать');
+      (error, action) => {
+        toast.error(action.error.message);
+        console.log(error, action)
       },
       true
     );

@@ -32,7 +32,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       place,
       partner,
     } = payload.values;
-
+    console.log('here')
     try {
       const data = {
         name,
@@ -41,7 +41,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
         numberOfSpots: parseInt(numberOfSpots),
         ageFrom: parseInt(ageFrom),
         ageTo: parseInt(ageTo),
-        eventDirectionId: eventDirectionHighId[0] || eventDirectionId[0] || categoryId,
+        eventDirectionId: (eventDirectionHighId && eventDirectionHighId[0]) || eventDirectionId[0] || categoryId,
         categoryId,
         organizationId,
         isActive: isActive === "active" ? true : false,
@@ -64,10 +64,11 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
 
 export const getEventById = createAsyncThunk<any, any>(
   "events/getEventById",
-  async (id) => {
+  async (id, { getState }) => {
+    const state: Record<string, any> = getState()
     try {
       const res = await eventsService.getById(id);
-      return res;
+      return { ...res, dicts: state.dicts };
     } catch (error) {
       return error;
     }
@@ -105,12 +106,11 @@ export const bootstrapEvents = createAsyncThunk<any, bootstrapEventsProps>(
   "events/bootstrap",
   async ({ id }, { dispatch, getState }) => {
     try {
-      id && await dispatch(getEventById(id));
-      const state = getState()
       await dispatch(getDirections('EventDirection'));
       await dispatch(getCategories('EventDirection'));
       await dispatch(getCategoriesHigh('EventDirection'));
       await dispatch(getPartners('EventDirection'));
+      id && await dispatch(getEventById(id));
       return
     } catch (error) {
       console.log(error);
