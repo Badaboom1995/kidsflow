@@ -234,8 +234,8 @@ const addUserFormSlice = createSlice({
           } = payload.currentOrganization;
           // Нормализуем направление организации
           const directionId = directions.find(
-            (direction) => !direction.parent
-          ).eventDirectionId;
+            (direction) => !direction?.parent
+          )?.eventDirectionId;
           // Нормализуем категории организации
           const categoryIds = directions
             .filter((direction) => direction?.parent)
