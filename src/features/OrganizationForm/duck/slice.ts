@@ -238,8 +238,8 @@ const addUserFormSlice = createSlice({
           ).eventDirectionId;
           // Нормализуем категории организации
           const categoryIds = directions
-            .filter((direction) => direction.parent)
-            .map((item) => item.eventDirectionId);
+            .filter((direction) => direction?.parent)
+            .map((item) => item?.eventDirectionId);
 
           const businessHoursNormalized = new Array(7)
             .fill({ completed: true })
