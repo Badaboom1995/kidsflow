@@ -21,6 +21,8 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       numberOfSpots,
       eventDirectionId,
       eventDirectionHighId,
+      dateFrom,
+      dateTo,
       eventDate,
       time,
       categoryId,
@@ -49,7 +51,9 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
         place: place?.split("&")[2],
         lat: parseFloat(place?.split("&")[0]),
         lon: parseFloat(place?.split("&")[1]),
-        eventDate: `${eventDate}T${moment(time).format("HH:mm")}`
+        eventDate: `${eventDate}T${moment(time).format("HH:mm")}`,
+        dateFrom,
+        dateTo,
       };
       const secondArg = payload.type === 'create' ? partner : payload.eventId
       let res = await eventsService[payload.type](data, secondArg)

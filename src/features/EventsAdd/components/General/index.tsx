@@ -90,6 +90,12 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
           <Input name="numberOfSpots" label="Места" />
         </GridElement>
         <GridElement>
+          <DateInput name="dateFrom" label="Дата от" />
+        </GridElement>
+        <GridElement>
+          <DateInput name="dateTo" label="Дата до" />
+        </GridElement>
+        <GridElement>
           <Search
             label="Организация"
             value={extraData.organizationName}
