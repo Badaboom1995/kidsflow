@@ -6,4 +6,5 @@ export interface ICategoryChips {
   name: string;
   error?: string;
   touched?: boolean;
+  side?: (e: string) => void
 }

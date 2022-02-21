@@ -5,6 +5,7 @@ import {
   getOrganizationById,
   bootstrap,
   getCategories,
+  getCategoriesHigh,
   deleteImage,
   uploadImage,
   uploadExtraImage,
@@ -23,6 +24,7 @@ type initialState = {
   directions?: { name: string; value: string }[];
   currentDirection?: string;
   categories?: Record<string, string>[];
+  categoriesHigh?: Record<string, string>[];
   cities?: { value: string; name: string }[];
   stations?: { value: string; name: string }[];
   partners?: any[];
@@ -136,6 +138,26 @@ const addUserFormSlice = createSlice({
     );
     makeReducer(
       builder,
+      getCategoriesHigh,
+      (state, { categoriesHigh, parentId }) => {
+        state.currentDirection = state.directions.find(
+          (item) => item.value === parentId
+        ).value;
+        console.log(parentId)
+        state.categoriesHigh = categoriesHigh.data
+          .filter((item) => item.parentId === parentId)
+          .map((item) => ({
+            name: item.name,
+            value: item.eventDirectionId,
+          }));
+      },
+      () => {
+        toast.error("Организация не найдена");
+      },
+      true
+    );
+    makeReducer(
+      builder,
       getOrganizationById,
       (state, payload) => {
         state.currentOrganization = payload;
@@ -186,6 +208,7 @@ const addUserFormSlice = createSlice({
         state.partners = payload.partners;
         state.directions = payload.directions;
         state.categories = payload.categories;
+        state.categoriesHigh = payload.categories;
 
         state.stations = payload.metro
           .reduce(
@@ -232,14 +255,11 @@ const addUserFormSlice = createSlice({
             businessHours,
             isActive,
           } = payload.currentOrganization;
-          // Нормализуем направление организации
-          const directionId = directions.find(
-            (direction) => !direction?.parent
-          )?.eventDirectionId;
-          // Нормализуем категории организации
-          const categoryIds = directions
-            .filter((direction) => direction?.parent)
-            .map((item) => item?.eventDirectionId);
+
+          const directionId = directions[0].eventDirectionId
+          const categoryId = directions[1].eventDirectionId
+          const categoryHighId = directions[2].eventDirectionId
+
 
           const businessHoursNormalized = new Array(7)
             .fill({ completed: true })
@@ -259,7 +279,8 @@ const addUserFormSlice = createSlice({
             about,
             name,
             directions: directionId,
-            category: categoryIds,
+            category: categoryId,
+            categoryHigh: categoryHighId,
             ageFrom: ageFrom?.toString(),
             ageTo: ageTo?.toString(),
             partnerId: partner?.partnerId,

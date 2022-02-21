@@ -38,6 +38,10 @@ export const categorySelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.categories
 );
+export const categorySelectorHigh = createSelector(
+  AddUserFormSelector,
+  (addOrg) => addOrg.categoriesHigh
+);
 export const partnerSelector = createSelector(
   AddUserFormSelector,
   (addOrg) => addOrg.partners

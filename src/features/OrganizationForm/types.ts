@@ -37,6 +37,7 @@ export type TGeneralFormState = {
   ageFrom: string;
   ageTo: string;
   category: any;
+  categoryHigh: any;
   directions: string;
   name: string;
   partnerId: string;

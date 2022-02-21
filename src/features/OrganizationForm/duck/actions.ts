@@ -33,7 +33,14 @@ export const getCategories = createAsyncThunk<any, any>(
     }
   }
 );
-
+export const getCategoriesHigh = createAsyncThunk<Record<string, string>, any>(
+  "dicts/getCategoriesHighOrg",
+  async (parentId, { rejectWithValue }) => {
+    const categoriesHigh = await directionsService.getList(3, 'OrganizationDirection');
+    if (!categoriesHigh.data) return rejectWithValue("error");
+    return { categoriesHigh, parentId };
+  }
+);
 export const uploadImage = createAsyncThunk<any, any>(
   "addOrganization/uploadImage",
   async (file) => {

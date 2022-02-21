@@ -61,6 +61,10 @@ function AddOrgView({
     const onlineSchool = isOnline ? 'OnlineSchool' : null;
     if (dataReady) {
       const coords = data.contacts.coords.split(',');
+      const directions = [data.general?.directions, data.general?.category];
+      if (data.general?.categoryHigh) {
+        directions.push(data.general?.categoryHigh);
+      }
       submitMethod(
         {
           ...data.general,
@@ -68,17 +72,10 @@ function AddOrgView({
           ...data.legal,
           ...(onlineSchool
             ? {
-                directions: [
-                  data.general?.directions,
-                  ...data.general?.category,
-                  onlineSchool,
-                ],
+                directions: [...directions, onlineSchool],
               }
             : {
-                directions: [
-                  data.general?.directions,
-                  ...data.general?.category,
-                ],
+                directions,
               }),
           about:
             data.general.about.charAt(0).toUpperCase() +

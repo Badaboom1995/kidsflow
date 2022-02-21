@@ -1,16 +1,16 @@
-import React, { useRef, useEffect, Dispatch, SetStateAction } from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
+import React, { useRef, useEffect, Dispatch, SetStateAction } from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import ChildFormView from "./view";
-import { Item } from "features/AddUserForm/styled";
-import Input from "parts/Input";
-import Select from "parts/Select";
-import CategoryChips from "parts/CategoryChips";
+import ChildFormView from './view';
+import { Item } from 'features/AddUserForm/styled';
+import Input from 'parts/Input';
+import Select from 'parts/Select';
+import CategoryChips from 'parts/CategoryChips';
 
-import { formConfigType } from "./types";
-import TimeSchedule from "../TimeSchedule";
-import Search from "parts/Search";
+import { formConfigType } from './types';
+import TimeSchedule from '../TimeSchedule';
+import Search from 'parts/Search';
 
 interface IFormGenerator {
   config: formConfigType;
@@ -57,9 +57,9 @@ function FormGenerator({
   const makeYup = (yup) => {
     if (!yup) return Yup.string();
     const startYup =
-      yup[0].key === "optional"
+      yup[0].key === 'optional'
         ? Yup.string()
-        : Yup.string().required("Обязательное поле");
+        : Yup.string().required('Обязательное поле');
     return yup.reduce((accum, item) => accum[item.key](...item.args), startYup);
   };
 
@@ -82,22 +82,21 @@ function FormGenerator({
     onChange?
   ) => {
     let field = null;
-    if (type === "text" || type === "textarea") {
+    if (type === 'text' || type === 'textarea') {
       field = (
         <Input
           {...props}
-          onChange={(value) => {
-          }}
+          onChange={(value) => {}}
           error={errors[props.name]}
           touched={touched[props.name]}
         />
       );
     }
-    if (type === "select") {
+    if (type === 'select') {
       field = (
         <Select
           {...props}
-          title={props.title || "---"}
+          title={props.title || '---'}
           onChange={handleChange}
           error={errors[props.name]}
           touched={touched[props.name]}
@@ -106,7 +105,7 @@ function FormGenerator({
         />
       );
     }
-    if (type === "chips") {
+    if (type === 'chips') {
       field = (
         <CategoryChips
           title={props.label}
@@ -115,11 +114,12 @@ function FormGenerator({
           name={props.name}
           value={initialValues && values[props.name]}
           error={errors[props.name]}
+          side={props.side}
           touched={touched[props.name]}
         />
       );
     }
-    if (type === "timeSchedule") {
+    if (type === 'timeSchedule') {
       field = (
         <TimeSchedule
           title={props.label}
@@ -128,7 +128,7 @@ function FormGenerator({
         />
       );
     }
-    if (type === "search") {
+    if (type === 'search') {
       field = (
         <Search
           {...props}
@@ -167,7 +167,7 @@ function FormGenerator({
       initialValues={
         initialValues ||
         config.fields.reduce(
-          (accum, curr) => ({ ...accum, [curr.name]: curr.value || "" }),
+          (accum, curr) => ({ ...accum, [curr.name]: curr.value || '' }),
           {}
         )
       }
