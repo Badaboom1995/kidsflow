@@ -10,6 +10,7 @@ import CatalogAdd from 'pages/CatalogAdd';
 import Events from 'pages/Events';
 import EventsAdd from 'pages/EventsAdd';
 import CompilationsAddPage from 'pages/CompilationsAddPage';
+import HighlighsPage from 'pages/Highlights';
 
 interface IRouter {
   children?: React.ReactNode;
@@ -27,6 +28,7 @@ export default function Router(props: IRouter) {
       <Route path={`/events`} exact={true} component={Events} />
       <Route path={`/events/add/:id?`} component={EventsAdd} />
       <Route path={`/compilations`} component={CompilationsAddPage} />
+      <Route path={`/highlights`} component={HighlighsPage} />
     </Switch>
   );
 }

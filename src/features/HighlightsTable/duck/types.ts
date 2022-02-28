@@ -1,0 +1,23 @@
+export type OrganizationType = {
+  adress: string;
+  about: string;
+  entityId: number;
+  eventCategories: string[];
+  eventTypes: string[];
+  isActive: boolean;
+  ageFrom: number;
+  ageTo: number;
+  name: string;
+  organizationId: string;
+  partner: any;
+  uploads: any[];
+  address: string;
+  phoneNumber: string;
+  email: string;
+  site: string;
+  entity: string;
+  accountNumber: string;
+  taxIdNumber: string;
+  primaryStateNumber: string;
+  legalAddress: string;
+};

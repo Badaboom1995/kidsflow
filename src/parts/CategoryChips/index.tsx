@@ -40,7 +40,7 @@ function CategoryChips({
           <CategoryChipsItem
             key={item.value}
             onClick={() => {
-              side(item.value);
+              side && side(item.value);
             }}
             className={
               (value?.includes(item.value) && 'active') ||

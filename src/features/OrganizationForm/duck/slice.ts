@@ -258,7 +258,7 @@ const addUserFormSlice = createSlice({
 
           const directionId = directions[0].eventDirectionId
           const categoryId = directions[1].eventDirectionId
-          const categoryHighId = directions[2].eventDirectionId
+          const categoryHighId = directions[2]?.eventDirectionId
 
 
           const businessHoursNormalized = new Array(7)

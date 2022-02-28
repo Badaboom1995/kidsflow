@@ -51,6 +51,12 @@ function Navigation() {
       iconId: 'support',
       active: false,
     },
+    {
+      label: 'Хайлайтс',
+      to: `/highlights`,
+      iconId: 'highlights',
+      active: false,
+    },
   ];
   const [menuItems, setItems] = useState(initialState);
   const setActive = (label: string) => {

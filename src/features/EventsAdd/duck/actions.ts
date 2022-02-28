@@ -44,6 +44,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
         ageFrom: parseInt(ageFrom),
         ageTo: parseInt(ageTo),
         eventDirectionId: (eventDirectionHighId && eventDirectionHighId[0]) || eventDirectionId[0] || categoryId,
+        directions: [(eventDirectionHighId && eventDirectionHighId[0]) || eventDirectionId[0] || categoryId],
         categoryId,
         organizationId,
         isActive: isActive === "active" ? true : false,

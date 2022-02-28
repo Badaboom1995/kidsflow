@@ -32,15 +32,18 @@ const eventsSlice = createSlice({
       builder,
       getEventById,
       (state, { event, organization, partner, dicts }) => {
-        console.log(event)
+        console.log('event')
         const { eventDate, numberOfSpots, ageTo, ageFrom, about, direction, photos, gender, place } = event
         const { organizationId, name, phoneNumber, site, email } = organization
         const { partnerId } = partner
 
-        const levelsArray = direction.eventDirectionId.split('-')
-        const level0 = dicts.directions.find(item => item.value === `${levelsArray[0]}-${levelsArray[1]}`).value
-        const level1 = dicts.categories.find(item => item.value?.includes(levelsArray[2])).value
-        const level2 = dicts.categoriesHigh.find(item => item.value?.includes(levelsArray[3]))?.value
+        const levelsArray = direction?.eventDirectionId.split('-')
+        const [level0, level1, level2] = [[], [], []]
+        if (levelsArray) {
+          const level0 = dicts.directions.find(item => item.value === `${levelsArray[0]}-${levelsArray[1]}`).value
+          const level1 = dicts.categories.find(item => item.value?.includes(levelsArray[2])).value
+          const level2 = dicts.categoriesHigh.find(item => item.value?.includes(levelsArray[3]))?.value
+        }
 
         const normalizedData = {
           name: event.name,
