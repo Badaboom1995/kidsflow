@@ -38,11 +38,11 @@ const eventsSlice = createSlice({
         const { partnerId } = partner
 
         const levelsArray = direction?.eventDirectionId.split('-')
-        const [level0, level1, level2] = [[], [], []]
+        let [level0, level1, level2] = [[], [], []]
         if (levelsArray) {
-          const level0 = dicts.directions.find(item => item.value === `${levelsArray[0]}-${levelsArray[1]}`).value
-          const level1 = dicts.categories.find(item => item.value?.includes(levelsArray[2])).value
-          const level2 = dicts.categoriesHigh.find(item => item.value?.includes(levelsArray[3]))?.value
+          level0 = dicts.directions.find(item => item.value === `${levelsArray[0]}-${levelsArray[1]}`).value
+          level1 = dicts.categories.find(item => item.value?.includes(levelsArray[2])).value
+          level2 = dicts.categoriesHigh.find(item => item.value?.includes(levelsArray[3]))?.value
         }
 
         const normalizedData = {
