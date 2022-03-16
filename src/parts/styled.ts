@@ -216,3 +216,38 @@ export const Space = styled.span`
   display: block;
   padding: 9px;
 `;
+
+export const FormContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  /* height: calc(100vh - 200px); */
+  box-sizing: border-box;
+`;
+export const HeadForm = styled.div`
+  grid-column: span 12;
+`;
+export const LeftForm = styled.div`
+  grid-column: span 8;
+`;
+export const FormField = styled.div`
+  grid-column: span 4;
+`;
+export const LeftInner = styled.div``;
+export const RighForm = styled.div`
+  padding-left: 30px;
+  padding-right: 20px;
+  grid-column: span 4;
+`;
+export const Uploads = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  label {
+    margin-right: 10px;
+  }
+`;
+export const FooterForm = styled.div`
+  grid-column: span 12;
+
+  align-self: end;
+`;
+

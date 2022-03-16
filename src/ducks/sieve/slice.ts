@@ -39,9 +39,10 @@ const organizatonsSlice = createSlice({
     changeSort(state, { payload }: { payload: { value: string } }) {
       state.sort[Object.keys(state.sort)[0]] = payload.value;
     },
-    clearSieves(state) {},
+    clearSieves(state) { },
   },
 });
+
 export const { setFilter, changeFilterValue } = organizatonsSlice.actions;
 
 export default organizatonsSlice.reducer;

@@ -20,3 +20,10 @@ export const MainSubtitle = styled.span`
   margin-bottom: 5px;
   text-transform: uppercase;
 `;
+
+export const SectionSubtitle = styled.span`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+`;
