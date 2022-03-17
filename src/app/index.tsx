@@ -11,7 +11,6 @@ import { selectUserData } from 'ducks/user/selectors';
 
 // TODO. make router right way
 function App() {
-  console.log(window.location.href.includes('kidsflow-admin-dev'));
   const history = useHistory();
   const user = useSelector(selectUserData);
   const isLoggedIn = localStorage.getItem('vzletaemAdminToken');

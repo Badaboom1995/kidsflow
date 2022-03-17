@@ -15,7 +15,7 @@ import Input from 'parts/Input';
 import Select from 'parts/Select';
 import Button from 'parts/Button';
 import { SectionSubtitle } from 'parts/typography';
-import { addStory } from 'features/HighlightsAdd/duck/slice';
+import { addStory } from 'features/HighlightsAdd/duck/actions';
 import { useDispatch } from 'react-redux';
 import plus from 'assets/plus.svg';
 
@@ -25,7 +25,6 @@ interface IStoryAdd {
 
 function StoryAdd({ changeVisibility }: IStoryAdd) {
   const dispatch = useDispatch();
-  const [imgUrl, setImgUrl] = useState(null);
 
   return (
     <Wrapper>
@@ -49,7 +48,7 @@ function StoryAdd({ changeVisibility }: IStoryAdd) {
             <Fields>
               <GridContainer transparent>
                 <GridElement col={4}>
-                  <Field name="image">
+                  <Field name="imageUrl">
                     {({ form, field }) => (
                       <AddPhoto src={field.value}>
                         {!field.value && (
@@ -62,8 +61,7 @@ function StoryAdd({ changeVisibility }: IStoryAdd) {
                           type="file"
                           onChange={(e) => {
                             const blob = URL.createObjectURL(e.target.files[0]);
-                            form.setFieldValue('image', blob);
-                            setImgUrl(blob);
+                            form.setFieldValue('imageUrl', blob);
                           }}
                         />
                       </AddPhoto>

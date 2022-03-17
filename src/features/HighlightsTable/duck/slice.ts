@@ -1,34 +1,33 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
-import { getEvents } from "./actions";
+import { getHighlights } from "./actions";
 import makeReducer from "utils/makeReducer";
 import { toast } from "react-toastify";
-import { OrganizationType } from "./types";
+import { HighlightType } from "./types";
 
-export const eventsAdapter = createEntityAdapter<OrganizationType>({
-  selectId: (org) => org?.entityId,
-  sortComparer: (a, b) => (a.entityId > b.entityId ? -1 : 1),
+export const highlightsAdapter = createEntityAdapter<HighlightType>({
+  selectId: (highlight) => highlight?.highlightId,
+  sortComparer: (a, b) => (a.highlightId > b.highlightId ? -1 : 1),
 });
 
-const organizatonsSlice = createSlice({
-  name: "organizations",
+const highlightsSlice = createSlice({
+  name: "highlightsTable",
   initialState: {
     loading: false,
     totalEntities: null,
     pageSize: null,
     pageNumber: 0,
-    ...eventsAdapter.getInitialState(),
+    ...highlightsAdapter.getInitialState(),
   },
   reducers: {},
   extraReducers: (builder) => {
     makeReducer(
       builder,
-      getEvents,
-      (state, payload) => {
-        state.totalEntities = payload.totalEntities;
-        state.pageSize = payload.pageSize;
-        state.pageNumber = payload.pageNumber;
-        const entities = payload.entities.map(item => ({ ...item.event, ...item.organization, ...item.partner }))
-        eventsAdapter.setAll(state, entities);
+      getHighlights,
+      (state, entities) => {
+        // state.totalEntities = payload.totalEntities;
+        // state.pageSize = payload.pageSize;
+        // state.pageNumber = payload.pageNumber;
+        highlightsAdapter.setAll(state, entities);
       },
       () => {
         toast.error("Не удалось загрузить организации. Обновите страницу");
@@ -37,4 +36,4 @@ const organizatonsSlice = createSlice({
   },
 });
 
-export default organizatonsSlice.reducer;
+export default highlightsSlice.reducer;

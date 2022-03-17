@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import eventsService from "services/events";
+import highlightsService from "services/highlights";
 
-export const getEvents = createAsyncThunk<any, { page: number, name?: string }>(
-  "events/get",
-  async ({ page, name }, { rejectWithValue }) => {
-    const res = await eventsService.getList({ page, name });
+export const getHighlights = createAsyncThunk<any, void>(
+  "highlightsTable/get",
+  async (_, { rejectWithValue }) => {
+    const res = await highlightsService.getHighlights();
     if (!res) return rejectWithValue("error");
     return res;
   }

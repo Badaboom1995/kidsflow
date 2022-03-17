@@ -1,40 +1,43 @@
 import Table from 'parts/Table';
 import React, { useEffect } from 'react';
-import { Wrapper, OrgName } from './styled';
+import { Wrapper } from './styled';
 import { Status } from 'parts/styled';
 
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getEvents } from './duck/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHighlights } from './duck/actions';
+import { selectHighlights } from './duck/selectors';
 
-function EventsTable() {
+function HighlightsTable() {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const entities = useSelector(selectHighlights).map((item) => ({
+    ...item,
+    stories: `${item.stories.length} сториз`,
+    createDate: 'Неизвестно',
+  }));
   const onRowClick = (entity: Record<string, any>) => {
-    history.push(`/events/add/${entity.eventId}`);
+    history.push(`/highlighs/add/${entity.eventId}`);
   };
 
   useEffect(() => {
-    dispatch(getEvents({ page: 0 }));
+    dispatch(getHighlights());
   }, []);
-
+  console.log(entities);
   const fields = [
     {
       primaryKey: true,
       label: 'ID',
-      key: 'entityId',
-      props: { textalign: 'center', width: '7%' },
+      key: 'highlightId',
+      props: { textalign: 'center' },
     },
     {
       label: 'Иконка',
-      key: 'icon',
-      props: { width: '10%' },
+      key: 'emoji',
     },
     {
       label: 'Название',
-      key: 'name',
-      props: { width: '10%' },
+      key: 'title',
     },
     {
       label: 'Сториз',
@@ -42,13 +45,12 @@ function EventsTable() {
     },
     {
       label: 'Дата создания',
-      key: 'orgaizationName',
-      props: { width: '10%' },
+      key: 'createDate',
     },
     {
       label: 'Статус',
       key: 'isActive',
-      props: { width: '10%' },
+
       getComponent: (isActive) => (
         <Status status={isActive ? 'active' : 'disabled'}>
           {isActive ? 'Активен' : 'Заблокирован'}
@@ -62,7 +64,7 @@ function EventsTable() {
       <Table
         onRowClick={onRowClick}
         fields={fields}
-        items={[]}
+        items={entities || []}
         sortFunction={({ fieldName, sortDirection }) => {
           console.log(fieldName, sortDirection);
         }}
@@ -70,4 +72,4 @@ function EventsTable() {
     </Wrapper>
   );
 }
-export default EventsTable;
+export default HighlightsTable;

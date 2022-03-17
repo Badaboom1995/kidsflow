@@ -1,11 +1,11 @@
 import { serverUrl } from "config/constants";
 
 const makeUploadRequest = async ({ image, url, }) => {
+
   const token = localStorage.getItem("vzletaemAdminToken");
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`);
-
-  var formdata = new FormData();
+  var formdata = await new FormData();
   formdata.append("Media", image, image.name);
 
   var requestOptions: any = {

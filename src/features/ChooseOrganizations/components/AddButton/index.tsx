@@ -24,7 +24,6 @@ function AddButton() {
                 buttonName: 'Добавить организации',
                 method: (organizations) => {
                   dispatch(addOrganizations(organizations));
-                  console.log(organizations);
                 },
               },
               {

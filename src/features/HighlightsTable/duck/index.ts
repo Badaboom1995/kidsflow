@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import events from "./slice";
+import highlightsTable from "./slice";
 
 const reducers = {
-  events,
+  highlightsTable,
 };
 
 const combined = combineReducers(reducers);
 
-export type OrganizationsState = ReturnType<typeof combined>;
+export type HighlightsState = ReturnType<typeof combined>;
 
 export default reducers;

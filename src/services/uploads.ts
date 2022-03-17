@@ -19,6 +19,7 @@ const uploadsService = {
 
     const response = await fetch(`${serverUrl}/api/v2/uploads`, requestOptions);
     const data = await response?.json();
+    console.log(data)
     return data;
   },
   deleteImage: (orgId, uploadId) =>
