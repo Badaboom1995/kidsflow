@@ -11,6 +11,21 @@ export const addStory = createAsyncThunk<any, any>(
     return { ...story, imageUrl: cloudUrl };
   }
 );
+export const editStory = createAsyncThunk<any, any>(
+  "highlisghts/storyEdit",
+  async (story, { rejectWithValue }) => {
+    let file, upload, cloudUrl
+    if (!story.imageUrl.includes('cdn-dev.vzletaem')) {
+      file = await fetch(story.imageUrl).then(r => r.blob()).then(blobFile => new File([blobFile], "storyImage", { type: "image/png" }))
+      upload = await highlightsService.addStoryImage(file)
+      cloudUrl = upload.data[0].cloudUrl
+    } else {
+      cloudUrl = story.imageUrl
+    }
+    if (!cloudUrl) return rejectWithValue("error");
+    return { ...story, imageUrl: cloudUrl };
+  }
+);
 
 export const createHighlightWrapper = createAsyncThunk<any, any>(
   "highlisghts/createWrapper",
@@ -22,7 +37,8 @@ export const createHighlightWrapper = createAsyncThunk<any, any>(
 );
 export const createHighlight = createAsyncThunk<any, any>(
   "highlisghts/create",
-  async ({ highlight, stories, history }) => {
+  async ({ highlight, stories, history }, { rejectWithValue }) => {
+    if (!stories.length) return rejectWithValue('Нет сториз')
     const highlightWrapper = await highlightsService.createHighlight(highlight);
     const highlightId = highlightWrapper.highlightId
     await highlightsService.createStory({
@@ -35,5 +51,27 @@ export const createHighlight = createAsyncThunk<any, any>(
     })
     history.push('/highlights')
     return
+  }
+);
+
+export const updateHighlight = createAsyncThunk<any, any>(
+  "highlisghts/update",
+  async ({ highlight, history }, { getState, rejectWithValue }) => {
+    const state: any = getState()
+    const stories = state.highlights.stories
+    if (!stories.length) return rejectWithValue('Нет сториз')
+    await highlightsService.updateHighlight(highlight);
+    await highlightsService.updateStories(stories, highlight.highlightId);
+    history.push('/highlights')
+    return
+  }
+);
+
+export const bootstrap = createAsyncThunk<any, any>(
+  "highlisghts/bootstrap",
+  async ({ id }, { rejectWithValue }) => {
+    const res = await highlightsService.createHighlight(id);
+    if (!res) return rejectWithValue("error");
+    return res;
   }
 );

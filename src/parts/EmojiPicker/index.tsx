@@ -4,7 +4,10 @@ import Picker from 'emoji-picker-react';
 import { Label } from 'parts/styled';
 import { Field } from 'formik';
 
-function EmojiPicker({ name }) {
+type EmojiPicker = {
+  name: string;
+};
+function EmojiPicker({ name }: EmojiPicker) {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [isOpen, setOpen] = useState(false);
   const onEmojiClick = (event, emojiObject, callback) => {
@@ -12,29 +15,29 @@ function EmojiPicker({ name }) {
     setOpen(false);
     callback(name, emojiObject.emoji);
   };
-  useEffect(() => {
-    console.log(chosenEmoji);
-  }, [chosenEmoji]);
+
   return (
-    <Wrapper>
-      <Label>Иконка</Label>
-      <ChooseButton type="button" onClick={() => setOpen(!isOpen)}>
-        {chosenEmoji ? chosenEmoji.emoji : '---'}
-      </ChooseButton>
-      {isOpen && (
-        <PickerWrapper>
-          <Field name={name}>
-            {({ form }) => (
+    <Field name={name}>
+      {({ form, field }) => (
+        <Wrapper>
+          <Label>Иконка</Label>
+          <ChooseButton type="button" onClick={() => setOpen(!isOpen)}>
+            {chosenEmoji || field.value
+              ? chosenEmoji?.emoji || field.value
+              : '---'}
+          </ChooseButton>
+          {isOpen && (
+            <PickerWrapper>
               <Picker
                 onEmojiClick={(event, emojiObject) =>
                   onEmojiClick(event, emojiObject, form.setFieldValue)
                 }
               />
-            )}
-          </Field>
-        </PickerWrapper>
+            </PickerWrapper>
+          )}
+        </Wrapper>
       )}
-    </Wrapper>
+    </Field>
   );
 }
 export default EmojiPicker;

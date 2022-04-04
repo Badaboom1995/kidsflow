@@ -26,15 +26,21 @@ import plus from 'assets/plus.svg';
 import Modal from 'parts/Modal';
 import StoryAdd from './components/StoryAdd';
 import { Formik } from 'formik';
+import ColorPicker from 'parts/ColorPicker';
 
 function HighlightsAddView({ stories, createHighlight, removeStory }) {
   const [modalVisible, setModalVisibility] = useState(false);
+  const [activeStory, setActiveStory] = useState(null);
 
   return (
     <Wrapper>
       {modalVisible && (
         <Modal isVisible={modalVisible} changeVisibility={setModalVisibility}>
-          <StoryAdd changeVisibility={setModalVisibility} />
+          <StoryAdd
+            changeVisibility={setModalVisibility}
+            id={activeStory}
+            setActiveStory={setActiveStory}
+          />
         </Modal>
       )}
       <Formik
@@ -43,6 +49,7 @@ function HighlightsAddView({ stories, createHighlight, removeStory }) {
           createHighlight(values);
           actions.resetForm();
         }}
+        validate={(values) => console.log(values)}
       >
         <Form>
           <HeadForm>
@@ -51,7 +58,7 @@ function HighlightsAddView({ stories, createHighlight, removeStory }) {
           </HeadForm>
           <FormContent>
             <GridContainer>
-              <GridElement>
+              <GridElement col={4}>
                 <Input name="title" label="Название" />
               </GridElement>
               <GridElement col={3}>
@@ -68,6 +75,9 @@ function HighlightsAddView({ stories, createHighlight, removeStory }) {
                   ]}
                   onChange={() => {}}
                 />
+              </GridElement>
+              <GridElement col={2}>
+                <ColorPicker name="borderColor" label="Цвет фона" />
               </GridElement>
               <GridElement col={12}>
                 <StoriesTitle>
@@ -87,7 +97,15 @@ function HighlightsAddView({ stories, createHighlight, removeStory }) {
                     Добавить сториз
                   </AddStory>
                   {stories.map((story) => (
-                    <Story key={story.order} src={story.imageUrl} type="button">
+                    <Story
+                      key={story.order}
+                      src={story.imageUrl}
+                      type="button"
+                      onClick={() => {
+                        setModalVisibility(true);
+                        setActiveStory(story.id);
+                      }}
+                    >
                       <DeleteStory
                         onClick={() => {
                           removeStory(story.id);

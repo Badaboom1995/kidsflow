@@ -9,7 +9,11 @@ const highlightsService = {
     addStoryImage: (image) =>
         makeUploadRequest({ url: `api/v2/uploads`, image }),
     getHighlights: () =>
-        makeRequest(`/api/v2/admin/highlights/find`, "GET")
+        makeRequest(`/api/v2/admin/highlights/find`, "GET"),
+    updateHighlight: (highlight) =>
+        makeRequest(`/api/v2/admin/highlights/${highlight.highlightId}`, "PATCH", highlight),
+    updateStories: (stories, id) =>
+        makeRequest(`/api/v2/admin/stories/by-highlight-id/${id}`, "PUT", stories)
 };
 
 export default highlightsService;

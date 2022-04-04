@@ -17,13 +17,13 @@ function HighlightsTable() {
     createDate: 'Неизвестно',
   }));
   const onRowClick = (entity: Record<string, any>) => {
-    history.push(`/highlighs/add/${entity.eventId}`);
+    history.push(`/highlights/add/${entity.highlightId}`);
   };
 
   useEffect(() => {
     dispatch(getHighlights());
   }, []);
-  console.log(entities);
+
   const fields = [
     {
       primaryKey: true,

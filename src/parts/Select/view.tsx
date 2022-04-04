@@ -39,7 +39,7 @@ function SelectView({
         </SelectBox>
       </ErrorContainier>
       <Field name={name}>
-        {({ form }) => (
+        {({ form, field }) => (
           <OptionsContainer>
             {!!options.length &&
               options.map((option, index) => (
@@ -48,7 +48,7 @@ function SelectView({
                   <Radio
                     type="radio"
                     name={name}
-                    value={option.value}
+                    value={option.value || field.value}
                     onChange={(value) => {
                       side && side(value);
                       setSelected(value);

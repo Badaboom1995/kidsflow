@@ -4,14 +4,23 @@ import HighlightsAddView from './view';
 import { useSelector } from 'react-redux';
 import { selectSortedStories } from './duck/selectors';
 import { useDispatch } from 'react-redux';
-import { createHighlight } from './duck/actions';
+import { createHighlight, updateHighlight } from './duck/actions';
 import { removeStory } from './duck/slice';
+import { useBootstrap } from 'hooks/useBootstrap';
 import { useHistory } from 'react-router';
+
 
 function HighlightsAdd() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const stories = useSelector(selectSortedStories);
+  const history = useHistory();
+  const { method, id } = useBootstrap(
+    (id) => {
+      console.log(id);
+    },
+    createHighlight,
+    updateHighlight
+  );
 
   return (
     <HighlightsAddView
@@ -19,7 +28,8 @@ function HighlightsAdd() {
       createHighlight={(highlight) => {
         highlight.isActive = !!parseInt(highlight.isActive);
         highlight.defaultSlideDuration = 2000;
-        dispatch(createHighlight({ stories, highlight, history }));
+        highlight.highlightId = id;
+        dispatch(method({ stories, highlight, history }));
       }}
       removeStory={(id) => {
         dispatch(removeStory(id));

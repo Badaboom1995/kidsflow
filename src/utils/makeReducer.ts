@@ -14,6 +14,7 @@ const makeReducer = (
   });
   builder.addCase(action.rejected, (state: any, action: any) => {
     if (!noLoading) state.loading = false;
+    console.log(action)
     onFail(state, action);
   });
 };

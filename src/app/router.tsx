@@ -30,7 +30,7 @@ export default function Router(props: IRouter) {
       <Route path={`/events/add/:id?`} component={EventsAdd} />
       <Route path={`/compilations`} component={CompilationsAddPage} />
       <Route path={`/highlights`} exact={true} component={HighlighsPage} />
-      <Route path={`/highlights/add`} component={HighlightsAdd} />
+      <Route path={`/highlights/add/:id?`} component={HighlightsAdd} />
     </Switch>
   );
 }

@@ -15,24 +15,30 @@ import Input from 'parts/Input';
 import Select from 'parts/Select';
 import Button from 'parts/Button';
 import { SectionSubtitle } from 'parts/typography';
-import { addStory } from 'features/HighlightsAdd/duck/actions';
-import { useDispatch } from 'react-redux';
+import { addStory, editStory } from 'features/HighlightsAdd/duck/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import plus from 'assets/plus.svg';
+import { selectStoryById } from 'features/HighlightsAdd/duck/selectors';
 
 interface IStoryAdd {
   changeVisibility: (visibility: boolean) => void;
+  id?: string;
+  setActiveStory?: (id: string) => void;
 }
 
-function StoryAdd({ changeVisibility }: IStoryAdd) {
+function StoryAdd({ changeVisibility, id, setActiveStory }: IStoryAdd) {
   const dispatch = useDispatch();
+  const initialValues = useSelector(selectStoryById(id));
 
   return (
     <Wrapper>
       <Formik
-        initialValues={{}}
+        initialValues={initialValues || {}}
         onSubmit={(values, actions) => {
-          dispatch(addStory(values));
+          !id && dispatch(addStory(values));
+          id && dispatch(editStory(values));
           actions.resetForm();
+          id && setActiveStory(null);
           changeVisibility(false);
         }}
       >

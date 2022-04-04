@@ -4,5 +4,5 @@ export type TSelect = {
   name: string;
   value?: string;
   title?: string;
-  onChange: (e: any) => void;
+  onChange?: (e: any) => void;
 };
