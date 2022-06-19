@@ -95,7 +95,8 @@ function AddOrgView({
           history.push(`/orgs`);
         })
         .catch((error) => {
-          error.forEach((errorMessage) => toast.error(errorMessage));
+          console.log(error);
+          // error.forEach((errorMessage) => toast.error(errorMessage));
         });
       setReady(!dataReady);
     }

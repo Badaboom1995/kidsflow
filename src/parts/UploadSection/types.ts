@@ -5,4 +5,5 @@ export interface IUploadSection {
   onDelete?: (file, id) => Promise<any>;
   loadedImages: string[];
   id?: string;
+  name?: string
 }

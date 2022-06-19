@@ -127,32 +127,11 @@ function TimeSchedule({ title, onChange, initialValues }: ITimeSchedule) {
         <DaysCover>
           <DaysTitle>
             Выберите дни недели
-            {/* <div>
-              <button
-                onClick={() =>
-                  setDayDefaultData({
-                    openTime: "9:00",
-                    closeTime: "22:30",
-                  })
-                }
-              >
-                9:00 - 22:30
-              </button>
-              <button
-                onClick={() =>
-                  setDayDefaultData({
-                    openTime: "8:30",
-                    closeTime: "21:00",
-                  })
-                }
-              >
-                8:30 - 21:00
-              </button>
-            </div> */}
           </DaysTitle>
           <DaysList>
             {days.map(({ index, name }, i) => {
               const currentData = data[i];
+              console.log(currentData)
               return (
                 <DaysItem
                   key={index}

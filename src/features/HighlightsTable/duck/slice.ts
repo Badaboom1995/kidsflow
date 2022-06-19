@@ -24,9 +24,6 @@ const highlightsSlice = createSlice({
       builder,
       getHighlights,
       (state, entities) => {
-        // state.totalEntities = payload.totalEntities;
-        // state.pageSize = payload.pageSize;
-        // state.pageNumber = payload.pageNumber;
         highlightsAdapter.setAll(state, entities);
       },
       () => {

@@ -62,11 +62,13 @@ function OrganizationsTable(props: IOrganizationTable) {
     },
     {
       label: 'Категория',
-      key: 'eventCategories',
+      key: 'directions',
       filterType: 'select',
       props: { width: '25%' },
-      getComponent: (categories) =>
-        categories.split(',').map((item) => <Category>{item}</Category>),
+      getComponent: (categories) => {
+        console.log(categories)
+        return categories.map(item => item.name).join(' , ')
+      },
     },
     {
       label: 'Статус',

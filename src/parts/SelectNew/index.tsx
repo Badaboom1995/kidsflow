@@ -1,14 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import SelectView from './view';
 import useOutsideAlerter from 'hooks/useOutsideAlerter';
 import { TSelect } from './types';
 import { useFormikContext } from 'formik';
-import { useFormContext } from 'hooks/useFormContext';
 
-function Select(props: TSelect) {
-  useFormContext(() => {}, props.name);
+function SelectNew(props: TSelect) {
+
   const [isOpen, setOpen] = useState(false);
-  const { values } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext();
   const [selectedValue, setValue] = useState(props.value || values[props.name]);
   const ref = useRef(null);
   const toggleSelect = () => {
@@ -26,7 +25,10 @@ function Select(props: TSelect) {
     setSelected,
     ...props,
   };
-
+  useEffect(() => {
+    setValue(null)
+    setFieldValue(props.name, null)
+  }, [props.options])
   useOutsideAlerter({
     ref,
     onEvent: () => {
@@ -40,4 +42,4 @@ function Select(props: TSelect) {
     </div>
   );
 }
-export default Select;
+export default SelectNew;

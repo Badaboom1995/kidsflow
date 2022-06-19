@@ -3,7 +3,7 @@ import organizationsService from "services/organizations";
 import directionsService from "services/directions";
 import geoService from "services/geo";
 
-//TODO. Типизация всего
+//TODO Типизация всего
 export const getAddressSuggest = createAsyncThunk<any, string>(
   "addOrganization/addressSuggest",
   async (address, { rejectWithValue }) => {

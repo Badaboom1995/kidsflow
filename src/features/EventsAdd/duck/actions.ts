@@ -34,7 +34,7 @@ export const sendEvent = createAsyncThunk<any, eventPayload>(
       place,
       partner,
     } = payload.values;
-    console.log('here')
+
     try {
       const data = {
         name,
@@ -114,7 +114,7 @@ export const bootstrapEvents = createAsyncThunk<any, bootstrapEventsProps>(
       await dispatch(getDirections('EventDirection'));
       await dispatch(getCategories('EventDirection'));
       await dispatch(getCategoriesHigh('EventDirection'));
-      await dispatch(getPartners('EventDirection'));
+      await dispatch(getPartners());
       id && await dispatch(getEventById(id));
       return
     } catch (error) {

@@ -58,18 +58,18 @@ function GeneralForm({ prompts, handleChange }: IGeneralForm) {
   const age = getAge(24);
 
   const getFilteredCategories = () => {
-    const categoriesByDirerction = categories.filter(
+    const categoriesByDirerction = categories?.filter(
       (item) => item.parentId === currentDirectionId
     );
-    return categoriesByDirerction.length ? categoriesByDirerction : categories;
+    return categoriesByDirerction?.length ? categoriesByDirerction : categories;
   };
 
   const getFilteredCategoriesHigh = (property: string) => {
-    const categoriesByDirerction = categoriesHigh.filter((item) => {
+    const categoriesByDirerction = categoriesHigh?.filter((item) => {
       const category = values[property] ? values[property][0] : [];
       return item.parentId === category;
     });
-    return categoriesByDirerction.length
+    return categoriesByDirerction?.length
       ? categoriesByDirerction
       : categoriesHigh;
   };

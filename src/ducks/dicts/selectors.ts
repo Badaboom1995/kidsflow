@@ -20,3 +20,7 @@ export const selectPartners = createSelector(
   userSelector,
   (dicts) => dicts.partners
 );
+export const selectStations = createSelector(
+  userSelector,
+  (dicts) => dicts.metro
+);

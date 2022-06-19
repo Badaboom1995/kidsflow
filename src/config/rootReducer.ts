@@ -7,7 +7,6 @@ import events from "features/EventsTable/duck";
 import eventsForm from "features/EventsAdd/duck";
 import uploads from "parts/UploadSection/duck";
 import organizatonsPicker from "features/ChooseOrganizations/duck"
-import highlights from "features/HighlightsAdd/duck"
 import highlightsTable from "features/HighlightsTable/duck"
 
 import sieve from "ducks/sieve";
@@ -27,7 +26,6 @@ export function createReducer() {
     ...addOrg,
     ...uploads,
     ...organizatonsPicker,
-    ...highlights,
     ...highlightsTable
   });
 }

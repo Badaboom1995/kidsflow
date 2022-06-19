@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import ErrorContainier from '../ErrorContainier';
+import ErrorContainier from '../../ErrorContainier';
 import { StyledInput, Wrapper, InputContainer, Textarea } from './styled';
-import { Label } from '../styled';
+import { Label } from '../../styled';
 import { Field } from 'formik';
 import { setAddress } from 'features/OrganizationForm/duck/slice';
 
@@ -46,34 +46,12 @@ export default function Input({
     const dependsName = '';
     //conteks.addDependency(fieldName, dependsName)
     //-- loadDicts
-    /*
-    Object.keys(graph).map(nodeKey) => {
-      independent = []
-      if(graph[nodeKey] === null){
-      independent.push()
-    }
-      await load(independent)
-        deps = {key: 6, 1:6, 2:3,3:4, 4:6, new: 2}
-        loaded = [0,6]
-        getQueue(deps) {
-          const loaded = [0,6]
-          const recursive = () => {
-            const keys = Object.keys(deps)
-            let value = deps[keys[0]]
-            while(!loaded.include(value)){
-              value = deps[value]
-            }
-            const rootKey = keys.find(key => deps[key] === value )  
-            loaded.push(rootKey)
-            delete deps[rootKey]
-            if(keys.length == 2) return
-            return recursive()
-          }
-          
-          return 
-        }
-    }
-    */
+    // Object.keys(graph).map(nodeKey) => {
+    // if(graph[nodeKey] === null){
+    //
+    // }
+    // load the
+    // }
   }, []);
   return (
     <Wrapper>

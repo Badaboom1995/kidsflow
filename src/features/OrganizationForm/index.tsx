@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { bootstrap } from "./duck/actions";
-import { loadingSelector } from "./duck/selectors";
-import organizationsService from "services/organizations";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { bootstrap } from './duck/actions';
+import { loadingSelector } from './duck/selectors';
+import organizationsService from 'services/organizations';
 
-import AddOrgView from "./view";
-import { clearData } from "./duck/slice";
-import Loader from "parts/Loader";
+import AddOrgView from './view';
+import { clearData } from './duck/slice';
+import Loader from 'parts/Loader';
 
 function AddOrg() {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function AddOrg() {
       ) : (
         <AddOrgView
           organizationId={id}
-          submitMethod={organizationsService[id ? "update" : "create"]}
+          submitMethod={organizationsService[id ? 'update' : 'create']}
           formRefs={{
             general: generalRef,
             contacts: contactsRef,

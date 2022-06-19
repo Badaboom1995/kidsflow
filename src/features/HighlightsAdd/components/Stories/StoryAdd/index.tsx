@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { GridContainer, GridElement } from 'parts/styled';
 import {
@@ -15,30 +14,40 @@ import Input from 'parts/Input';
 import Select from 'parts/Select';
 import Button from 'parts/Button';
 import { SectionSubtitle } from 'parts/typography';
-import { addStory, editStory } from 'features/HighlightsAdd/duck/actions';
-import { useDispatch, useSelector } from 'react-redux';
 import plus from 'assets/plus.svg';
-import { selectStoryById } from 'features/HighlightsAdd/duck/selectors';
+import { v4 as makeUUID } from 'uuid';
 
 interface IStoryAdd {
   changeVisibility: (visibility: boolean) => void;
-  id?: string;
-  setActiveStory?: (id: string) => void;
+  initialValues: Record<string, string>;
+  addStory: (story: Record<string, string>) => void;
+  updateStory: (story: Record<string, string>) => void;
+  storyId?: string;
+  setActiveStory?: (storyId: string) => void;
 }
 
-function StoryAdd({ changeVisibility, id, setActiveStory }: IStoryAdd) {
-  const dispatch = useDispatch();
-  const initialValues = useSelector(selectStoryById(id));
+function StoryAdd({
+  changeVisibility,
+  setActiveStory,
+  addStory,
+  updateStory,
+  initialValues,
+}: IStoryAdd) {
+  useEffect(() => {
+    return () => {
+      initialValues && setActiveStory(null);
+    };
+  }, []);
 
   return (
     <Wrapper>
       <Formik
         initialValues={initialValues || {}}
         onSubmit={(values, actions) => {
-          !id && dispatch(addStory(values));
-          id && dispatch(editStory(values));
+          initialValues
+            ? updateStory(values)
+            : addStory({ storyId: makeUUID(), ...values });
           actions.resetForm();
-          id && setActiveStory(null);
           changeVisibility(false);
         }}
       >

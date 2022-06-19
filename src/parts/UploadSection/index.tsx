@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import UploadSectionView from "./view";
 import { IUploadSection } from "./types";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,12 +6,15 @@ import { imagesSelector, isLoading } from "./duck/selectors";
 import { addImage, deleteExtraImage } from "./duck/actions";
 import { useParams } from "react-router-dom";
 import { deleteImage } from "./duck/slice";
+import {useField} from "formik";
 
 function UploadSection(props: IUploadSection) {
   const dispatch = useDispatch();
+  const initImages = props.loadedImages || []
   const images = useSelector(imagesSelector);
   const loading = useSelector(isLoading);
   const { id }: { id: string } = useParams();
+  const [field, meta, helpers]  = useField(props.name || 'uploadIds')
 
   const uploadImage = (file) => {
     dispatch(addImage({ file, method: props.onUpload }));
@@ -33,6 +36,9 @@ function UploadSection(props: IUploadSection) {
       })
     );
   };
+  useEffect(() => {
+    helpers.setValue(images.map(item => item.id))
+  },[images])
   return (
     <div>
       {loading ? (
@@ -43,7 +49,7 @@ function UploadSection(props: IUploadSection) {
           onExtraUpload={uploadExtraImage}
           onDelete={removeImage}
           onExtraDelete={removeExtraImage}
-          images={[...images, ...props.loadedImages]}
+          images={[...images, ...initImages]}
           id={id}
         />
       )}

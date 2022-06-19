@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDirections, getCategories, getPartners, getCategoriesHigh } from "./actions";
+import {getDirections, getCategories, getPartners, getCategoriesHigh, getStations, sliceName} from "./actions";
 import makeReducer from "utils/makeReducer";
+import {toast} from "react-toastify";
 
 type TDict = { name: string; value: string; parentId?: string };
 type InititalState = {
@@ -8,22 +9,40 @@ type InititalState = {
   categories: TDict[];
   categoriesHigh: TDict[];
   partners: TDict[];
+  metro: any[]
   loading: boolean;
 };
 
 const intititalState: InititalState = {
-  directions: [],
-  categories: [],
-  categoriesHigh: [],
-  partners: [],
+  directions: null,
+  categories: null,
+  categoriesHigh: null,
+  metro: null,
+  partners: null,
   loading: false,
 };
 
 const organizatonsSlice = createSlice({
-  name: "dicts",
+  name: sliceName,
   initialState: intititalState,
   reducers: {},
   extraReducers: (builder) => {
+    // makeReducer(
+    //   builder,
+    //   getDirections,
+    //   (state, payload) => {
+    //     state.directions = payload.data
+    //       .filter(item => item.level === 1)
+    //       .map((item) => ({
+    //         name: item.name,
+    //         value: item.eventDirectionId,
+    //       }));
+    //   },
+    //   (e) => {
+    //       toast.error('' )
+    //   }
+    // );
+    // --------------
     makeReducer(
       builder,
       getDirections,
@@ -35,7 +54,9 @@ const organizatonsSlice = createSlice({
             value: item.eventDirectionId,
           }));
       },
-      () => { }
+      (e) => {
+          toast.error('' )
+      }
     );
     makeReducer(
       builder,
@@ -49,7 +70,7 @@ const organizatonsSlice = createSlice({
             parentId: item.parentId,
           }));
       },
-      () => { }
+      () => {}
     );
     makeReducer(
       builder,
@@ -73,6 +94,26 @@ const organizatonsSlice = createSlice({
           name: item.partner.firstName,
           value: item.partner.partnerId,
         }));
+      },
+      () => { }
+    );
+    makeReducer(
+      builder, getStations,
+      (state, payload) => {
+         state.metro = payload.data.lines.reduce(
+             (accum, line) => [
+                 ...accum,
+                 ...line.stations.map((station) => ({
+                     value: station.name,
+                     name: station.name,
+                 })),
+             ],
+             []
+         ).sort((a, b) => (a.name < b.name ? -1 : 1))
+          // state.partners = payload.entities.map((item) => ({
+          //     name: item.partner.firstName,
+          //     value: item.partner.partnerId,
+          // }));
       },
       () => { }
     );

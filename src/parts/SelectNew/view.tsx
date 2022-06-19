@@ -24,11 +24,15 @@ function SelectView({
   touched,
   label,
   description,
-  side,
+  side, emptyDictTitle
 }: any) {
-
-  const getTitle = () => {
-
+  const isDictEmpty = !(options && options.length)
+  const getTitle = (selectedValue)  => {
+    if(!isDictEmpty){
+      return selectedValue ? selectedValue : title
+    } else {
+      return emptyDictTitle
+    }
   }
   const showSelected = (selectedValue) => {
     return options[0]?.value
@@ -43,8 +47,8 @@ function SelectView({
         {description && <Subtitle>{description}</Subtitle>}
       </Label>
       <ErrorContainier error={touched ? error : ''}>
-        <SelectBox selected={!!selectedValue} onClick={toggleSelect}>
-          {selectedValue ? showSelected(selectedValue) : title}
+        <SelectBox selected={!!selectedValue} onClick={toggleSelect} disabled={isDictEmpty} type='button'>
+          {getTitle(selectedValue)}
         </SelectBox>
       </ErrorContainier>
       <Field name={name}>

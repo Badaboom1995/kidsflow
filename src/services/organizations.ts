@@ -14,11 +14,13 @@ const organizationsService = {
     ),
   getById: (id) => makeRequest(`/api/v2/admin/organizations/${id}`, "GET"),
   create: (body, partnerId) => makeRequest("/api/v2/admin/organizations", "POST", body, [{ key: "X-Execute-As", value: partnerId }]),
-  update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PUT", body),
+  update: (body, id: string) => makeRequest(`/api/v2/admin/organizations/${id}`, "PATCH", body),
   partnersList: () =>
     makeRequest("/api/v2/admin/partners/find", "GET", null),
   deleteImage: (orgId, uploadId) =>
     makeRequest(`/api/producercenter/${orgId}/upload/${uploadId}`, "DELETE"),
+  deleteExtraImage: ({uploadId, id}) =>
+      makeRequest(`/api/producercenter/${id}/upload/${uploadId}`, "DELETE"),
 
   //TODO. Переделаать на makeRequest
   uploadImage: async (image: any) => {

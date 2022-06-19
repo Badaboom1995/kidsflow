@@ -16,18 +16,6 @@ import avo from './assets/avo.png';
 function Navigation() {
   const initialState = [
     {
-      label: 'Управление каталогом',
-      to: `/catalog`,
-      iconId: 'cast',
-      active: true,
-    },
-    {
-      label: 'Пользователи',
-      to: `/users`,
-      iconId: 'users',
-      active: false,
-    },
-    {
       label: 'Организации',
       to: `/orgs`,
       iconId: 'orgs',
@@ -37,12 +25,6 @@ function Navigation() {
       label: 'События',
       to: `/events`,
       iconId: 'events',
-      active: false,
-    },
-    {
-      label: 'Поддержка',
-      to: `/support`,
-      iconId: 'support',
       active: false,
     },
     {

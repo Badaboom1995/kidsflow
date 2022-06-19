@@ -12,6 +12,7 @@ import EventsAdd from 'pages/EventsAdd';
 import CompilationsAddPage from 'pages/CompilationsAddPage';
 import HighlighsPage from 'pages/Highlights';
 import HighlightsAdd from 'features/HighlightsAdd';
+import OrganizationForm from 'features/OrganizationForm1';
 
 interface IRouter {
   children?: React.ReactNode;
@@ -22,7 +23,8 @@ export default function Router(props: IRouter) {
       <Route path={`/users`} exact={true} component={Users} />
       <Route path={`/users/add-user`} component={AddUser} />
       <Route path={`/orgs`} exact={true} component={Orgs} />
-      <Route path={`/orgs/add-org/:id?`} component={AddOrg} />
+      <Route path={`/orgs/add-org1/:id?`} component={AddOrg} />
+      <Route path={`/orgs/add-org/:id?`} component={OrganizationForm} />
       <Route path={`/support`} component={SupportPage} />
       <Route path={`/catalog`} exact={true} component={Catalog} />
       <Route path={`/catalog/add`} component={CatalogAdd} />

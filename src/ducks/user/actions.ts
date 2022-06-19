@@ -8,7 +8,7 @@ export const auth = createAsyncThunk<Record<string, string>, authPayload>(
   async (payload, { rejectWithValue }) => {
     const res = await userService.auth(payload.credentials);
     if (!res.data) return rejectWithValue("error");
-    payload.history.push("/catalog");
+    payload.history.push("/orgs");
     return res;
   }
 );
